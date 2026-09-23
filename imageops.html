@@ -1,0 +1,3548 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Ultra-fast, 100% private bulk image conversion and compression directly in your browser. Zero cloud uploads.">
+<title>ImageOps — Bulk Image Conversion & Compression Studio</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   IMAGEOPS ULTRA DESIGN SYSTEM — ANIMATED & COLOURFUL
+   ========================================================================== */
+:root {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  /* Cosmic Dark Theme (Default) */
+  --bg-app: #08090f;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #17152f 0%, #0d0e17 55%, #06070a 100%);
+  --surface: rgba(18, 20, 32, 0.75);
+  --surface-elevated: rgba(28, 32, 52, 0.85);
+  --surface-hover: rgba(42, 48, 76, 0.7);
+  --surface-card: rgba(255, 255, 255, 0.035);
+  --surface-glass: rgba(255, 255, 255, 0.05);
+  
+  --border: rgba(255, 255, 255, 0.1);
+  --border-light: rgba(255, 255, 255, 0.05);
+  --border-focus: rgba(99, 102, 241, 0.8);
+  --border-rainbow: linear-gradient(135deg, rgba(99,102,241,0.5), rgba(217,70,239,0.5), rgba(6,182,212,0.5));
+  
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  
+  /* Vibrant Colour Palette */
+  --accent-primary: #6366f1;
+  --accent-secondary: #a855f7;
+  --accent-fuchsia: #d946ef;
+  --accent-cyan: #06b6d4;
+  --accent-emerald: #10b981;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  
+  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+  --accent-gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+  --accent-gradient-emerald: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  --accent-gradient-fire: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+  --accent-glow: rgba(99, 102, 241, 0.35);
+  --accent-glow-cyan: rgba(6, 182, 212, 0.35);
+  --accent-glow-fuchsia: rgba(217, 70, 239, 0.35);
+  
+  --ok: #10b981;
+  --ok-glow: rgba(16, 185, 129, 0.35);
+  --ok-bg: rgba(16, 185, 129, 0.12);
+  
+  --danger: #f43f5e;
+  --danger-glow: rgba(244, 63, 94, 0.35);
+  --danger-bg: rgba(244, 63, 94, 0.12);
+  
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.12);
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 12px 30px -6px rgba(0, 0, 0, 0.45), 0 8px 16px -6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 24px 48px -10px rgba(0, 0, 0, 0.6), 0 12px 20px -8px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 30px var(--accent-glow);
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-full: 9999px;
+  --transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="light"] {
+  --bg-app: #f4f6fc;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #eef2ff 0%, #e2e8f5 65%, #cbd5e8 100%);
+  --surface: rgba(255, 255, 255, 0.85);
+  --surface-elevated: #ffffff;
+  --surface-hover: rgba(241, 245, 253, 0.95);
+  --surface-card: rgba(0, 0, 0, 0.025);
+  --surface-glass: rgba(255, 255, 255, 0.6);
+  
+  --border: rgba(0, 0, 0, 0.08);
+  --border-light: rgba(0, 0, 0, 0.04);
+  --border-focus: rgba(99, 102, 241, 0.8);
+  --border-rainbow: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(217,70,239,0.3), rgba(6,182,212,0.3));
+  
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #94a3b8;
+  
+  --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
+  --accent-glow: rgba(79, 70, 229, 0.22);
+  --accent-glow-cyan: rgba(6, 182, 212, 0.22);
+  --accent-glow-fuchsia: rgba(217, 70, 239, 0.22);
+  
+  --ok: #059669;
+  --ok-glow: rgba(5, 150, 105, 0.25);
+  --ok-bg: rgba(5, 150, 105, 0.1);
+  
+  --danger: #e11d48;
+  --danger-glow: rgba(225, 29, 72, 0.25);
+  --danger-bg: rgba(225, 29, 72, 0.1);
+  
+  --warning: #d97706;
+  --warning-bg: rgba(217, 119, 6, 0.1);
+
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 12px 30px -6px rgba(0, 0, 0, 0.08), 0 6px 12px -4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 24px 48px -10px rgba(0, 0, 0, 0.12), 0 10px 18px -6px rgba(0, 0, 0, 0.06);
+  --shadow-glow: 0 0 24px rgba(79, 70, 229, 0.18);
+}
+
+/* ==========================================================================
+   RESET & BASE STYLING
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg-app);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  padding: 24px 16px 64px;
+  position: relative;
+  overflow-x: hidden;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* Dynamic Animated Background Aurora Orbs */
+.aurora-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.55;
+  animation: floatOrb 22s infinite alternate ease-in-out;
+}
+
+.aurora-orb-1 {
+  width: 600px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(168, 85, 247, 0.1) 70%, transparent 100%);
+  top: -150px;
+  left: 20%;
+  animation-duration: 24s;
+}
+
+.aurora-orb-2 {
+  width: 500px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.28) 0%, rgba(59, 130, 246, 0.1) 70%, transparent 100%);
+  top: 30%;
+  right: -100px;
+  animation-duration: 20s;
+  animation-delay: -5s;
+}
+
+.aurora-orb-3 {
+  width: 550px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(217, 70, 239, 0.25) 0%, rgba(244, 63, 94, 0.1) 70%, transparent 100%);
+  bottom: -100px;
+  left: 5%;
+  animation-duration: 26s;
+  animation-delay: -10s;
+}
+
+.aurora-orb-4 {
+  width: 450px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%);
+  top: 60%;
+  left: 50%;
+  animation-duration: 18s;
+  animation-delay: -3s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(60px, 40px) scale(1.12) rotate(180deg); }
+  100% { transform: translate(-40px, -50px) scale(0.92) rotate(360deg); }
+}
+
+/* Subtle Geometric Grid Overlay */
+.grid-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at 50% 20%, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 20%, black 40%, transparent 85%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-theme="light"] .grid-overlay {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--accent-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px var(--accent-glow);
+  color: #ffffff;
+  flex-shrink: 0;
+  transition: var(--transition-spring);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-icon::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
+  transform: rotate(30deg);
+  animation: logoShine 4s infinite ease-in-out;
+}
+
+@keyframes logoShine {
+  0%, 70% { transform: translateX(-150%) rotate(30deg); }
+  100% { transform: translateX(150%) rotate(30deg); }
+}
+
+.brand-wrapper:hover .logo-icon {
+  transform: rotate(-8deg) scale(1.08);
+  box-shadow: 0 8px 28px var(--accent-glow);
+}
+
+.brand-title {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  line-height: 1.1;
+}
+
+.brand-title .slash {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+  animation: pulseHue 8s infinite alternate;
+}
+
+@keyframes pulseHue {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(45deg); }
+}
+
+.brand-badge {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+[data-theme="light"] .brand-badge {
+  background: rgba(99, 102, 241, 0.1);
+  color: #4f46e5;
+}
+
+.brand-sub {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* Nav View Switcher Pills */
+.nav-switcher {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px;
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-sm);
+  gap: 4px;
+}
+
+.nav-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.nav-tab-btn:hover {
+  color: var(--text);
+}
+
+.nav-tab-btn.active {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.privacy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.privacy-badge:hover {
+  border-color: var(--accent-primary);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.radar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+  box-shadow: 0 0 10px var(--ok);
+  position: relative;
+}
+
+.radar-dot::after {
+  content: '';
+  position: absolute;
+  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ok);
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.9; }
+  50% { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(0.9); opacity: 0; }
+}
+
+.action-icon-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  color: var(--text);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-spring);
+  box-shadow: var(--shadow-sm);
+}
+
+.action-icon-btn:hover {
+  background: var(--surface-hover);
+  transform: translateY(-2px) scale(1.05);
+  border-color: var(--border-focus);
+}
+
+.action-icon-btn:active {
+  transform: scale(0.95);
+}
+
+/* ==========================================================================
+   STEPPER PROGRESS BAR (STUDIO)
+   ========================================================================== */
+.steps-container {
+  display: flex;
+  position: relative;
+  margin-bottom: 26px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 8px;
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-md);
+  gap: 6px;
+}
+
+.step-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+  transition: var(--transition);
+  position: relative;
+  text-align: center;
+  user-select: none;
+  cursor: default;
+}
+
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: var(--transition-spring);
+}
+
+[data-theme="light"] .step-num {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.step-item.active {
+  background: var(--surface-elevated);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.step-item.active .step-num {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 0 14px var(--accent-glow);
+  transform: scale(1.1);
+}
+
+.step-item.completed {
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.step-item.completed:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.step-item.completed .step-num {
+  background: var(--ok);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 0 10px var(--ok-glow);
+}
+
+/* ==========================================================================
+   CARD PANELS & CONTAINERS
+   ========================================================================== */
+.card-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  backdrop-filter: blur(28px) saturate(190%);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  animation: cardFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cardFadeUp {
+  from { opacity: 0; transform: translateY(14px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.panel-header {
+  margin-bottom: 24px;
+}
+
+.panel-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.panel-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   BUTTONS & BADGES
+   ========================================================================== */
+.btn {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px 22px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition-spring);
+  user-select: none;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  box-shadow: 0 6px 20px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 28px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+.btn-cyan {
+  background: var(--accent-gradient-cyan);
+  color: #ffffff;
+  box-shadow: 0 6px 20px var(--accent-glow-cyan);
+}
+
+.btn-cyan:hover {
+  box-shadow: 0 8px 28px var(--accent-glow-cyan);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  background: var(--surface-hover);
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: #ffffff;
+  box-shadow: 0 6px 20px var(--danger-glow);
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-lg {
+  padding: 15px 32px;
+  font-size: 16px;
+  font-weight: 800;
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   SCREEN 1: DROPZONE & SOURCE SELECTION
+   ========================================================================== */
+.dropzone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 56px 24px;
+  text-align: center;
+  background: var(--surface-card);
+  cursor: pointer;
+  transition: var(--transition-spring);
+  position: relative;
+  overflow: hidden;
+}
+
+.dropzone::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 75%);
+  opacity: 0;
+  transition: var(--transition);
+  pointer-events: none;
+}
+
+.dropzone:hover, .dropzone.dragover {
+  border-color: var(--accent-primary);
+  background: rgba(99, 102, 241, 0.05);
+  transform: translateY(-3px) scale(1.005);
+  box-shadow: 0 16px 36px -8px var(--accent-glow);
+}
+
+.dropzone.dragover::before {
+  opacity: 1;
+}
+
+.drop-icon-wrap {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 20px;
+  border-radius: var(--radius-full);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-primary);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-spring);
+  position: relative;
+}
+
+.dropzone:hover .drop-icon-wrap, .dropzone.dragover .drop-icon-wrap {
+  transform: scale(1.15) translateY(-4px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 28px var(--accent-glow);
+  color: #ffffff;
+  background: var(--accent-gradient);
+}
+
+.drop-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.drop-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.drop-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+}
+
+.formats-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.fmt-chip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: var(--radius-full);
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  transition: var(--transition-spring);
+}
+
+.fmt-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.fmt-chip.fmt-webp { border-color: rgba(16,185,129,0.4); color: #10b981; }
+.fmt-chip.fmt-avif { border-color: rgba(217,70,239,0.4); color: #d946ef; }
+.fmt-chip.fmt-png { border-color: rgba(6,182,212,0.4); color: #06b6d4; }
+.fmt-chip.fmt-jpg { border-color: rgba(245,158,11,0.4); color: #f59e0b; }
+.fmt-chip.fmt-gif { border-color: rgba(168,85,247,0.4); color: #a855f7; }
+
+/* Demo quick-launcher card */
+.demo-banner {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.demo-banner-text {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.demo-banner-text b {
+  color: var(--text);
+}
+
+/* ==========================================================================
+   STATS CARDS GRID
+   ========================================================================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  position: relative;
+  transition: var(--transition-spring);
+  overflow: hidden;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 4px; height: 100%;
+  background: var(--accent-gradient);
+  opacity: 0.8;
+}
+
+.stat-card:hover {
+  background: var(--surface-elevated);
+  border-color: var(--border-focus);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+/* ==========================================================================
+   PREVIEW REEL
+   ========================================================================== */
+.preview-container {
+  margin-bottom: 24px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.preview-reel {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: thin;
+}
+
+.preview-reel::-webkit-scrollbar {
+  height: 6px;
+}
+.preview-reel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.preview-reel::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.thumbnail-card {
+  width: 96px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.thumbnail-box {
+  width: 96px;
+  height: 80px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: var(--transition-spring);
+}
+
+.thumbnail-card:hover .thumbnail-box {
+  transform: scale(1.05);
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.thumbnail-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-name {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+/* ==========================================================================
+   PRESETS GRID
+   ========================================================================== */
+.preset-section {
+  margin-bottom: 24px;
+}
+
+.section-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 12px;
+  display: block;
+  letter-spacing: 0.02em;
+}
+
+.presets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
+  gap: 12px;
+}
+
+.preset-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  cursor: pointer;
+  transition: var(--transition-spring);
+  text-align: left;
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.preset-card:hover {
+  border-color: var(--border-focus);
+  background: var(--surface-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+}
+
+.preset-card.active {
+  background: var(--surface-elevated);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 18px var(--accent-glow);
+}
+
+.preset-card.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 3px;
+  background: var(--accent-gradient);
+}
+
+.preset-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.preset-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   SETTINGS & CONTROLS GRID
+   ========================================================================== */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 620px) {
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge-val {
+  font-family: var(--font-mono);
+  background: var(--accent-gradient);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+select, input[type="number"], input[type="text"] {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-elevated);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  outline: none;
+  transition: var(--transition);
+}
+
+select:focus, input[type="number"]:focus, input[type="text"]:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Custom Slider */
+.slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  outline: none;
+  accent-color: var(--accent-primary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+[data-theme="light"] input[type="range"] {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--accent-glow);
+  transition: transform 0.15s ease;
+  border: 2px solid #ffffff;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+
+/* Dimension chips */
+.dim-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.dim-chip {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.dim-chip:hover {
+  border-color: var(--accent-primary);
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+/* Toggle Switch */
+.switch-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider-toggle {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--border);
+  transition: var(--transition);
+  border-radius: 34px;
+}
+
+.slider-toggle:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: var(--transition);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider-toggle {
+  background: var(--accent-gradient);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+input:checked + .slider-toggle:before {
+  transform: translateX(18px);
+}
+
+/* ==========================================================================
+   SCREEN 3: PROCESSING
+   ========================================================================== */
+.progress-container {
+  margin: 24px 0 32px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.progress-pct {
+  font-size: 40px;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.progress-counts {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.progress-bar {
+  height: 14px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--accent-gradient);
+  border-radius: var(--radius-full);
+  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  box-shadow: 0 0 18px var(--accent-glow);
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.current-file-box {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.spinner-pulse {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 10px var(--accent-primary);
+  animation: pulse-ring 1.4s infinite;
+  flex-shrink: 0;
+}
+
+.current-file-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   SCREEN 4: RESULTS & HERO SAVINGS
+   ========================================================================== */
+.results-hero {
+  text-align: center;
+  padding: 32px 20px 36px;
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.14) 0%, transparent 75%);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  background: var(--ok-bg);
+  border: 1px solid var(--ok);
+  border-radius: var(--radius-full);
+  color: var(--ok);
+  font-weight: 800;
+  font-size: 13px;
+  margin-bottom: 14px;
+  box-shadow: 0 0 16px var(--ok-glow);
+}
+
+.hero-saving-number {
+  font-size: 56px;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  letter-spacing: -0.04em;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.hero-saving-subtitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.savings-bar-container {
+  margin: 26px auto 0;
+  max-width: 480px;
+}
+
+.savings-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.savings-bar-track {
+  height: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  display: flex;
+}
+
+[data-theme="light"] .savings-bar-track {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.savings-bar-after {
+  height: 100%;
+  background: var(--ok);
+  box-shadow: 0 0 12px var(--ok-glow);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* File Results Drawer */
+.results-table-wrap {
+  margin-top: 24px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.results-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.results-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-light);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.results-table tr:hover td {
+  background: var(--surface-hover);
+}
+
+/* Error details */
+.error-box {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  margin-top: 20px;
+}
+
+.error-list {
+  max-height: 160px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.error-list div {
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+/* ==========================================================================
+   ABOUT & ARCHITECTURE PAGE (DEDICATED SHOWCASE)
+   ========================================================================== */
+#screen-about {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.about-hero {
+  text-align: center;
+  padding: 40px 20px 48px;
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.about-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: var(--radius-full);
+  color: #818cf8;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+[data-theme="light"] .about-pill {
+  color: #4f46e5;
+}
+
+.about-title {
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.about-title-grad {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-subtitle {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 650px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+.about-feature-badges {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.feature-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-spring);
+}
+
+.feature-badge-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+/* Architecture Pipeline Timeline */
+.pipeline-section {
+  margin-bottom: 40px;
+}
+
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.pipeline-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  position: relative;
+  transition: var(--transition-spring);
+}
+
+.pipeline-card:hover {
+  background: var(--surface-elevated);
+  border-color: var(--accent-primary);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.pipeline-step-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.pipeline-card h3 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+
+.pipeline-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Formats Comparison Matrix */
+.matrix-section {
+  margin-bottom: 40px;
+}
+
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.matrix-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  position: relative;
+  transition: var(--transition-spring);
+}
+
+.matrix-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+}
+
+.matrix-card.m-webp { border-top: 3px solid #10b981; }
+.matrix-card.m-avif { border-top: 3px solid #d946ef; }
+.matrix-card.m-jpg  { border-top: 3px solid #f59e0b; }
+.matrix-card.m-png  { border-top: 3px solid #06b6d4; }
+
+.matrix-fmt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.matrix-fmt-title {
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.matrix-ratio {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(255,255,255,0.06);
+}
+
+.matrix-list {
+  list-style: none;
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.matrix-list li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Privacy & Security Manifesto */
+.privacy-manifesto {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 40px;
+}
+
+.privacy-manifesto-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ok);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.privacy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.privacy-item {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.privacy-item b {
+  color: var(--text);
+  display: block;
+}
+
+/* FAQ Accordion */
+.faq-section {
+  margin-bottom: 40px;
+}
+
+.faq-item {
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  border-color: var(--border-focus);
+}
+
+.faq-question {
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text);
+  user-select: none;
+}
+
+.faq-answer {
+  padding: 0 20px 16px;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  display: none;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-icon {
+  transition: var(--transition);
+}
+
+/* Interactive Image Comparison Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.modal-content {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  max-width: 800px;
+  width: 100%;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+  display: flex;
+}
+
+.modal-close-btn:hover {
+  color: var(--text);
+}
+
+.compare-viewport {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  user-select: none;
+  background: #050508;
+  --split: 50%;
+}
+
+.compare-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.compare-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%;
+  clip-path: inset(0 calc(100% - var(--split, 50%)) 0 0);
+  pointer-events: none;
+}
+
+.compare-overlay img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.compare-handle {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 3px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  cursor: ew-resize;
+  transform: translateX(-50%);
+}
+
+.compare-handle-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+/* ==========================================================================
+   FOOTER & UTILITIES
+   ========================================================================== */
+footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.footer-shield {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.flex-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#confettiCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+}
+</style>
+</head>
+<body>
+<canvas id="confettiCanvas"></canvas>
+
+<!-- Animated Multi-Layer Aurora Background -->
+<div class="aurora-bg">
+  <div class="aurora-orb aurora-orb-1"></div>
+  <div class="aurora-orb aurora-orb-2"></div>
+  <div class="aurora-orb aurora-orb-3"></div>
+  <div class="aurora-orb aurora-orb-4"></div>
+</div>
+<div class="grid-overlay"></div>
+
+<div class="wrap">
+  <!-- Header with Brand & View Switcher -->
+  <header class="header">
+    <div class="brand-wrapper" id="brandHome" title="Return to Studio">
+      <div class="logo-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
+          <path d="m8 17 4-4 4 4"></path>
+          <path d="M12 13v9"></path>
+        </svg>
+      </div>
+      <div>
+        <h1 class="brand-title">Image<span class="slash">/</span>Ops <span class="brand-badge">PRO</span></h1>
+        <p class="brand-sub">Lightning-fast bulk image compression & conversion</p>
+      </div>
+    </div>
+
+    <!-- Navigation Switcher -->
+    <nav class="nav-switcher">
+      <button class="nav-tab-btn active" id="tabStudio">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        Studio
+      </button>
+      <button class="nav-tab-btn" id="tabAbout">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        About & Architecture
+      </button>
+    </nav>
+    
+    <div class="header-actions">
+      <div class="privacy-badge">
+        <span class="radar-dot"></span>
+        <span>100% Client-Side</span>
+      </div>
+
+      <!-- Synthesized Audio Feedback Toggle -->
+      <button class="action-icon-btn" id="soundToggle" title="Toggle Synthesized Audio FX" aria-label="Toggle Sound">
+        <svg id="soundIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+        </svg>
+        <svg id="soundIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
+        </svg>
+      </button>
+
+      <!-- Theme Switcher -->
+      <button class="action-icon-btn" id="themeToggle" title="Toggle Theme" aria-label="Toggle Theme">
+        <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       VIEW 1: STUDIO (CONVERTER & BATCH WORKSPACE)
+       ========================================================================== -->
+  <div id="view-studio">
+    <!-- Step Bar -->
+    <div class="steps-container" id="stepsBar">
+      <div class="step-item active" data-step="upload" id="stepUpload">
+        <span class="step-num">01</span>
+        <span>Source</span>
+      </div>
+      <div class="step-item" data-step="ready" id="stepReady">
+        <span class="step-num">02</span>
+        <span>Configure</span>
+      </div>
+      <div class="step-item" data-step="processing" id="stepProcessing">
+        <span class="step-num">03</span>
+        <span>Process</span>
+      </div>
+      <div class="step-item" data-step="results" id="stepResults">
+        <span class="step-num">04</span>
+        <span>Results</span>
+      </div>
+    </div>
+
+    <!-- SCREEN 1: UPLOAD -->
+    <main id="screen-upload" class="card-panel">
+      <div class="dropzone" id="drop">
+        <div class="drop-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+            <circle cx="9" cy="9" r="2"></circle>
+            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+          </svg>
+        </div>
+        <h2 class="drop-title">Drop your folder or image files here</h2>
+        <p class="drop-subtitle">High-speed batch processing directly in your GPU & CPU memory. Zero network uploads.</p>
+
+        <div class="drop-buttons">
+          <button class="btn btn-primary btn-lg" id="btnSelectFolder" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path>
+            </svg>
+            Select Folder
+          </button>
+          <button class="btn btn-secondary btn-lg" id="btnSelectFiles" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Select Files
+          </button>
+        </div>
+
+        <input type="file" id="fileInputFolder" webkitdirectory directory multiple class="hidden">
+        <input type="file" id="fileInputFiles" multiple accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.tiff,.avif" class="hidden">
+
+        <div class="formats-row">
+          <span class="fmt-chip fmt-webp">WEBP</span>
+          <span class="fmt-chip fmt-avif">AVIF</span>
+          <span class="fmt-chip fmt-jpg">JPG</span>
+          <span class="fmt-chip fmt-png">PNG</span>
+          <span class="fmt-chip fmt-gif">GIF</span>
+          <span class="fmt-chip">BMP</span>
+          <span class="fmt-chip">TIFF</span>
+        </div>
+      </div>
+
+      <!-- Quick Demo Launcher -->
+      <div class="demo-banner">
+        <div class="demo-banner-text">
+          <b>Want to test right now?</b> Generate a colorful procedural demo batch with 4 high-res sample images.
+        </div>
+        <button class="btn btn-cyan" id="btnTryDemo" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Try Demo Batch
+        </button>
+      </div>
+
+      <p id="unsupportedMsg" class="panel-desc hidden" style="color:var(--danger); text-align:center; margin-top:14px; font-weight:700;"></p>
+    </main>
+
+    <!-- SCREEN 2: READY & CONFIGURE -->
+    <section id="screen-ready" class="card-panel hidden">
+      <div class="panel-header">
+        <h2 class="panel-title">
+          <span>Batch Configuration</span>
+          <button class="btn btn-secondary" id="btnReset" style="font-size:12px; padding:6px 14px;">Change Source</button>
+        </h2>
+        <p class="panel-desc">Review your images and choose your optimization preset or fine-tune codecs</p>
+      </div>
+
+      <!-- Stats Summary Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Images Found</div>
+          <div class="stat-value" id="rFiles">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Folders</div>
+          <div class="stat-value" id="rFolders">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Size</div>
+          <div class="stat-value" id="rSize">0 MB</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Skipped</div>
+          <div class="stat-value" id="rUnsupported">0</div>
+        </div>
+      </div>
+
+      <!-- Thumbnail Preview Reel -->
+      <div class="preview-container" id="previewContainer">
+        <div class="preview-header">
+          <span>Source Reel (Sample Preview)</span>
+          <div id="rFmts" class="flex-row"></div>
+        </div>
+        <div class="preview-reel" id="previewReel"></div>
+      </div>
+
+      <!-- Optimization Presets -->
+      <div class="preset-section">
+        <label class="section-label">Optimization Presets</label>
+        <div class="presets-grid" id="presetsGrid">
+          <div class="preset-card active" data-preset="web">
+            <div class="preset-name">🌐 Web Optimized</div>
+            <div class="preset-desc">WebP 80% • Max 1920px (Best for websites)</div>
+          </div>
+          <div class="preset-card" data-preset="avif">
+            <div class="preset-name">⚡ Next-Gen AVIF</div>
+            <div class="preset-desc">AVIF 65% • Max 1920px (Maximum savings)</div>
+          </div>
+          <div class="preset-card" data-preset="email">
+            <div class="preset-name">✉️ Email Friendly</div>
+            <div class="preset-desc">JPG 60% • Max 1280px (Universal compatibility)</div>
+          </div>
+          <div class="preset-card" data-preset="mobile">
+            <div class="preset-name">📱 Mobile Apps</div>
+            <div class="preset-desc">WebP 70% • Max 1080px (Sharp & lightweight)</div>
+          </div>
+          <div class="preset-card" data-preset="storage">
+            <div class="preset-name">💾 Extreme Saver</div>
+            <div class="preset-desc">WebP 45% • Max 1600px (Disk archiver)</div>
+          </div>
+          <div class="preset-card" data-preset="quality">
+            <div class="preset-name">💎 Ultra Quality</div>
+            <div class="preset-desc">PNG 100% • Original dimensions</div>
+          </div>
+          <div class="preset-card" data-preset="custom">
+            <div class="preset-name">🛠️ Custom</div>
+            <div class="preset-desc">Manual configuration</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fine Tuning Settings -->
+      <div class="settings-grid">
+        <div class="form-group">
+          <label class="form-label" for="outFormat">Target Format</label>
+          <select id="outFormat">
+            <option value="webp" selected>WebP (Modern, high compression, 97%+ browser support)</option>
+            <option value="jpeg">JPG / JPEG (Universal legacy compatibility)</option>
+            <option value="png">PNG (Lossless, perfect crispness & alpha channel)</option>
+            <option value="avif">AVIF (Next-gen extreme efficiency)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="quality">
+            <span>Encoding Quality</span>
+            <span class="badge-val" id="qVal">80%</span>
+          </label>
+          <div class="slider-wrap">
+            <input type="range" id="quality" min="1" max="100" value="80">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label">
+            <label class="switch-label">
+              <span class="switch">
+                <input type="checkbox" id="resizeOn">
+                <span class="slider-toggle"></span>
+              </span>
+              <span>Resize Max Dimensions</span>
+            </label>
+          </div>
+          <div class="flex-row" style="margin-top:6px;">
+            <input type="number" id="maxW" value="1920" placeholder="Max Width" title="Max Width (px)">
+            <input type="number" id="maxH" value="1920" placeholder="Max Height" title="Max Height (px)">
+          </div>
+          <div class="dim-chips">
+            <span class="dim-chip" data-w="1920" data-h="1080">1080p FHD</span>
+            <span class="dim-chip" data-w="2560" data-h="1440">1440p 2K</span>
+            <span class="dim-chip" data-w="3840" data-h="2160">2160p 4K</span>
+            <span class="dim-chip" data-w="1080" data-h="1080">Square 1:1</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="metadata">Metadata (EXIF)</label>
+          <select id="metadata">
+            <option value="remove" selected>Strip metadata (Smaller file size & enhanced privacy)</option>
+            <option value="preserve">Preserve where possible</option>
+          </select>
+        </div>
+      </div>
+
+      <p class="panel-desc" id="sizeWarn" style="color:var(--warning); margin-bottom:18px; font-weight:700;"></p>
+
+      <div class="flex-row">
+        <button class="btn btn-primary btn-lg" id="btnStart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Start Batch Processing
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: PROCESSING -->
+    <section id="screen-processing" class="card-panel hidden">
+      <div class="panel-header">
+        <h2 class="panel-title">Processing in Progress</h2>
+        <p class="panel-desc">All tasks are processed asynchronously via multithreaded browser workers</p>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-header">
+          <div class="progress-pct" id="progPct">0%</div>
+          <div class="progress-counts" id="progText">0 / 0 images</div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progFill"></div>
+        </div>
+      </div>
+
+      <div class="current-file-box">
+        <div class="spinner-pulse"></div>
+        <span class="current-file-text" id="progCurrent">Initializing worker queue…</span>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Processed</div>
+          <div class="stat-value" id="pOk" style="color:var(--ok);">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Skipped</div>
+          <div class="stat-value" id="pSkip" style="color:var(--warning);">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Failed</div>
+          <div class="stat-value" id="pFail" style="color:var(--danger);">0</div>
+        </div>
+      </div>
+
+      <div class="flex-row" style="margin-top:20px;">
+        <button class="btn btn-secondary" id="btnPause">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+          Pause
+        </button>
+        <button class="btn btn-danger" id="btnCancel">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+          Cancel
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: RESULTS -->
+    <section id="screen-results" class="card-panel hidden">
+      <div class="results-hero">
+        <div class="hero-pill">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span id="resultBadge">Processing Complete</span>
+        </div>
+        <div class="hero-saving-number" id="fReduction">-0.0%</div>
+        <div class="hero-saving-subtitle" id="resultSubtitle">Overall disk size reduction achieved</div>
+
+        <div class="savings-bar-container">
+          <div class="savings-bar-labels">
+            <span>Optimized: <b id="fOutLabel">0 MB</b></span>
+            <span>Original: <b id="fOrigLabel">0 MB</b></span>
+          </div>
+          <div class="savings-bar-track">
+            <div class="savings-bar-after" id="savingsBarFill" style="width:100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Files</div>
+          <div class="stat-value" id="fTotal">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Successful</div>
+          <div class="stat-value" id="fOk" style="color:var(--ok);">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Original Size</div>
+          <div class="stat-value" id="fOrig">0 MB</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Space Saved</div>
+          <div class="stat-value" id="fSaved" style="color:var(--ok);">0 MB</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex-row" style="margin-top:24px;">
+        <button class="btn btn-primary btn-lg" id="btnZip">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download All (ZIP)
+        </button>
+        <button class="btn btn-cyan btn-lg" id="btnCompareSample">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="2" x2="12" y2="22"></line>
+          </svg>
+          Compare Quality
+        </button>
+        <button class="btn btn-secondary btn-lg" id="btnErr">Export Error Report</button>
+        <button class="btn btn-secondary btn-lg" id="btnAgain">Process Another Batch</button>
+      </div>
+      <p class="panel-desc" id="zipStatus" style="margin-top:12px; font-family:var(--font-mono); font-size:13px;"></p>
+
+      <!-- Detailed Converted Files Table -->
+      <div class="results-table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Original</th>
+              <th>Converted</th>
+              <th>Savings</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTableBody"></tbody>
+        </table>
+      </div>
+
+      <div id="errBox" class="error-box hidden">
+        <div style="font-weight:800; font-size:13px; color:var(--danger); display:flex; align-items:center; gap:6px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          Notice: Some files were skipped or encountered errors
+        </div>
+        <div class="error-list" id="errList"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==========================================================================
+       VIEW 2: DEDICATED ABOUT & ARCHITECTURE SHOWCASE PAGE
+       ========================================================================== -->
+  <div id="view-about" class="hidden">
+    <div class="card-panel">
+      <!-- Hero Header -->
+      <div class="about-hero">
+        <div class="about-pill">
+          <span>⚡ Next-Generation In-Browser Pipeline</span>
+        </div>
+        <h2 class="about-title">
+          Fast, Private & <span class="about-title-grad">Serverless</span> Image Optimization
+        </h2>
+        <p class="about-subtitle">
+          ImageOps is an edge-native, zero-cloud bulk image converter and compression suite engineered for photographers, web developers, designers, and privacy-conscious teams.
+        </p>
+
+        <div class="about-feature-badges">
+          <div class="feature-badge-item">
+            <span>🛡️ 100% Client-Side Privacy</span>
+          </div>
+          <div class="feature-badge-item">
+            <span>⚡ Multithreaded Web Workers</span>
+          </div>
+          <div class="feature-badge-item">
+            <span>📦 In-Memory JSZip Packaging</span>
+          </div>
+          <div class="feature-badge-item">
+            <span>🚀 Zero Network Latency</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Architecture Pipeline Visualizer -->
+      <div class="pipeline-section">
+        <h3 class="section-label">How ImageOps Works Under the Hood</h3>
+        <p class="panel-desc">From your local drive to compressed ZIP in milliseconds—without a single byte leaving your computer.</p>
+        
+        <div class="pipeline-grid">
+          <div class="pipeline-card">
+            <span class="pipeline-step-badge">Stage 01</span>
+            <h3>Virtual File Tree Ingestion</h3>
+            <p>Uses the native HTML5 FileSystem and <code>webkitGetAsEntry</code> APIs to recursively map entire nested folders directly into browser memory.</p>
+          </div>
+          <div class="pipeline-card">
+            <span class="pipeline-step-badge">Stage 02</span>
+            <h3>GPU-Accelerated Decode</h3>
+            <p>Utilizes <code>createImageBitmap()</code> to decode image pixels asynchronously on background GPU threads, preventing UI lockups even with huge files.</p>
+          </div>
+          <div class="pipeline-card">
+            <span class="pipeline-step-badge">Stage 03</span>
+            <h3>OffscreenCanvas Re-sampling</h3>
+            <p>Applies high-precision bicubic interpolation on <code>OffscreenCanvas</code>, optimizing aspect ratios and resizing dimensions without memory leaks.</p>
+          </div>
+          <div class="pipeline-card">
+            <span class="pipeline-step-badge">Stage 04</span>
+            <h3>Hardware Native Codec Encoding</h3>
+            <p>Leverages native browser rasterization pipelines for WebP, AVIF, JPEG, and PNG, stripping EXIF tracking headers for total privacy.</p>
+          </div>
+          <div class="pipeline-card">
+            <span class="pipeline-step-badge">Stage 05</span>
+            <h3>In-Memory JSZip Stream</h3>
+            <p>Compressed output blobs are streamed into an in-memory JSZip archive, reconstructing the exact original folder directory hierarchy.</p>
+          </div>
+          <div class="pipeline-card">
+            <span class="pipeline-step-badge">Stage 06</span>
+            <h3>Zero-Cloud Instant Delivery</h3>
+            <p>Generates an instant <code>blob:</code> download link directly into your OS Downloads folder. No server bandwidth limits or queue waits.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Format Comparison Matrix -->
+      <div class="matrix-section">
+        <h3 class="section-label">Format Efficiency Matrix</h3>
+        <p class="panel-desc">Compare compression ratios, browser compatibility, and best use cases for modern graphics.</p>
+
+        <div class="matrix-grid">
+          <div class="matrix-card m-webp">
+            <div class="matrix-fmt-header">
+              <span class="matrix-fmt-title" style="color:#10b981;">WEBP</span>
+              <span class="matrix-ratio" style="color:#10b981;">−30% to −80%</span>
+            </div>
+            <ul class="matrix-list">
+              <li>✓ Lossy & Lossless compression</li>
+              <li>✓ Alpha transparency supported</li>
+              <li>✓ 97.4% global browser support</li>
+              <li>⭐ <b>Best for:</b> Web, mobile apps & UI</li>
+            </ul>
+          </div>
+
+          <div class="matrix-card m-avif">
+            <div class="matrix-fmt-header">
+              <span class="matrix-fmt-title" style="color:#d946ef;">AVIF</span>
+              <span class="matrix-ratio" style="color:#d946ef;">−50% to −90%</span>
+            </div>
+            <ul class="matrix-list">
+              <li>✓ Next-gen AV1 video intra-frame</li>
+              <li>✓ 10-bit & 12-bit HDR color depth</li>
+              <li>✓ 93.8% browser support</li>
+              <li>⭐ <b>Best for:</b> High-res photo archives</li>
+            </ul>
+          </div>
+
+          <div class="matrix-card m-jpg">
+            <div class="matrix-fmt-header">
+              <span class="matrix-fmt-title" style="color:#f59e0b;">JPEG / JPG</span>
+              <span class="matrix-ratio" style="color:#f59e0b;">Standard</span>
+            </div>
+            <ul class="matrix-list">
+              <li>✓ 100% universal device support</li>
+              <li>✓ Excellent for rich photographic tones</li>
+              <li>✗ No alpha transparency</li>
+              <li>⭐ <b>Best for:</b> Email newsletters & print</li>
+            </ul>
+          </div>
+
+          <div class="matrix-card m-png">
+            <div class="matrix-fmt-header">
+              <span class="matrix-fmt-title" style="color:#06b6d4;">PNG</span>
+              <span class="matrix-ratio" style="color:#06b6d4;">Lossless</span>
+            </div>
+            <ul class="matrix-list">
+              <li>✓ Pixel-perfect lossless clarity</li>
+              <li>✓ Crisp vector-like edges & typography</li>
+              <li>✓ 8-bit / 24-bit transparent alpha</li>
+              <li>⭐ <b>Best for:</b> Logos, icons & diagrams</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Privacy & Security Guarantee -->
+      <div class="privacy-manifesto">
+        <h3 class="privacy-manifesto-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          The ImageOps Zero-Cloud Guarantee
+        </h3>
+        <p class="panel-desc" style="color:var(--text);">
+          Unlike conventional online image compressors that upload your sensitive assets to third-party cloud servers, ImageOps runs <b>exclusively within your local web browser session</b>.
+        </p>
+
+        <div class="privacy-grid">
+          <div class="privacy-item">
+            <span style="color:var(--ok); font-size:16px;">✓</span>
+            <div>
+              <b>Zero Network Uplink</b>
+              Your files never traverse any network API or remote endpoint. Test by disconnecting your internet connection!
+            </div>
+          </div>
+          <div class="privacy-item">
+            <span style="color:var(--ok); font-size:16px;">✓</span>
+            <div>
+              <b>GDPR & HIPAA Compliant</b>
+              Because no personal data or images are collected or stored, ImageOps satisfies strict corporate confidentiality policies.
+            </div>
+          </div>
+          <div class="privacy-item">
+            <span style="color:var(--ok); font-size:16px;">✓</span>
+            <div>
+              <b>Automated Memory Cleanup</b>
+              Canvas objects, memory buffers, and blob URLs are explicitly garbage collected immediately upon task completion.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive FAQ Accordion -->
+      <div class="faq-section">
+        <h3 class="section-label">Frequently Asked Questions</h3>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Can I process nested folders containing subdirectories?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="faq-answer">
+            Yes! When you select a folder or drag-and-drop a folder structure, ImageOps preserves every nested directory path in the generated ZIP archive.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>What happens if my browser doesn't support AVIF encoding?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="faq-answer">
+            ImageOps detects hardware and browser codec capabilities dynamically. If your browser lacks AVIF encoding support, you can switch seamlessly to WebP with similar high-compression benefits.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Does stripping EXIF metadata affect image visual quality?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="faq-answer">
+            Not at all. EXIF metadata contains GPS coordinates, camera models, and timestamps. Removing it eliminates privacy liabilities and shaves extra kilobytes off every file with zero visual degradation.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span>Is there a file size or batch quantity limit?</span>
+            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="faq-answer">
+            ImageOps is limited only by your computer's RAM. It processes files in batches of concurrent workers to keep memory overhead lean and steady, easily handling hundreds of images in a single run.
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Action CTA -->
+      <div style="text-align:center; padding:20px 0;">
+        <button class="btn btn-primary btn-lg" id="btnLaunchStudio">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Launch Image Studio
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: INTERACTIVE VISUAL QUALITY COMPARISON SLIDER
+       ========================================================================== -->
+  <div id="compareModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="compareTitle">Visual Quality Comparison (Before vs After)</h3>
+        <button class="modal-close-btn" id="btnCloseCompare" title="Close Modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <div class="compare-viewport" id="compareViewport">
+        <!-- Converted image (background) -->
+        <img class="compare-img" id="compareAfterImg" alt="Optimized Version">
+        <!-- Original image (clipped on left) -->
+        <div class="compare-overlay" id="compareOverlay">
+          <img id="compareBeforeImg" alt="Original Version">
+        </div>
+        <!-- Draggable splitter bar -->
+        <div class="compare-handle" id="compareHandle">
+          <div class="compare-handle-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:12px; font-family:var(--font-mono); color:var(--text-muted);">
+        <span>← Original (<span id="compareBeforeSize">0 KB</span>)</span>
+        <span>Drag center divider to compare</span>
+        <span>Optimized (<span id="compareAfterSize">0 KB</span>) →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-shield">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      <span>Processed 100% locally in your browser. Zero telemetry. Zero cloud uploads.</span>
+    </div>
+    <div>ImageOps &bull; Hardware-accelerated browser graphic pipeline</div>
+  </footer>
+</div>
+
+<!-- ==========================================================================
+     CORE APPLICATION JAVASCRIPT ENGINE
+     ========================================================================== -->
+<script>
+// Format constants & MIME mappings
+const SUPPORTED = ['jpg','jpeg','png','webp','gif','bmp','tiff','avif'];
+const MIME = {jpeg:'image/jpeg',png:'image/png',webp:'image/webp',avif:'image/avif'};
+
+const PRESETS = {
+  web:{format:'webp',quality:80,resize:true,maxW:1920,maxH:1920,metadata:'remove'},
+  avif:{format:'avif',quality:65,resize:true,maxW:1920,maxH:1920,metadata:'remove'},
+  email:{format:'jpeg',quality:60,resize:true,maxW:1280,maxH:1280,metadata:'remove'},
+  mobile:{format:'webp',quality:70,resize:true,maxW:1080,maxH:1080,metadata:'remove'},
+  storage:{format:'webp',quality:45,resize:true,maxW:1600,maxH:1600,metadata:'remove'},
+  quality:{format:'png',quality:100,resize:false,maxW:1920,maxH:1920,metadata:'remove'},
+  custom:null
+};
+
+let manifest = []; // {id, file, relativePath, ext, size, status, error, outputSize, outputBlob, previewUrl, convertedUrl}
+let cancelFlag = false, pauseFlag = false;
+let usedOutputPaths = new Set();
+let zipInstance = null, zipBlob = null;
+let thumbnailUrls = [];
+let audioCtx = null;
+let soundEnabled = true;
+
+const $ = id => document.getElementById(id);
+
+// --- Synthesized Web Audio API FX ---
+function initAudio() {
+  const saved = localStorage.getItem('imageops-sound');
+  soundEnabled = saved !== 'false';
+  updateSoundUI();
+}
+
+function updateSoundUI() {
+  $('soundIconOn').classList.toggle('hidden', !soundEnabled);
+  $('soundIconOff').classList.toggle('hidden', soundEnabled);
+}
+
+$('soundToggle').addEventListener('click', () => {
+  soundEnabled = !soundEnabled;
+  localStorage.setItem('imageops-sound', soundEnabled);
+  updateSoundUI();
+  if (soundEnabled) playSynthTone(587.33, 'sine', 0.12, 0.15); // D5
+});
+
+function getAudioContext() {
+  if (!audioCtx) {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) audioCtx = new AudioContext();
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+}
+
+function playSynthTone(freq, type = 'sine', duration = 0.1, gainVal = 0.1) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + duration);
+  } catch (e) {}
+}
+
+function playFanfare() {
+  if (!soundEnabled) return;
+  const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+  notes.forEach((freq, idx) => {
+    setTimeout(() => {
+      playSynthTone(freq, 'triangle', 0.28, 0.18);
+    }, idx * 90);
+  });
+}
+
+initAudio();
+
+// --- Theme Management ---
+function initTheme() {
+  const saved = localStorage.getItem('imageops-theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = saved || (prefersDark ? 'dark' : 'light');
+  setTheme(theme);
+}
+
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('imageops-theme', t);
+  if (t === 'dark') {
+    $('themeIconMoon').classList.remove('hidden');
+    $('themeIconSun').classList.add('hidden');
+  } else {
+    $('themeIconMoon').classList.add('hidden');
+    $('themeIconSun').classList.remove('hidden');
+  }
+}
+
+$('themeToggle').addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = current === 'dark' ? 'light' : 'dark';
+  setTheme(next);
+  playSynthTone(next === 'dark' ? 329.63 : 659.25, 'sine', 0.1, 0.1);
+});
+initTheme();
+
+// --- View Navigation (Studio vs About) ---
+function switchView(viewName) {
+  const isStudio = viewName === 'studio';
+  $('view-studio').classList.toggle('hidden', !isStudio);
+  $('view-about').classList.toggle('hidden', isStudio);
+  $('tabStudio').classList.toggle('active', isStudio);
+  $('tabAbout').classList.toggle('active', !isStudio);
+  playSynthTone(isStudio ? 523.25 : 659.25, 'sine', 0.08, 0.1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+$('tabStudio').addEventListener('click', () => switchView('studio'));
+$('tabAbout').addEventListener('click', () => switchView('about'));
+$('brandHome').addEventListener('click', () => switchView('studio'));
+$('btnLaunchStudio').addEventListener('click', () => switchView('studio'));
+
+// --- FAQ Accordion ---
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const parent = q.parentElement;
+    parent.classList.toggle('open');
+    playSynthTone(440, 'sine', 0.06, 0.08);
+  });
+});
+
+// --- Screen & Step Navigation (Studio Wizard) ---
+function show(id) {
+  const screens = ['screen-upload', 'screen-ready', 'screen-processing', 'screen-results'];
+  screens.forEach(s => $(s).classList.toggle('hidden', s !== id));
+  
+  const stepKey = id.replace('screen-', '');
+  const stepOrder = ['upload', 'ready', 'processing', 'results'];
+  const currentIndex = stepOrder.indexOf(stepKey);
+
+  document.querySelectorAll('.step-item').forEach((el, idx) => {
+    const isPast = idx < currentIndex;
+    const isCurrent = idx === currentIndex;
+    el.classList.toggle('completed', isPast);
+    el.classList.toggle('active', isCurrent);
+  });
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Allow clicking completed past steps to navigate back
+$('stepUpload').addEventListener('click', () => {
+  if ($('stepUpload').classList.contains('completed')) {
+    clearThumbnails();
+    show('screen-upload');
+  }
+});
+$('stepReady').addEventListener('click', () => {
+  if ($('stepReady').classList.contains('completed') || !$('screen-processing').classList.contains('hidden')) {
+    show('screen-ready');
+  }
+});
+
+function fmtBytes(n) {
+  if (!n || n <= 0) return '0 B';
+  const u = ['B', 'KB', 'MB', 'GB'];
+  let i = 0;
+  while (n >= 1024 && i < u.length - 1) {
+    n /= 1024;
+    i++;
+  }
+  return n.toFixed(i ? 1 : 0) + ' ' + u[i];
+}
+
+// --- Upload & File Selection Handlers ---
+$('btnSelectFolder').addEventListener('click', () => {
+  playSynthTone(493.88, 'sine', 0.08, 0.12);
+  $('fileInputFolder').click();
+});
+$('btnSelectFiles').addEventListener('click', () => {
+  playSynthTone(523.25, 'sine', 0.08, 0.12);
+  $('fileInputFiles').click();
+});
+$('fileInputFolder').addEventListener('change', e => handleFiles(e.target.files));
+$('fileInputFiles').addEventListener('change', e => handleFiles(e.target.files));
+
+const dropZone = $('drop');
+['dragenter', 'dragover'].forEach(ev => {
+  dropZone.addEventListener(ev, e => {
+    e.preventDefault();
+    dropZone.classList.add('dragover');
+  });
+});
+['dragleave', 'drop'].forEach(ev => {
+  dropZone.addEventListener(ev, e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragover');
+  });
+});
+
+dropZone.addEventListener('drop', async e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  const items = e.dataTransfer.items;
+  if (items && items[0] && items[0].webkitGetAsEntry) {
+    const files = [];
+    async function walk(entry, path) {
+      if (entry.isFile) {
+        await new Promise(res => entry.file(f => {
+          f.relPath = path + f.name;
+          files.push(f);
+          res();
+        }));
+      } else if (entry.isDirectory) {
+        const reader = entry.createReader();
+        const entries = await new Promise(res => {
+          let all = [];
+          function read() {
+            reader.readEntries(r => {
+              if (!r.length) res(all);
+              else { all = all.concat(r); read(); }
+            });
+          }
+          read();
+        });
+        for (const en of entries) await walk(en, path + entry.name + '/');
+      }
+    }
+    for (let i = 0; i < items.length; i++) {
+      const en = items[i].webkitGetAsEntry();
+      if (en) await walk(en, '');
+    }
+    handleFiles(files);
+  } else {
+    handleFiles(e.dataTransfer.files);
+  }
+});
+
+// --- In-Memory Procedural Demo Generator ---
+$('btnTryDemo').addEventListener('click', async () => {
+  playSynthTone(587.33, 'triangle', 0.15, 0.15);
+  $('btnTryDemo').disabled = true;
+  $('btnTryDemo').textContent = 'Generating 4 samples…';
+
+  try {
+    const demoFiles = [];
+    const configs = [
+      { name: 'nebula-aurora.png', title: 'Cosmic Nebula', c1: '#6366f1', c2: '#ec4899', w: 1920, h: 1080 },
+      { name: 'emerald-gradient.jpg', title: 'Emerald Horizons', c1: '#10b981', c2: '#06b6d4', w: 2048, h: 1365 },
+      { name: 'cyber-sunset.png', title: 'Cyberpunk Skyline', c1: '#f59e0b', c2: '#ef4444', w: 1600, h: 1200 },
+      { name: 'violet-abstract.jpg', title: 'Deep Quartz', c1: '#8b5cf6', c2: '#3b82f6', w: 1920, h: 1280 }
+    ];
+
+    for (const c of configs) {
+      const canvas = document.createElement('canvas');
+      canvas.width = c.w;
+      canvas.height = c.h;
+      const ctx = canvas.getContext('2d');
+
+      // Draw rich vibrant background
+      const grad = ctx.createLinearGradient(0, 0, c.w, c.h);
+      grad.addColorStop(0, c.c1);
+      grad.addColorStop(1, c.c2);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, c.w, c.h);
+
+      // Add modern geometric patterns
+      for (let i = 0; i < 16; i++) {
+        ctx.fillStyle = `rgba(255, 255, 255, ${0.05 + Math.random() * 0.12})`;
+        ctx.beginPath();
+        ctx.arc(Math.random() * c.w, Math.random() * c.h, 60 + Math.random() * 240, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Add branding typography
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 72px Plus Jakarta Sans, sans-serif';
+      ctx.fillText(c.title, 80, c.h - 140);
+      ctx.font = '32px JetBrains Mono, monospace';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+      ctx.fillText(`ImageOps Sample Asset • ${c.w}x${c.h}px`, 80, c.h - 80);
+
+      const mimeType = c.name.endsWith('.png') ? 'image/png' : 'image/jpeg';
+      const blob = await new Promise(res => canvas.toBlob(res, mimeType, 0.95));
+      const file = new File([blob], c.name, { type: mimeType });
+      file.relPath = 'demo-samples/' + c.name;
+      demoFiles.push(file);
+    }
+
+    handleFiles(demoFiles);
+  } finally {
+    $('btnTryDemo').disabled = false;
+    $('btnTryDemo').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> Try Demo Batch`;
+  }
+});
+
+// Clear object URLs for previews
+function clearThumbnails() {
+  thumbnailUrls.forEach(url => URL.revokeObjectURL(url));
+  thumbnailUrls = [];
+  $('previewReel').innerHTML = '';
+}
+
+function handleFiles(fileList) {
+  clearThumbnails();
+  manifest = [];
+  usedOutputPaths = new Set();
+  const folders = new Set();
+  let totalSize = 0;
+  const fmtCounts = {};
+  let unsupported = 0;
+
+  for (const f of fileList) {
+    const rel = f.relPath || f.webkitRelativePath || f.name;
+    const parts = rel.split('/');
+    if (parts.length > 1) folders.add(parts.slice(0, -1).join('/'));
+    const ext = (f.name.split('.').pop() || '').toLowerCase();
+    totalSize += f.size;
+    const isImg = SUPPORTED.includes(ext);
+    if (isImg) {
+      fmtCounts[ext] = (fmtCounts[ext] || 0) + 1;
+    } else {
+      unsupported++;
+    }
+    manifest.push({
+      id: rel + ':' + Math.random().toString(36).slice(2),
+      file: f,
+      relativePath: rel,
+      ext,
+      size: f.size,
+      status: isImg ? 'pending' : 'skipped',
+      error: isImg ? null : 'Unsupported format',
+      outputSize: 0,
+      outputBlob: null,
+      previewUrl: null,
+      convertedUrl: null
+    });
+  }
+
+  const validImages = manifest.filter(m => m.status === 'pending');
+  if (validImages.length === 0) {
+    $('unsupportedMsg').textContent = 'No supported images found. Please provide JPG, PNG, WebP, GIF, BMP, TIFF, or AVIF files.';
+    $('unsupportedMsg').classList.remove('hidden');
+    playSynthTone(220, 'sawtooth', 0.2, 0.15);
+    return;
+  }
+  $('unsupportedMsg').classList.add('hidden');
+  playSynthTone(587.33, 'triangle', 0.12, 0.15);
+
+  $('rFiles').textContent = validImages.length;
+  $('rFolders').textContent = folders.size || 1;
+  $('rSize').textContent = fmtBytes(totalSize);
+  $('rUnsupported').textContent = unsupported;
+
+  // Render Format Pills
+  const fmtsEl = $('rFmts');
+  fmtsEl.innerHTML = '';
+  Object.entries(fmtCounts).sort((a,b) => b[1] - a[1]).forEach(([k, v]) => {
+    const c = document.createElement('span');
+    c.className = `fmt-chip fmt-${k}`;
+    c.textContent = `${k.toUpperCase()} • ${v}`;
+    fmtsEl.appendChild(c);
+  });
+
+  // Render Sample Thumbnails (up to 16)
+  const sampleItems = validImages.slice(0, 16);
+  sampleItems.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'thumbnail-card';
+    const box = document.createElement('div');
+    box.className = 'thumbnail-box';
+
+    const img = document.createElement('img');
+    const url = URL.createObjectURL(item.file);
+    item.previewUrl = url;
+    thumbnailUrls.push(url);
+    img.src = url;
+    img.alt = item.file.name;
+    box.appendChild(img);
+
+    const name = document.createElement('span');
+    name.className = 'thumbnail-name';
+    name.textContent = item.file.name;
+
+    card.appendChild(box);
+    card.appendChild(name);
+    $('previewReel').appendChild(card);
+  });
+
+  $('sizeWarn').textContent = totalSize > 1.5 * 1024 * 1024 * 1024 
+    ? `⚠️ High volume detected (${fmtBytes(totalSize)}). Processing may take several minutes; keep this browser window active.`
+    : '';
+
+  applyPreset('web');
+  show('screen-ready');
+}
+
+// --- Presets & Settings Logic ---
+function applyPreset(key) {
+  document.querySelectorAll('.preset-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.preset === key);
+  });
+  if (key === 'custom') return;
+
+  const p = PRESETS[key];
+  if (!p) return;
+  $('outFormat').value = p.format;
+  $('quality').value = p.quality;
+  $('qVal').textContent = p.quality + '%';
+  $('resizeOn').checked = p.resize;
+  $('maxW').value = p.maxW;
+  $('maxH').value = p.maxH;
+  $('metadata').value = p.metadata;
+  playSynthTone(523.25, 'sine', 0.06, 0.1);
+}
+
+document.querySelectorAll('.preset-card').forEach(card => {
+  card.addEventListener('click', () => {
+    applyPreset(card.dataset.preset);
+  });
+});
+
+$('quality').addEventListener('input', e => {
+  $('qVal').textContent = e.target.value + '%';
+  markPresetCustom();
+});
+$('outFormat').addEventListener('change', markPresetCustom);
+$('resizeOn').addEventListener('change', markPresetCustom);
+$('maxW').addEventListener('input', markPresetCustom);
+$('maxH').addEventListener('input', markPresetCustom);
+$('metadata').addEventListener('change', markPresetCustom);
+
+// Quick dimension chips
+document.querySelectorAll('.dim-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    $('resizeOn').checked = true;
+    $('maxW').value = chip.dataset.w;
+    $('maxH').value = chip.dataset.h;
+    markPresetCustom();
+    playSynthTone(493.88, 'sine', 0.05, 0.08);
+  });
+});
+
+function markPresetCustom() {
+  document.querySelectorAll('.preset-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.preset === 'custom');
+  });
+}
+
+$('btnReset').addEventListener('click', () => {
+  playSynthTone(440, 'sine', 0.08, 0.1);
+  clearThumbnails();
+  $('fileInputFolder').value = '';
+  $('fileInputFiles').value = '';
+  show('screen-upload');
+});
+
+// Output Path Resolver (Handles collisions)
+function outputPathFor(item, outExt) {
+  let base = item.relativePath.replace(/\.[^/.]+$/, '') + '.' + outExt;
+  let candidate = base;
+  let n = 1;
+  while (usedOutputPaths.has(candidate)) {
+    candidate = base.replace(/(\.[^/.]+)$/, `-${n}$1`);
+    n++;
+  }
+  usedOutputPaths.add(candidate);
+  return candidate;
+}
+
+// --- Image Converter Engine ---
+async function convertImage(item, opts) {
+  const bitmap = await createImageBitmap(item.file);
+  let w = bitmap.width;
+  let h = bitmap.height;
+
+  if (opts.resize) {
+    const scale = Math.min(1, opts.maxW / w, opts.maxH / h);
+    if (scale < 1) {
+      w = Math.round(w * scale);
+      h = Math.round(h * scale);
+    }
+  }
+
+  const canvas = ('OffscreenCanvas' in window)
+    ? new OffscreenCanvas(w, h)
+    : Object.assign(document.createElement('canvas'), { width: w, height: h });
+
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  bitmap.close && bitmap.close();
+
+  const mime = MIME[opts.format];
+  const blob = canvas.convertToBlob
+    ? await canvas.convertToBlob({ type: mime, quality: opts.quality / 100 })
+    : await new Promise(res => canvas.toBlob(res, mime, opts.quality / 100));
+
+  if (!blob) throw new Error('Encoding not supported by this browser');
+  if (opts.format === 'avif' && blob.type !== mime) {
+    throw new Error('AVIF encoding not supported in this browser version');
+  }
+  return blob;
+}
+
+// --- Processing Pipeline ---
+let stats = { ok: 0, skip: 0, fail: 0, origBytes: 0, outBytes: 0, total: 0 };
+$('btnStart').addEventListener('click', startProcessing);
+
+async function startProcessing() {
+  playSynthTone(659.25, 'triangle', 0.15, 0.15);
+  const opts = {
+    format: $('outFormat').value,
+    quality: parseInt($('quality').value, 10),
+    resize: $('resizeOn').checked,
+    maxW: parseInt($('maxW').value, 10) || 1920,
+    maxH: parseInt($('maxH').value, 10) || 1920,
+    metadata: $('metadata').value
+  };
+
+  cancelFlag = false;
+  pauseFlag = false;
+  zipInstance = new JSZip();
+  usedOutputPaths = new Set();
+  stats = { ok: 0, skip: 0, fail: 0, origBytes: 0, outBytes: 0, total: manifest.length };
+
+  manifest.filter(m => m.status === 'skipped').forEach(() => { stats.skip++; });
+  show('screen-processing');
+  $('btnPause').innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg> Pause`;
+  updateProgress();
+
+  const queue = manifest.filter(m => m.status === 'pending');
+  let idx = 0;
+  const CONCURRENCY = navigator.hardwareConcurrency ? Math.min(navigator.hardwareConcurrency, 6) : 4;
+
+  async function worker() {
+    while (idx < queue.length) {
+      if (cancelFlag) return;
+      while (pauseFlag && !cancelFlag) {
+        await new Promise(r => setTimeout(r, 180));
+      }
+      if (cancelFlag) return;
+
+      const item = queue[idx++];
+      if (!item) return;
+
+      item.status = 'processing';
+      $('progCurrent').textContent = `Processing: ${item.relativePath}`;
+
+      try {
+        const blob = await convertImage(item, opts);
+        const outExt = opts.format === 'jpeg' ? 'jpg' : opts.format;
+        const outPath = outputPathFor(item, outExt);
+        zipInstance.file(outPath, blob);
+
+        item.status = 'completed';
+        item.outputSize = blob.size;
+        item.outputBlob = blob;
+        item.convertedUrl = URL.createObjectURL(blob);
+        thumbnailUrls.push(item.convertedUrl);
+
+        stats.ok++;
+        stats.origBytes += item.size;
+        stats.outBytes += blob.size;
+      } catch (err) {
+        item.status = 'failed';
+        item.error = err.message || 'Processing error';
+        stats.fail++;
+      }
+      updateProgress();
+      await new Promise(r => requestAnimationFrame(r));
+    }
+  }
+
+  await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
+
+  if (cancelFlag) {
+    show('screen-ready');
+    return;
+  }
+  finishProcessing();
+}
+
+function updateProgress() {
+  const done = stats.ok + stats.fail + stats.skip;
+  const pct = stats.total ? Math.round((done / stats.total) * 100) : 0;
+  $('progFill').style.width = pct + '%';
+  $('progPct').textContent = pct + '%';
+  $('progText').textContent = `${done} of ${stats.total} processed`;
+  $('pOk').textContent = stats.ok;
+  $('pSkip').textContent = stats.skip;
+  $('pFail').textContent = stats.fail;
+}
+
+$('btnPause').addEventListener('click', () => {
+  pauseFlag = !pauseFlag;
+  playSynthTone(pauseFlag ? 440 : 523.25, 'sine', 0.08, 0.1);
+  $('btnPause').innerHTML = pauseFlag
+    ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Resume`
+    : `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg> Pause`;
+});
+
+$('btnCancel').addEventListener('click', () => {
+  playSynthTone(220, 'sine', 0.15, 0.12);
+  cancelFlag = true;
+});
+
+// --- Results & Celebration ---
+function finishProcessing() {
+  const saved = stats.origBytes - stats.outBytes;
+  const reduction = stats.origBytes > 0 ? (saved / stats.origBytes * 100) : 0;
+
+  $('fTotal').textContent = stats.total;
+  $('fOk').textContent = stats.ok;
+  $('fOrig').textContent = fmtBytes(stats.origBytes);
+  $('fSaved').textContent = fmtBytes(Math.max(saved, 0));
+
+  $('fReduction').textContent = (reduction >= 0 ? '−' : '+') + Math.abs(reduction).toFixed(1) + '%';
+  $('fReduction').style.color = reduction >= 0 ? 'var(--ok)' : 'var(--warning)';
+
+  $('fOutLabel').textContent = fmtBytes(stats.outBytes);
+  $('fOrigLabel').textContent = fmtBytes(stats.origBytes);
+
+  const ratio = stats.origBytes > 0 ? Math.min(100, Math.round((stats.outBytes / stats.origBytes) * 100)) : 100;
+  $('savingsBarFill').style.width = ratio + '%';
+
+  if (stats.fail > 0) {
+    $('resultBadge').textContent = 'Completed with Notices';
+    $('resultSubtitle').textContent = `${stats.fail} item(s) could not be encoded`;
+  } else {
+    $('resultBadge').textContent = 'All Images Optimized';
+    $('resultSubtitle').textContent = `Successfully reclaimed ${fmtBytes(Math.max(saved, 0))} of disk space`;
+    launchConfetti();
+    playFanfare();
+  }
+
+  // Populate Detailed Converted Files Table
+  const tableBody = $('resultsTableBody');
+  tableBody.innerHTML = '';
+  manifest.forEach(item => {
+    const tr = document.createElement('tr');
+    const isOk = item.status === 'completed';
+    const itemSaved = item.size - item.outputSize;
+    const itemPct = item.size > 0 && isOk ? Math.round((itemSaved / item.size) * 100) : 0;
+    
+    tr.innerHTML = `
+      <td><b>${item.relativePath}</b></td>
+      <td>${fmtBytes(item.size)}</td>
+      <td>${isOk ? fmtBytes(item.outputSize) : '—'}</td>
+      <td style="color:${isOk && itemPct > 0 ? 'var(--ok)' : 'var(--text-muted)'};">${isOk ? (itemPct > 0 ? `−${itemPct}%` : '+0%') : '—'}</td>
+      <td><span style="color:${isOk ? 'var(--ok)' : 'var(--danger)'}; font-weight:700;">${item.status}</span></td>
+      <td>
+        ${isOk ? `
+          <div class="flex-row" style="gap:6px;">
+            <button class="btn btn-secondary" style="padding:4px 9px; font-size:11px;" onclick="openCompareModalById('${item.id}')">Inspect</button>
+            <button class="btn btn-primary" style="padding:4px 9px; font-size:11px;" onclick="downloadSingleFile('${item.id}')">Download</button>
+          </div>
+        ` : '—'}
+      </td>
+    `;
+    tableBody.appendChild(tr);
+  });
+
+  const problems = manifest.filter(m => m.status === 'failed' || m.status === 'skipped');
+  if (problems.length) {
+    $('errBox').classList.remove('hidden');
+    $('errList').innerHTML = problems.slice(0, 200).map(p => 
+      `<div><b>✕ ${p.relativePath}</b> — <span>${p.error || 'skipped'}</span></div>`
+    ).join('');
+  } else {
+    $('errBox').classList.add('hidden');
+  }
+
+  zipBlob = null;
+  $('zipStatus').textContent = '';
+  show('screen-results');
+}
+
+// Single file direct download helper
+window.downloadSingleFile = function(id) {
+  const item = manifest.find(m => m.id === id);
+  if (!item || !item.outputBlob) return;
+  const outExt = $('outFormat').value === 'jpeg' ? 'jpg' : $('outFormat').value;
+  const filename = item.relativePath.split('/').pop().replace(/\.[^/.]+$/, '') + '-optimized.' + outExt;
+  saveFile(filename, item.outputBlob);
+};
+
+// Open comparison modal for a specific file id
+window.openCompareModalById = function(id) {
+  const item = manifest.find(m => m.id === id);
+  if (item && item.outputBlob) openCompareModal(item);
+};
+
+// --- Interactive Before / After Split-Screen Comparison Modal ---
+$('btnCompareSample').addEventListener('click', () => {
+  const completedItem = manifest.find(m => m.status === 'completed' && m.outputBlob);
+  if (!completedItem) return;
+  openCompareModal(completedItem);
+});
+
+function openCompareModal(item) {
+  $('compareTitle').textContent = `Quality Inspection: ${item.relativePath}`;
+  $('compareBeforeImg').src = item.previewUrl || URL.createObjectURL(item.file);
+  $('compareAfterImg').src = item.convertedUrl || URL.createObjectURL(item.outputBlob);
+  $('compareBeforeSize').textContent = fmtBytes(item.size);
+  $('compareAfterSize').textContent = fmtBytes(item.outputSize);
+  
+  // Reset handle to center (50%)
+  setCompareSplit(50);
+  $('compareModal').classList.remove('hidden');
+  playSynthTone(587.33, 'sine', 0.08, 0.1);
+}
+
+$('btnCloseCompare').addEventListener('click', () => {
+  $('compareModal').classList.add('hidden');
+});
+
+// Interactive Splitter Dragging
+const compareViewport = $('compareViewport');
+const compareOverlay = $('compareOverlay');
+const compareHandle = $('compareHandle');
+let isDraggingCompare = false;
+
+function setCompareSplit(pct) {
+  const bounded = Math.max(0, Math.min(100, pct));
+  compareViewport.style.setProperty('--split', bounded + '%');
+  compareHandle.style.left = bounded + '%';
+}
+
+compareViewport.addEventListener('mousedown', () => { isDraggingCompare = true; });
+window.addEventListener('mouseup', () => { isDraggingCompare = false; });
+window.addEventListener('mousemove', e => {
+  if (!isDraggingCompare) return;
+  const rect = compareViewport.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const pct = (x / rect.width) * 100;
+  setCompareSplit(pct);
+});
+
+// Touch support for split slider
+compareViewport.addEventListener('touchmove', e => {
+  if (!e.touches[0]) return;
+  const rect = compareViewport.getBoundingClientRect();
+  const x = e.touches[0].clientX - rect.left;
+  const pct = (x / rect.width) * 100;
+  setCompareSplit(pct);
+});
+
+// --- Enhanced Confetti + Fireworks Particles Animation ---
+function launchConfetti() {
+  const canvas = $('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const colors = ['#6366f1', '#a855f7', '#ec4899', '#10b981', '#f59e0b', '#06b6d4', '#d946ef'];
+  
+  // Confetti bursts
+  for (let i = 0; i < 110; i++) {
+    particles.push({
+      x: canvas.width / 2 + (Math.random() - 0.5) * 260,
+      y: canvas.height * 0.45,
+      vx: (Math.random() - 0.5) * 22,
+      vy: (Math.random() - 1.3) * 16,
+      size: Math.random() * 8 + 4,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      rotation: Math.random() * 360,
+      vRot: (Math.random() - 0.5) * 12,
+      alpha: 1,
+      shape: Math.random() > 0.5 ? 'rect' : 'circle'
+    });
+  }
+
+  let frames = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let active = false;
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.38; // gravity
+      p.vx *= 0.98;
+      p.rotation += p.vRot;
+      if (frames > 40) p.alpha -= 0.016;
+
+      if (p.alpha > 0) {
+        active = true;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        if (p.shape === 'rect') {
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.7);
+        } else {
+          ctx.beginPath();
+          ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+    });
+    frames++;
+    if (active) {
+      requestAnimationFrame(draw);
+    } else {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }
+  requestAnimationFrame(draw);
+}
+
+// --- Download Handling ---
+async function saveFile(filename, blob) {
+  try {
+    if (window.claude && window.claude.use) {
+      const downloads = await claude.use('downloads');
+      if (downloads) {
+        await downloads.save({ filename, data: blob });
+        return;
+      }
+    }
+  } catch (e) {}
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 6000);
+}
+
+$('btnZip').addEventListener('click', async () => {
+  $('zipStatus').textContent = 'Creating archive…';
+  $('btnZip').disabled = true;
+  playSynthTone(523.25, 'triangle', 0.1, 0.12);
+  try {
+    zipBlob = await zipInstance.generateAsync(
+      { type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } },
+      meta => {
+        $('zipStatus').textContent = `Compressing into ZIP: ${Math.round(meta.percent)}%`;
+      }
+    );
+    await saveFile('imageops-optimized.zip', zipBlob);
+    $('zipStatus').textContent = '✓ ZIP archive generated and downloaded.';
+    playSynthTone(659.25, 'sine', 0.15, 0.15);
+  } catch (e) {
+    $('zipStatus').textContent = 'Error building ZIP: ' + e.message;
+  } finally {
+    $('btnZip').disabled = false;
+  }
+});
+
+$('btnErr').addEventListener('click', async () => {
+  const rows = [['file', 'status', 'error']];
+  manifest.filter(m => m.status === 'failed' || m.status === 'skipped').forEach(m => {
+    rows.push([m.relativePath, m.status, (m.error || '').replace(/,/g, ';')]);
+  });
+  const csv = rows.map(r => r.map(c => `"${(c + '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  await saveFile('imageops-error-report.csv', new Blob([csv], { type: 'text/csv' }));
+});
+
+$('btnAgain').addEventListener('click', () => {
+  playSynthTone(493.88, 'sine', 0.08, 0.1);
+  clearThumbnails();
+  manifest = [];
+  $('fileInputFolder').value = '';
+  $('fileInputFiles').value = '';
+  show('screen-upload');
+});
+
+// Keyboard Shortcuts (Power User Accessibility)
+window.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  if (e.key === 't' || e.key === 'T') {
+    $('themeToggle').click();
+  } else if (e.key === 'm' || e.key === 'M') {
+    $('soundToggle').click();
+  } else if (e.key === '1') {
+    switchView('studio');
+  } else if (e.key === '2') {
+    switchView('about');
+  } else if (e.key === 'Escape') {
+    if (!$('compareModal').classList.contains('hidden')) {
+      $('compareModal').classList.add('hidden');
+    }
+  }
+});
+
+// 3D Tilt Micro-Interactions
+function init3DTilt() {
+  const cards = document.querySelectorAll('.preset-card, .stat-card, .matrix-card, .pipeline-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const rotX = -(y / (rect.height / 2)) * 6;
+      const rotY = (x / (rect.width / 2)) * 6;
+      card.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-2px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
+init3DTilt();
+</script>
+</body>
+</html>
