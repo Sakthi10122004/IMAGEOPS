@@ -28,17 +28,17 @@ All processing occurs **100% client-side** in your browser using multithreaded W
 
 ## Getting Started
 
-Simply open `imageops.html` in any modern web browser:
+Simply open `index.html` in any modern web browser:
 
 ```bash
 # Option A: Open directly in your browser
-xdg-open imageops.html
+xdg-open index.html
 # or
-open imageops.html
+open index.html
 
 # Option B: Run via a simple local HTTP server
 python3 -m http.server 8080
-# Open http://localhost:8080/imageops.html
+# Open http://localhost:8080/index.html
 ```
 
 ---
