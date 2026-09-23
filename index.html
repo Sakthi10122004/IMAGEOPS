@@ -3,15 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Ultra-fast, 100% private bulk image conversion and compression directly in your browser. Zero cloud uploads.">
-<title>ImageOps — Bulk Image Conversion & Compression Studio</title>
+<meta name="description" content="Universal 100% private in-browser image, PDF and document conversion suite. No server uploads.">
+<title>ImageOps — Universal In-Browser Document & Image Studio</title>
+
+<!-- In-Browser Document & Image Processing Engines -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.9/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 /* ==========================================================================
-   IMAGEOPS ULTRA DESIGN SYSTEM — ANIMATED & COLOURFUL
+   IMAGEOPS UNIVERSAL DESIGN SYSTEM — ANIMATED & COLOURFUL
    ========================================================================== */
 :root {
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -117,9 +124,6 @@
   --shadow-glow: 0 0 24px rgba(79, 70, 229, 0.18);
 }
 
-/* ==========================================================================
-   RESET & BASE STYLING
-   ========================================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -141,13 +145,10 @@ body {
   transition: background 0.35s ease, color 0.35s ease;
 }
 
-/* Dynamic Animated Background Aurora Orbs */
+/* Background animated aurora orbs */
 .aurora-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
@@ -162,40 +163,32 @@ body {
 }
 
 .aurora-orb-1 {
-  width: 600px;
-  height: 500px;
+  width: 600px; height: 500px;
   background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(168, 85, 247, 0.1) 70%, transparent 100%);
-  top: -150px;
-  left: 20%;
+  top: -150px; left: 20%;
   animation-duration: 24s;
 }
 
 .aurora-orb-2 {
-  width: 500px;
-  height: 450px;
+  width: 500px; height: 450px;
   background: radial-gradient(circle, rgba(6, 182, 212, 0.28) 0%, rgba(59, 130, 246, 0.1) 70%, transparent 100%);
-  top: 30%;
-  right: -100px;
+  top: 30%; right: -100px;
   animation-duration: 20s;
   animation-delay: -5s;
 }
 
 .aurora-orb-3 {
-  width: 550px;
-  height: 450px;
+  width: 550px; height: 450px;
   background: radial-gradient(circle, rgba(217, 70, 239, 0.25) 0%, rgba(244, 63, 94, 0.1) 70%, transparent 100%);
-  bottom: -100px;
-  left: 5%;
+  bottom: -100px; left: 5%;
   animation-duration: 26s;
   animation-delay: -10s;
 }
 
 .aurora-orb-4 {
-  width: 450px;
-  height: 400px;
+  width: 450px; height: 400px;
   background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%);
-  top: 60%;
-  left: 50%;
+  top: 60%; left: 50%;
   animation-duration: 18s;
   animation-delay: -3s;
 }
@@ -206,7 +199,6 @@ body {
   100% { transform: translate(-40px, -50px) scale(0.92) rotate(360deg); }
 }
 
-/* Subtle Geometric Grid Overlay */
 .grid-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -223,20 +215,20 @@ body {
 }
 
 .wrap {
-  max-width: 900px;
+  max-width: 920px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
 /* ==========================================================================
-   HEADER & ACTIONS (NO TOGGLE)
+   HEADER & ACTIONS
    ========================================================================== */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
   gap: 16px;
 }
@@ -340,7 +332,6 @@ body {
   gap: 10px;
 }
 
-/* Quick Anchor Button to About Section */
 .nav-anchor-btn {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -441,89 +432,58 @@ body {
 }
 
 /* ==========================================================================
-   STEPPER PROGRESS BAR (STUDIO)
+   TOOL HUB NAVIGATION BAR (HORIZONTAL SCROLL ON MOBILE)
    ========================================================================== */
-.steps-container {
+.tool-nav-bar {
   display: flex;
-  position: relative;
-  margin-bottom: 26px;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 8px;
   backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-md);
-  gap: 6px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.step-item {
-  flex: 1;
-  display: flex;
+.tool-nav-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.tool-tab-btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
-  padding: 10px 14px;
+  padding: 10px 18px;
   border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 700;
-  color: var(--text-dim);
-  transition: var(--transition);
-  position: relative;
-  text-align: center;
-  user-select: none;
-  cursor: default;
-}
-
-.step-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 800;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  transition: var(--transition-spring);
-}
-
-[data-theme="light"] .step-num {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.step-item.active {
-  background: var(--surface-elevated);
-  color: var(--text);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border);
-}
-
-.step-item.active .step-num {
-  background: var(--accent-gradient);
-  border-color: transparent;
-  color: #ffffff;
-  box-shadow: 0 0 14px var(--accent-glow);
-  transform: scale(1.1);
-}
-
-.step-item.completed {
-  color: var(--text-muted);
   cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-spring);
+  user-select: none;
 }
 
-.step-item.completed:hover {
+.tool-tab-btn svg {
+  flex-shrink: 0;
+}
+
+.tool-tab-btn:hover {
   color: var(--text);
   background: var(--surface-hover);
 }
 
-.step-item.completed .step-num {
-  background: var(--ok);
-  border-color: transparent;
+.tool-tab-btn.active {
+  background: var(--accent-gradient);
   color: #ffffff;
-  box-shadow: 0 0 10px var(--ok-glow);
+  box-shadow: 0 4px 14px var(--accent-glow);
 }
 
 /* ==========================================================================
@@ -616,6 +576,17 @@ body {
   transform: translateY(-2px);
 }
 
+.btn-emerald {
+  background: var(--accent-gradient-emerald);
+  color: #ffffff;
+  box-shadow: 0 6px 20px var(--ok-glow);
+}
+
+.btn-emerald:hover {
+  box-shadow: 0 8px 28px var(--ok-glow);
+  transform: translateY(-2px);
+}
+
 .btn-secondary {
   background: var(--surface-elevated);
   border: 1px solid var(--border);
@@ -657,12 +628,12 @@ body {
 }
 
 /* ==========================================================================
-   SCREEN 1: DROPZONE & SOURCE SELECTION
+   DROPZONES
    ========================================================================== */
 .dropzone {
   border: 2px dashed var(--border);
   border-radius: var(--radius-lg);
-  padding: 60px 24px;
+  padding: 56px 24px;
   text-align: center;
   background: var(--surface-card);
   cursor: pointer;
@@ -693,9 +664,9 @@ body {
 }
 
 .drop-icon-wrap {
-  width: 76px;
-  height: 76px;
-  margin: 0 auto 20px;
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 18px;
   border-radius: var(--radius-full);
   background: var(--surface-elevated);
   border: 1px solid var(--border);
@@ -726,7 +697,7 @@ body {
 .drop-subtitle {
   font-size: 14px;
   color: var(--text-muted);
-  margin-bottom: 24px;
+  margin-bottom: 22px;
   max-width: 480px;
   margin-left: auto;
   margin-right: auto;
@@ -737,7 +708,7 @@ body {
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 26px;
+  margin-bottom: 22px;
 }
 
 .formats-row {
@@ -746,7 +717,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   align-items: center;
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .fmt-chip {
@@ -772,6 +743,95 @@ body {
 .fmt-chip.fmt-png { border-color: rgba(6,182,212,0.4); color: #06b6d4; }
 .fmt-chip.fmt-jpg { border-color: rgba(245,158,11,0.4); color: #f59e0b; }
 .fmt-chip.fmt-gif { border-color: rgba(168,85,247,0.4); color: #a855f7; }
+.fmt-chip.fmt-pdf { border-color: rgba(239,68,68,0.4); color: #ef4444; }
+.fmt-chip.fmt-docx { border-color: rgba(59,130,246,0.4); color: #3b82f6; }
+.fmt-chip.fmt-xlsx { border-color: rgba(16,185,129,0.4); color: #10b981; }
+
+/* ==========================================================================
+   STEPPER PROGRESS BAR (STUDIO)
+   ========================================================================== */
+.steps-container {
+  display: flex;
+  position: relative;
+  margin-bottom: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 8px;
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-md);
+  gap: 6px;
+}
+
+.step-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+  transition: var(--transition);
+  position: relative;
+  text-align: center;
+  user-select: none;
+  cursor: default;
+}
+
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: var(--transition-spring);
+}
+
+[data-theme="light"] .step-num {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.step-item.active {
+  background: var(--surface-elevated);
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.step-item.active .step-num {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 0 14px var(--accent-glow);
+  transform: scale(1.1);
+}
+
+.step-item.completed {
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.step-item.completed:hover {
+  color: var(--text);
+  background: var(--surface-hover);
+}
+
+.step-item.completed .step-num {
+  background: var(--ok);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 0 10px var(--ok-glow);
+}
 
 /* ==========================================================================
    STATS CARDS GRID
@@ -829,7 +889,7 @@ body {
 }
 
 /* ==========================================================================
-   PREVIEW REEL
+   PREVIEWS & PRESETS
    ========================================================================== */
 .preview-container {
   margin-bottom: 24px;
@@ -859,9 +919,6 @@ body {
 
 .preview-reel::-webkit-scrollbar {
   height: 6px;
-}
-.preview-reel::-webkit-scrollbar-track {
-  background: transparent;
 }
 .preview-reel::-webkit-scrollbar-thumb {
   background: var(--border);
@@ -914,9 +971,7 @@ body {
   text-align: center;
 }
 
-/* ==========================================================================
-   PRESETS GRID (ALL SVGS, NO EMOJIS)
-   ========================================================================== */
+/* Presets Grid */
 .preset-section {
   margin-bottom: 24px;
 }
@@ -999,9 +1054,7 @@ body {
   line-height: 1.35;
 }
 
-/* ==========================================================================
-   SETTINGS & CONTROLS GRID
-   ========================================================================== */
+/* Settings Grid */
 .settings-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1060,7 +1113,7 @@ select:focus, input[type="number"]:focus, input[type="text"]:focus {
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
-/* Custom Slider */
+/* Slider */
 .slider-wrap {
   display: flex;
   align-items: center;
@@ -1101,7 +1154,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.25);
 }
 
-/* Dimension chips */
 .dim-chips {
   display: flex;
   gap: 6px;
@@ -1127,7 +1179,6 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background: var(--surface-hover);
 }
 
-/* Toggle Switch */
 .switch-label {
   display: inline-flex;
   align-items: center;
@@ -1185,7 +1236,7 @@ input:checked + .slider-toggle:before {
 }
 
 /* ==========================================================================
-   SCREEN 3: PROCESSING
+   PROGRESS GAUGES & TICKERS
    ========================================================================== */
 .progress-container {
   margin: 24px 0 32px;
@@ -1280,7 +1331,7 @@ input:checked + .slider-toggle:before {
 }
 
 /* ==========================================================================
-   SCREEN 4: RESULTS & HERO SAVINGS
+   RESULTS HERO & TABLES
    ========================================================================== */
 .results-hero {
   text-align: center;
@@ -1357,7 +1408,7 @@ input:checked + .slider-toggle:before {
   transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* File Results Drawer */
+/* Tables & Drawers */
 .results-table-wrap {
   margin-top: 24px;
   background: var(--surface-card);
@@ -1399,7 +1450,22 @@ input:checked + .slider-toggle:before {
   background: var(--surface-hover);
 }
 
-/* Error details */
+.preview-box-text {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  max-height: 240px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text);
+  margin-top: 14px;
+}
+
 .error-box {
   background: var(--danger-bg);
   border: 1px solid var(--danger);
@@ -1422,7 +1488,7 @@ input:checked + .slider-toggle:before {
 }
 
 /* ==========================================================================
-   ABOUT & ARCHITECTURE SECTION (DIRECTLY INTEGRATED, NO TOGGLE)
+   ABOUT & ARCHITECTURE SECTION
    ========================================================================== */
 .about-section-wrap {
   margin-top: 40px;
@@ -1509,7 +1575,6 @@ input:checked + .slider-toggle:before {
   box-shadow: 0 4px 14px var(--accent-glow);
 }
 
-/* Architecture Pipeline Timeline */
 .pipeline-section {
   margin-bottom: 40px;
 }
@@ -1560,7 +1625,7 @@ input:checked + .slider-toggle:before {
   line-height: 1.5;
 }
 
-/* Formats Comparison Matrix */
+/* Format Matrix */
 .matrix-section {
   margin-bottom: 40px;
 }
@@ -1588,8 +1653,8 @@ input:checked + .slider-toggle:before {
 
 .matrix-card.m-webp { border-top: 3px solid #10b981; }
 .matrix-card.m-avif { border-top: 3px solid #d946ef; }
-.matrix-card.m-jpg  { border-top: 3px solid #f59e0b; }
-.matrix-card.m-png  { border-top: 3px solid #06b6d4; }
+.matrix-card.m-pdf  { border-top: 3px solid #ef4444; }
+.matrix-card.m-doc  { border-top: 3px solid #3b82f6; }
 
 .matrix-fmt-header {
   display: flex;
@@ -1627,23 +1692,12 @@ input:checked + .slider-toggle:before {
   gap: 8px;
 }
 
-.list-svg {
-  flex-shrink: 0;
-}
+.list-svg { flex-shrink: 0; }
+.ok-svg { color: var(--ok); }
+.fail-svg { color: var(--danger); }
+.star-svg { color: var(--accent-amber); }
 
-.ok-svg {
-  color: var(--ok);
-}
-
-.fail-svg {
-  color: var(--danger);
-}
-
-.star-svg {
-  color: var(--accent-amber);
-}
-
-/* Privacy & Security Manifesto */
+/* Privacy manifesto */
 .privacy-manifesto {
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
   border: 1px solid rgba(16, 185, 129, 0.25);
@@ -1734,19 +1788,11 @@ input:checked + .slider-toggle:before {
   display: none;
 }
 
-.faq-item.open .faq-answer {
-  display: block;
-}
+.faq-item.open .faq-answer { display: block; }
+.faq-item.open .faq-icon { transform: rotate(180deg); }
+.faq-icon { transition: var(--transition); }
 
-.faq-item.open .faq-icon {
-  transform: rotate(180deg);
-}
-
-.faq-icon {
-  transition: var(--transition);
-}
-
-/* Interactive Image Comparison Modal */
+/* Modal */
 .modal-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -1778,11 +1824,7 @@ input:checked + .slider-toggle:before {
   margin-bottom: 18px;
 }
 
-.modal-title {
-  font-size: 18px;
-  font-weight: 800;
-}
-
+.modal-title { font-size: 18px; font-weight: 800; }
 .modal-close-btn {
   background: transparent;
   border: none;
@@ -1792,10 +1834,7 @@ input:checked + .slider-toggle:before {
   border-radius: var(--radius-sm);
   display: flex;
 }
-
-.modal-close-btn:hover {
-  color: var(--text);
-}
+.modal-close-btn:hover { color: var(--text); }
 
 .compare-viewport {
   position: relative;
@@ -1856,31 +1895,21 @@ input:checked + .slider-toggle:before {
 }
 
 /* ==========================================================================
-   MOBILE RESPONSIVENESS (320px - 768px)
+   MOBILE RESPONSIVENESS
    ========================================================================== */
 @media (max-width: 768px) {
-  body {
-    padding: 14px 12px 48px;
-  }
-
-  .wrap {
-    max-width: 100%;
-  }
+  body { padding: 14px 12px 48px; }
+  .wrap { max-width: 100%; }
 
   .header {
     flex-direction: column;
     align-items: stretch;
     gap: 14px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
-  .brand-wrapper {
-    justify-content: flex-start;
-  }
-
-  .brand-title {
-    font-size: 24px;
-  }
+  .brand-wrapper { justify-content: flex-start; }
+  .brand-title { font-size: 24px; }
 
   .header-actions {
     justify-content: space-between;
@@ -1889,14 +1918,18 @@ input:checked + .slider-toggle:before {
     gap: 8px;
   }
 
-  .nav-anchor-btn {
-    padding: 6px 12px;
-    font-size: 12px;
+  .nav-anchor-btn { padding: 6px 12px; font-size: 12px; }
+  .privacy-badge { padding: 6px 10px; font-size: 11px; }
+
+  .tool-nav-bar {
+    gap: 6px;
+    padding: 4px;
+    margin-bottom: 18px;
   }
 
-  .privacy-badge {
-    padding: 6px 10px;
-    font-size: 11px;
+  .tool-tab-btn {
+    padding: 8px 14px;
+    font-size: 12px;
   }
 
   .card-panel {
@@ -1912,7 +1945,6 @@ input:checked + .slider-toggle:before {
     gap: 10px;
   }
 
-  /* Compact Sleek Mobile Stepper Bar */
   .steps-container {
     padding: 6px;
     gap: 4px;
@@ -1925,44 +1957,15 @@ input:checked + .slider-toggle:before {
     gap: 4px;
   }
 
-  .step-item span:not(.step-num) {
-    display: none;
-  }
+  .step-item span:not(.step-num) { display: none; }
+  .step-item.active span:not(.step-num) { display: inline-block; }
+  .step-num { width: 22px; height: 22px; font-size: 10px; }
 
-  .step-item.active span:not(.step-num) {
-    display: inline-block;
-  }
-
-  .step-num {
-    width: 22px;
-    height: 22px;
-    font-size: 10px;
-  }
-
-  /* Dropzone on Mobile */
-  .dropzone {
-    padding: 36px 14px;
-  }
-
-  .drop-icon-wrap {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 14px;
-  }
-
-  .drop-icon-wrap svg {
-    width: 28px;
-    height: 28px;
-  }
-
-  .drop-title {
-    font-size: 17px;
-  }
-
-  .drop-subtitle {
-    font-size: 13px;
-    margin-bottom: 20px;
-  }
+  .dropzone { padding: 36px 14px; }
+  .drop-icon-wrap { width: 60px; height: 60px; margin-bottom: 14px; }
+  .drop-icon-wrap svg { width: 28px; height: 28px; }
+  .drop-title { font-size: 17px; }
+  .drop-subtitle { font-size: 13px; margin-bottom: 20px; }
 
   .drop-buttons {
     flex-direction: column;
@@ -1976,52 +1979,16 @@ input:checked + .slider-toggle:before {
     font-size: 14px;
   }
 
-  .formats-row {
-    gap: 6px;
-  }
-
-  .fmt-chip {
-    padding: 4px 8px;
-    font-size: 10px;
-  }
-
-  /* Stats Grid on Mobile */
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  .stat-card {
-    padding: 12px 14px;
-  }
-
-  .stat-label {
-    font-size: 11px;
-  }
-
-  .stat-value {
-    font-size: 20px;
-  }
-
-  /* Presets on Mobile */
   .presets-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
 
-  .preset-card {
-    padding: 10px 12px;
-  }
-
-  .preset-name {
-    font-size: 12px;
-  }
-
-  .preset-desc {
-    font-size: 10px;
-  }
-
-  /* Settings Form on Mobile */
   .settings-grid {
     grid-template-columns: 1fr;
     padding: 16px 14px;
@@ -2029,109 +1996,22 @@ input:checked + .slider-toggle:before {
   }
 
   select, input[type="number"], input[type="text"] {
-    font-size: 16px; /* Prevents auto-zoom on iOS */
+    font-size: 16px;
     padding: 10px 12px;
   }
 
-  .flex-row input[type="number"] {
-    width: 100%;
-  }
+  .flex-row input[type="number"] { width: 100%; }
+  .progress-pct { font-size: 32px; }
+  .hero-saving-number { font-size: 42px; }
 
-  /* Processing Screen on Mobile */
-  .progress-pct {
-    font-size: 32px;
-  }
-
-  .progress-counts {
-    font-size: 12px;
-  }
-
-  /* Results Hero on Mobile */
-  .results-hero {
-    padding: 24px 14px;
-  }
-
-  .hero-saving-number {
-    font-size: 42px;
-  }
-
-  .hero-saving-subtitle {
-    font-size: 13px;
-  }
-
-  /* Action Buttons in Results */
-  #screen-results .flex-row:first-of-type {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-  }
-
-  #screen-results .flex-row:first-of-type .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  /* Comparison Modal on Mobile */
-  .modal-overlay {
-    padding: 10px;
-  }
-
-  .modal-content {
-    padding: 16px 14px;
-    border-radius: var(--radius-lg);
-  }
-
-  .compare-viewport {
-    height: 260px;
-  }
-
-  /* About Section on Mobile */
-  .about-hero {
-    padding: 24px 12px;
-  }
-
-  .about-title {
-    font-size: 26px;
-  }
-
-  .about-subtitle {
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-
-  .pipeline-grid {
+  .compare-viewport { height: 260px; }
+  .about-title { font-size: 26px; }
+  .pipeline-grid, .matrix-grid, .privacy-grid {
     grid-template-columns: 1fr;
     gap: 12px;
-  }
-
-  .matrix-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .privacy-manifesto {
-    padding: 20px 14px;
-  }
-
-  .privacy-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .faq-question {
-    font-size: 14px;
-    padding: 14px 16px;
-  }
-
-  .faq-answer {
-    font-size: 13px;
-    padding: 0 16px 14px;
   }
 }
 
-/* ==========================================================================
-   FOOTER & UTILITIES
-   ========================================================================== */
 footer {
   text-align: center;
   font-size: 13px;
@@ -2151,10 +2031,7 @@ footer {
   color: var(--text-muted);
 }
 
-.hidden {
-  display: none !important;
-}
-
+.hidden { display: none !important; }
 .flex-row {
   display: flex;
   gap: 12px;
@@ -2174,7 +2051,7 @@ footer {
 <body>
 <canvas id="confettiCanvas"></canvas>
 
-<!-- Animated Multi-Layer Aurora Background -->
+<!-- Animated Aurora Mesh Orbs -->
 <div class="aurora-bg">
   <div class="aurora-orb aurora-orb-1"></div>
   <div class="aurora-orb aurora-orb-2"></div>
@@ -2184,7 +2061,7 @@ footer {
 <div class="grid-overlay"></div>
 
 <div class="wrap">
-  <!-- Header with Brand & Actions (NO TOGGLE) -->
+  <!-- Header with Brand & Actions -->
   <header class="header">
     <div class="brand-wrapper" id="brandHome" title="ImageOps Studio">
       <div class="logo-icon">
@@ -2196,7 +2073,7 @@ footer {
       </div>
       <div>
         <h1 class="brand-title">Image<span class="slash">/</span>Ops <span class="brand-badge">PRO</span></h1>
-        <p class="brand-sub">Lightning-fast bulk image compression & conversion</p>
+        <p class="brand-sub">Universal in-browser image, PDF & document studio</p>
       </div>
     </div>
     
@@ -2251,9 +2128,69 @@ footer {
   </header>
 
   <!-- ==========================================================================
-       SECTION 1: STUDIO CONVERTER & BATCH WORKSPACE
+       TOOL HUB NAVIGATION BAR
        ========================================================================== -->
-  <div id="studio-workspace">
+  <nav class="tool-nav-bar" id="toolNav">
+    <button class="tool-tab-btn active" data-tool="images">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+        <circle cx="9" cy="9" r="2"></circle>
+        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+      </svg>
+      <span>Images</span>
+    </button>
+    <button class="tool-tab-btn" data-tool="pdf-word">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13"></line>
+        <line x1="16" y1="17" x2="8" y2="17"></line>
+      </svg>
+      <span>PDF to Word</span>
+    </button>
+    <button class="tool-tab-btn" data-tool="pdf-excel">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <path d="M8 13h8"></path>
+        <path d="M8 17h8"></path>
+        <path d="M12 9v12"></path>
+      </svg>
+      <span>PDF to Excel</span>
+    </button>
+    <button class="tool-tab-btn" data-tool="compress-pdf">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 14 10 14 10 20"></polyline>
+        <polyline points="20 10 14 10 14 4"></polyline>
+        <line x1="14" y1="10" x2="21" y2="3"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+      </svg>
+      <span>Compress PDF</span>
+    </button>
+    <button class="tool-tab-btn" data-tool="excel-tools">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+        <line x1="3" y1="9" x2="21" y2="9"></line>
+        <line x1="3" y1="15" x2="21" y2="15"></line>
+        <line x1="9" y1="3" x2="9" y2="21"></line>
+        <line x1="15" y1="3" x2="15" y2="21"></line>
+      </svg>
+      <span>Excel & CSV</span>
+    </button>
+    <button class="tool-tab-btn" data-tool="images-pdf">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+        <path d="M6 6h10"></path>
+        <path d="M6 10h10"></path>
+      </svg>
+      <span>Images to PDF</span>
+    </button>
+  </nav>
+
+  <!-- ==========================================================================
+       WORKSPACE 1: BULK IMAGE STUDIO (CONVERTER & COMPRESSOR)
+       ========================================================================== -->
+  <div id="workspace-images" class="workspace-panel">
     <!-- Step Bar -->
     <div class="steps-container" id="stepsBar">
       <div class="step-item active" data-step="upload" id="stepUpload">
@@ -2316,8 +2253,7 @@ footer {
           <span class="fmt-chip">TIFF</span>
         </div>
       </div>
-
-      <p id="unsupportedMsg" class="panel-desc hidden" style="color:var(--danger); text-align:center; margin-top:14px; font-weight:700;"></p>
+      <div id="unsupportedMsg" class="panel-desc hidden" style="color:var(--danger); text-align:center; margin-top:14px; font-weight:700;"></div>
     </main>
 
     <!-- SCREEN 2: READY & CONFIGURE -->
@@ -2330,7 +2266,6 @@ footer {
         <p class="panel-desc">Review your images and choose your optimization preset or fine-tune codecs</p>
       </div>
 
-      <!-- Stats Summary Cards -->
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-label">Images Found</div>
@@ -2350,7 +2285,6 @@ footer {
         </div>
       </div>
 
-      <!-- Thumbnail Preview Reel -->
       <div class="preview-container" id="previewContainer">
         <div class="preview-header">
           <span>Source Reel (Sample Preview)</span>
@@ -2359,7 +2293,7 @@ footer {
         <div class="preview-reel" id="previewReel"></div>
       </div>
 
-      <!-- Optimization Presets (WITH CLEAN SVGS, NO EMOJIS) -->
+      <!-- Presets -->
       <div class="preset-section">
         <label class="section-label">Optimization Presets</label>
         <div class="presets-grid" id="presetsGrid">
@@ -2443,7 +2377,6 @@ footer {
         </div>
       </div>
 
-      <!-- Fine Tuning Settings -->
       <div class="settings-grid">
         <div class="form-group">
           <label class="form-label" for="outFormat">Target Format</label>
@@ -2605,7 +2538,6 @@ footer {
         </div>
       </div>
 
-      <!-- Action Buttons -->
       <div class="flex-row" style="margin-top:24px;">
         <button class="btn btn-primary btn-lg" id="btnZip">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2627,7 +2559,6 @@ footer {
       </div>
       <p class="panel-desc" id="zipStatus" style="margin-top:12px; font-family:var(--font-mono); font-size:13px;"></p>
 
-      <!-- Detailed Converted Files Table -->
       <div class="results-table-wrap">
         <table class="results-table">
           <thead>
@@ -2659,11 +2590,327 @@ footer {
   </div>
 
   <!-- ==========================================================================
-       SECTION 2: DEDICATED ABOUT & ARCHITECTURE SECTION (DIRECTLY INTEGRATED)
+       WORKSPACE 2: PDF TO WORD (.docx)
+       ========================================================================== -->
+  <div id="workspace-pdf-word" class="workspace-panel hidden">
+    <section class="card-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">PDF to Word (.docx) Converter</h2>
+        <p class="panel-desc">Convert PDF documents into genuine, editable Microsoft Word (.docx) files directly in your browser.</p>
+      </div>
+
+      <div class="dropzone" id="dropPdfWord">
+        <div class="drop-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+        </div>
+        <h3 class="drop-title">Drop your PDF file here</h3>
+        <p class="drop-subtitle">Extracts paragraphs, headings, and structure into genuine OpenXML .docx format.</p>
+        <button class="btn btn-primary btn-lg" id="btnSelectPdfWord" type="button">Select PDF Document</button>
+        <input type="file" id="inputPdfWord" accept=".pdf,application/pdf" class="hidden">
+      </div>
+
+      <div id="pdfWordProgress" class="progress-container hidden">
+        <div class="progress-header">
+          <div class="progress-pct" id="pdfWordPct">0%</div>
+          <div class="progress-counts" id="pdfWordStatus">Parsing pages…</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="pdfWordFill"></div></div>
+      </div>
+
+      <div id="pdfWordResult" class="hidden" style="margin-top:24px;">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Pages Processed</div><div class="stat-value" id="pwPages">0</div></div>
+          <div class="stat-card"><div class="stat-label">Paragraphs</div><div class="stat-value" id="pwParagraphs">0</div></div>
+          <div class="stat-card"><div class="stat-label">Word File Size</div><div class="stat-value" id="pwSize" style="color:var(--ok);">0 KB</div></div>
+        </div>
+        <div class="flex-row" style="margin-top:18px;">
+          <button class="btn btn-primary btn-lg" id="btnDownloadWord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download Word Document (.docx)
+          </button>
+          <button class="btn btn-secondary btn-lg" id="btnResetPdfWord">Convert Another PDF</button>
+        </div>
+        <div class="section-label" style="margin-top:24px;">Extracted Text Sample</div>
+        <div class="preview-box-text" id="pwTextPreview"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==========================================================================
+       WORKSPACE 3: PDF TO EXCEL (.xlsx / .csv)
+       ========================================================================== -->
+  <div id="workspace-pdf-excel" class="workspace-panel hidden">
+    <section class="card-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">PDF to Excel & Spreadsheet Converter</h2>
+        <p class="panel-desc">Detect and extract tabular grids, columns, and data points from PDF files into Excel workbooks.</p>
+      </div>
+
+      <div class="dropzone" id="dropPdfExcel">
+        <div class="drop-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <path d="M8 13h8"></path><path d="M8 17h8"></path><path d="M12 9v12"></path>
+          </svg>
+        </div>
+        <h3 class="drop-title">Drop your PDF file here</h3>
+        <p class="drop-subtitle">Scans table rows, aligned numbers, and labels into structured spreadsheet grids.</p>
+        <button class="btn btn-emerald btn-lg" id="btnSelectPdfExcel" type="button">Select PDF Document</button>
+        <input type="file" id="inputPdfExcel" accept=".pdf,application/pdf" class="hidden">
+      </div>
+
+      <div id="pdfExcelProgress" class="progress-container hidden">
+        <div class="progress-header">
+          <div class="progress-pct" id="pdfExcelPct">0%</div>
+          <div class="progress-counts" id="pdfExcelStatus">Scanning table cells…</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="pdfExcelFill"></div></div>
+      </div>
+
+      <div id="pdfExcelResult" class="hidden" style="margin-top:24px;">
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Rows Found</div><div class="stat-value" id="peRows">0</div></div>
+          <div class="stat-card"><div class="stat-label">Columns</div><div class="stat-value" id="peCols">0</div></div>
+          <div class="stat-card"><div class="stat-label">Status</div><div class="stat-value" style="color:var(--ok);">Ready</div></div>
+        </div>
+        <div class="flex-row" style="margin-top:18px;">
+          <button class="btn btn-emerald btn-lg" id="btnDownloadXlsx">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download Excel (.xlsx)
+          </button>
+          <button class="btn btn-secondary btn-lg" id="btnDownloadCsv">Download CSV</button>
+          <button class="btn btn-secondary btn-lg" id="btnResetPdfExcel">Convert Another</button>
+        </div>
+        <div class="section-label" style="margin-top:24px;">Table Grid Preview</div>
+        <div class="results-table-wrap">
+          <table class="results-table" id="peTablePreview"></table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==========================================================================
+       WORKSPACE 4: PDF COMPRESSOR
+       ========================================================================== -->
+  <div id="workspace-compress-pdf" class="workspace-panel hidden">
+    <section class="card-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">PDF Size Compressor</h2>
+        <p class="panel-desc">Downscale bloated embedded scans, photos, and stream objects to achieve massive PDF size reduction.</p>
+      </div>
+
+      <div class="dropzone" id="dropCompressPdf">
+        <div class="drop-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 14 10 14 10 20"></polyline>
+            <polyline points="20 10 14 10 14 4"></polyline>
+            <line x1="14" y1="10" x2="21" y2="3"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </div>
+        <h3 class="drop-title">Drop your PDF file here</h3>
+        <p class="drop-subtitle">High-ratio compression ideal for email size limits, uploads, and fast web reading.</p>
+        <button class="btn btn-primary btn-lg" id="btnSelectCompressPdf" type="button">Select PDF to Compress</button>
+        <input type="file" id="inputCompressPdf" accept=".pdf,application/pdf" class="hidden">
+      </div>
+
+      <div id="pdfCompressConfig" class="hidden" style="margin-top:24px;">
+        <div class="preset-section">
+          <label class="section-label">Compression Level</label>
+          <div class="presets-grid" id="compressPdfPresets">
+            <div class="preset-card" data-cp="extreme">
+              <div class="preset-name">
+                <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path></svg>
+                <span>Extreme Saver</span>
+              </div>
+              <div class="preset-desc">72 DPI • Max compression for email</div>
+            </div>
+            <div class="preset-card active" data-cp="balanced">
+              <div class="preset-name">
+                <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                <span>Recommended</span>
+              </div>
+              <div class="preset-desc">150 DPI • Balanced screen reading</div>
+            </div>
+            <div class="preset-card" data-cp="high">
+              <div class="preset-name">
+                <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 3h12l4 6-10 13L2 9Z"></path></svg>
+                <span>High Quality</span>
+              </div>
+              <div class="preset-desc">200 DPI • Sharp for print and reports</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex-row">
+          <button class="btn btn-primary btn-lg" id="btnStartPdfCompress">Compress PDF Now</button>
+          <button class="btn btn-secondary btn-lg" id="btnResetCompressPdf">Change File</button>
+        </div>
+      </div>
+
+      <div id="pdfCompressProgress" class="progress-container hidden">
+        <div class="progress-header">
+          <div class="progress-pct" id="pdfCompressPct">0%</div>
+          <div class="progress-counts" id="pdfCompressStatus">Optimizing streams…</div>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="pdfCompressFill"></div></div>
+      </div>
+
+      <div id="pdfCompressResult" class="hidden" style="margin-top:24px;">
+        <div class="results-hero">
+          <div class="hero-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Compression Finished</span>
+          </div>
+          <div class="hero-saving-number" id="cpReduction">-0.0%</div>
+          <div class="hero-saving-subtitle">Reduction in document size achieved</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Original Size</div><div class="stat-value" id="cpOrig">0 MB</div></div>
+          <div class="stat-card"><div class="stat-label">Compressed Size</div><div class="stat-value" id="cpOut" style="color:var(--ok);">0 MB</div></div>
+          <div class="stat-card"><div class="stat-label">Saved Space</div><div class="stat-value" id="cpSaved" style="color:var(--ok);">0 MB</div></div>
+        </div>
+
+        <div class="flex-row" style="margin-top:20px;">
+          <button class="btn btn-primary btn-lg" id="btnDownloadCompressedPdf">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download Compressed PDF
+          </button>
+          <button class="btn btn-secondary btn-lg" id="btnAgainCompressPdf">Compress Another</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==========================================================================
+       WORKSPACE 5: EXCEL, CSV & DATA TOOLS
+       ========================================================================== -->
+  <div id="workspace-excel-tools" class="workspace-panel hidden">
+    <section class="card-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Excel, CSV & Data Tools</h2>
+        <p class="panel-desc">Convert and transform files between Excel (.xlsx, .xls), CSV, TSV, and JSON formats.</p>
+      </div>
+
+      <div class="dropzone" id="dropExcelTools">
+        <div class="drop-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line>
+            <line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line>
+          </svg>
+        </div>
+        <h3 class="drop-title">Drop your spreadsheet or data file here</h3>
+        <p class="drop-subtitle">Supports .xlsx, .xls, .csv, .tsv, and .json.</p>
+        <button class="btn btn-emerald btn-lg" id="btnSelectExcelTools" type="button">Select Data File</button>
+        <input type="file" id="inputExcelTools" accept=".xlsx,.xls,.csv,.tsv,.json" class="hidden">
+      </div>
+
+      <div id="excelToolsConfig" class="hidden" style="margin-top:24px;">
+        <div class="settings-grid">
+          <div class="form-group">
+            <label class="form-label" for="excelTargetFmt">Target Output Format</label>
+            <select id="excelTargetFmt">
+              <option value="xlsx">Excel Workbook (.xlsx)</option>
+              <option value="csv" selected>Comma-Separated Values (.csv)</option>
+              <option value="json">JSON Array of Objects (.json)</option>
+              <option value="tsv">Tab-Separated Values (.tsv)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Loaded File</label>
+            <div id="excelLoadedName" style="font-family:var(--font-mono); font-size:13px; font-weight:700; padding:10px 0;"></div>
+          </div>
+        </div>
+
+        <div class="flex-row" style="margin-bottom:20px;">
+          <button class="btn btn-emerald btn-lg" id="btnConvertExcelData">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Convert & Download
+          </button>
+          <button class="btn btn-secondary btn-lg" id="btnResetExcelTools">Load Another File</button>
+        </div>
+
+        <div class="section-label">Data Grid Preview (Sample Rows)</div>
+        <div class="results-table-wrap">
+          <table class="results-table" id="excelDataPreview"></table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==========================================================================
+       WORKSPACE 6: IMAGES TO PDF
+       ========================================================================== -->
+  <div id="workspace-images-pdf" class="workspace-panel hidden">
+    <section class="card-panel">
+      <div class="panel-header">
+        <h2 class="panel-title">Images to PDF Creator</h2>
+        <p class="panel-desc">Combine multiple photos, graphics, or scans into a single multi-page PDF document.</p>
+      </div>
+
+      <div class="dropzone" id="dropImagesPdf">
+        <div class="drop-icon-wrap">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="M6 6h10"></path><path d="M6 10h10"></path>
+          </svg>
+        </div>
+        <h3 class="drop-title">Drop images here to merge into PDF</h3>
+        <p class="drop-subtitle">Accepts JPG, PNG, WebP, GIF, and BMP images.</p>
+        <button class="btn btn-primary btn-lg" id="btnSelectImagesPdf" type="button">Select Image Files</button>
+        <input type="file" id="inputImagesPdf" multiple accept="image/*" class="hidden">
+      </div>
+
+      <div id="imagesPdfConfig" class="hidden" style="margin-top:24px;">
+        <div class="preview-container">
+          <div class="preview-header">
+            <span>Pages to Include (<span id="imgPdfCount">0</span> images)</span>
+          </div>
+          <div class="preview-reel" id="imgPdfReel"></div>
+        </div>
+
+        <div class="settings-grid">
+          <div class="form-group">
+            <label class="form-label" for="pdfPageSize">Page Sizing</label>
+            <select id="pdfPageSize">
+              <option value="fit" selected>Fit to Image (Preserve original dimensions)</option>
+              <option value="a4">Standard A4 Document</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pdfOrientation">Orientation</label>
+            <select id="pdfOrientation">
+              <option value="auto" selected>Auto Detect (Portrait or Landscape per image)</option>
+              <option value="portrait">Always Portrait</option>
+              <option value="landscape">Always Landscape</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex-row">
+          <button class="btn btn-primary btn-lg" id="btnGenerateImagesPdf">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Generate & Download PDF
+          </button>
+          <button class="btn btn-secondary btn-lg" id="btnResetImagesPdf">Clear Selection</button>
+        </div>
+        <p class="panel-desc" id="imgPdfStatus" style="margin-top:12px; font-family:var(--font-mono); font-size:13px;"></p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 2: ABOUT & ARCHITECTURE SECTION
        ========================================================================== -->
   <section id="section-about" class="about-section-wrap">
     <div class="card-panel">
-      <!-- Hero Header -->
       <div class="about-hero">
         <div class="about-pill">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -2672,10 +2919,10 @@ footer {
           <span>Next-Generation In-Browser Pipeline</span>
         </div>
         <h2 class="about-title">
-          Fast, Private & <span class="about-title-grad">Serverless</span> Image Optimization
+          Fast, Private & <span class="about-title-grad">Serverless</span> Document Optimization
         </h2>
         <p class="about-subtitle">
-          ImageOps is an edge-native, zero-cloud bulk image converter and compression suite engineered for photographers, web developers, designers, and privacy-conscious teams.
+          ImageOps is an edge-native, zero-cloud bulk image, PDF, and document conversion suite engineered for developers, analysts, photographers, and privacy-conscious teams.
         </p>
 
         <div class="about-feature-badges">
@@ -2691,23 +2938,15 @@ footer {
               <rect x="9" y="9" width="6" height="6"></rect>
               <line x1="9" y1="1" x2="9" y2="4"></line>
               <line x1="15" y1="1" x2="15" y2="4"></line>
-              <line x1="9" y1="20" x2="9" y2="23"></line>
-              <line x1="15" y1="20" x2="15" y2="23"></line>
-              <line x1="20" y1="9" x2="23" y2="9"></line>
-              <line x1="20" y1="14" x2="23" y2="14"></line>
-              <line x1="1" y1="9" x2="4" y2="9"></line>
-              <line x1="1" y1="14" x2="4" y2="14"></line>
             </svg>
-            <span>Multithreaded Web Workers</span>
+            <span>Hardware Accelerated</span>
           </div>
           <div class="feature-badge-item">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m7.5 4.27 9 5.15"></path>
-              <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
-              <path d="m3.3 7 8.7 5 8.7-5"></path>
-              <path d="M12 22V12"></path>
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
             </svg>
-            <span>In-Memory JSZip Packaging</span>
+            <span>PDF, Word & Excel Engines</span>
           </div>
           <div class="feature-badge-item">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -2718,170 +2957,115 @@ footer {
         </div>
       </div>
 
-      <!-- Architecture Pipeline Visualizer -->
+      <!-- Execution Pipeline Visualizer -->
       <div class="pipeline-section">
-        <h3 class="section-label">How ImageOps Works Under the Hood</h3>
-        <p class="panel-desc">From your local drive to compressed ZIP in milliseconds—without a single byte leaving your computer.</p>
+        <h3 class="section-label">Universal Execution Pipeline</h3>
+        <p class="panel-desc">All conversions, transformations, and compression operations run entirely in local memory.</p>
         
         <div class="pipeline-grid">
           <div class="pipeline-card">
-            <span class="pipeline-step-badge">Stage 01</span>
-            <h3>Virtual File Tree Ingestion</h3>
-            <p>Uses the native HTML5 FileSystem and <code>webkitGetAsEntry</code> APIs to recursively map entire nested folders directly into browser memory.</p>
+            <span class="pipeline-step-badge">Module 01</span>
+            <h3>Image Processing Engine</h3>
+            <p>Utilizes <code>createImageBitmap()</code> and <code>OffscreenCanvas</code> for high-speed multi-threaded rasterization into WebP, AVIF, JPEG, and PNG.</p>
           </div>
           <div class="pipeline-card">
-            <span class="pipeline-step-badge">Stage 02</span>
-            <h3>GPU-Accelerated Decode</h3>
-            <p>Utilizes <code>createImageBitmap()</code> to decode image pixels asynchronously on background GPU threads, preventing UI lockups even with huge files.</p>
+            <span class="pipeline-step-badge">Module 02</span>
+            <h3>PDF Parsing & Extraction</h3>
+            <p>Leverages <code>PDF.js</code> to extract layout coordinates, line spacing, text runs, and tabular structures without server dependencies.</p>
           </div>
           <div class="pipeline-card">
-            <span class="pipeline-step-badge">Stage 03</span>
-            <h3>OffscreenCanvas Re-sampling</h3>
-            <p>Applies high-precision bicubic interpolation on <code>OffscreenCanvas</code>, optimizing aspect ratios and resizing dimensions without memory leaks.</p>
+            <span class="pipeline-step-badge">Module 03</span>
+            <h3>OpenXML Word (.docx) Packaging</h3>
+            <p>Generates valid ECMA-376 Microsoft Word document packages containing structured paragraphs and headings packaged via <code>JSZip</code>.</p>
           </div>
           <div class="pipeline-card">
-            <span class="pipeline-step-badge">Stage 04</span>
-            <h3>Hardware Native Codec Encoding</h3>
-            <p>Leverages native browser rasterization pipelines for WebP, AVIF, JPEG, and PNG, stripping EXIF tracking headers for total privacy.</p>
+            <span class="pipeline-step-badge">Module 04</span>
+            <h3>PDF Stream Compression</h3>
+            <p>Re-encodes embedded high-resolution graphics and scans using <code>pdf-lib</code> and Canvas, shrinking PDFs by up to 80%.</p>
           </div>
           <div class="pipeline-card">
-            <span class="pipeline-step-badge">Stage 05</span>
-            <h3>In-Memory JSZip Stream</h3>
-            <p>Compressed output blobs are streamed into an in-memory JSZip archive, reconstructing the exact original folder directory hierarchy.</p>
+            <span class="pipeline-step-badge">Module 05</span>
+            <h3>Spreadsheet & Data Engine</h3>
+            <p>Employs <code>SheetJS</code> to read and write Excel (.xlsx, .xls), CSV, TSV, and JSON formats in-memory.</p>
           </div>
           <div class="pipeline-card">
-            <span class="pipeline-step-badge">Stage 06</span>
+            <span class="pipeline-step-badge">Module 06</span>
             <h3>Zero-Cloud Instant Delivery</h3>
-            <p>Generates an instant <code>blob:</code> download link directly into your OS Downloads folder. No server bandwidth limits or queue waits.</p>
+            <p>Generates immediate <code>blob:</code> downloads straight into your browser's download manager without upload delays.</p>
           </div>
         </div>
       </div>
 
-      <!-- Format Comparison Matrix (ALL SVGS, NO EMOJIS) -->
+      <!-- Format Comparison Matrix -->
       <div class="matrix-section">
-        <h3 class="section-label">Format Efficiency Matrix</h3>
-        <p class="panel-desc">Compare compression ratios, browser compatibility, and best use cases for modern graphics.</p>
+        <h3 class="section-label">Supported Document & Image Formats</h3>
+        <p class="panel-desc">Fast client-side conversion between modern web, print, and office formats.</p>
 
         <div class="matrix-grid">
           <div class="matrix-card m-webp">
             <div class="matrix-fmt-header">
-              <span class="matrix-fmt-title" style="color:#10b981;">WEBP</span>
-              <span class="matrix-ratio" style="color:#10b981;">−30% to −80%</span>
+              <span class="matrix-fmt-title" style="color:#10b981;">WEBP & AVIF</span>
+              <span class="matrix-ratio" style="color:#10b981;">−50% to −90%</span>
             </div>
             <ul class="matrix-list">
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Lossy & Lossless compression</span>
-              </li>
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Alpha transparency supported</span>
-              </li>
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>97.4% global browser support</span>
-              </li>
-              <li>
-                <svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                <span><b>Best for:</b> Web, mobile apps & UI</span>
-              </li>
+              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Next-gen image compression</li>
+              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Full alpha transparency</li>
+              <li><svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <b>Best for:</b> Websites & apps</li>
             </ul>
           </div>
 
-          <div class="matrix-card m-avif">
+          <div class="matrix-card m-pdf">
             <div class="matrix-fmt-header">
-              <span class="matrix-fmt-title" style="color:#d946ef;">AVIF</span>
-              <span class="matrix-ratio" style="color:#d946ef;">−50% to −90%</span>
+              <span class="matrix-fmt-title" style="color:#ef4444;">PDF</span>
+              <span class="matrix-ratio" style="color:#ef4444;">Portable</span>
             </div>
             <ul class="matrix-list">
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Next-gen AV1 video intra-frame</span>
-              </li>
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>10-bit & 12-bit HDR color depth</span>
-              </li>
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>93.8% browser support</span>
-              </li>
-              <li>
-                <svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                <span><b>Best for:</b> High-res photo archives</span>
-              </li>
+              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Convert to Word & Excel</li>
+              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Re-encode & compress</li>
+              <li><svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <b>Best for:</b> Contracts & reports</li>
             </ul>
           </div>
 
-          <div class="matrix-card m-jpg">
+          <div class="matrix-card m-doc">
             <div class="matrix-fmt-header">
-              <span class="matrix-fmt-title" style="color:#f59e0b;">JPEG / JPG</span>
-              <span class="matrix-ratio" style="color:#f59e0b;">Standard</span>
+              <span class="matrix-fmt-title" style="color:#3b82f6;">DOCX</span>
+              <span class="matrix-ratio" style="color:#3b82f6;">Editable</span>
             </div>
             <ul class="matrix-list">
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>100% universal device support</span>
-              </li>
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Excellent for photographic tones</span>
-              </li>
-              <li>
-                <svg class="list-svg fail-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                <span>No alpha transparency</span>
-              </li>
-              <li>
-                <svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                <span><b>Best for:</b> Email newsletters & print</span>
-              </li>
+              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Genuine Microsoft Word format</li>
+              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Opens in Word, Google Docs</li>
+              <li><svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <b>Best for:</b> Document editing</li>
             </ul>
           </div>
 
-          <div class="matrix-card m-png">
+          <div class="matrix-card m-webp">
             <div class="matrix-fmt-header">
-              <span class="matrix-fmt-title" style="color:#06b6d4;">PNG</span>
-              <span class="matrix-ratio" style="color:#06b6d4;">Lossless</span>
+              <span class="matrix-fmt-title" style="color:#10b981;">XLSX & CSV</span>
+              <span class="matrix-ratio" style="color:#10b981;">Tabular</span>
             </div>
             <ul class="matrix-list">
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Pixel-perfect lossless clarity</span>
-              </li>
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Crisp vector-like edges & typography</span>
-              </li>
-              <li>
-                <svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>8-bit / 24-bit transparent alpha</span>
-              </li>
-              <li>
-                <svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                <span><b>Best for:</b> Logos, icons & diagrams</span>
-              </li>
+              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Excel & CSV grid generation</li>
+              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Convert CSV, TSV, JSON</li>
+              <li><svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <b>Best for:</b> Data & analytics</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <!-- Privacy & Security Guarantee -->
+      <!-- Privacy Manifesto -->
       <div class="privacy-manifesto">
         <h3 class="privacy-manifesto-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
           The ImageOps Zero-Cloud Guarantee
         </h3>
         <p class="panel-desc" style="color:var(--text);">
-          Unlike conventional online image compressors that upload your sensitive assets to third-party cloud servers, ImageOps runs <b>exclusively within your local web browser session</b>.
+          Unlike conventional online PDF and file converters that upload your sensitive documents to remote cloud servers, ImageOps runs <b>exclusively within your local web browser session</b>.
         </p>
 
         <div class="privacy-grid">
           <div class="privacy-item">
             <div class="privacy-icon-box">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
             <div>
               <b>Zero Network Uplink</b>
@@ -2890,84 +3074,74 @@ footer {
           </div>
           <div class="privacy-item">
             <div class="privacy-icon-box">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
             <div>
               <b>GDPR & HIPAA Compliant</b>
-              Because no personal data or images are collected or stored, ImageOps satisfies strict corporate confidentiality policies.
+              Because no personal data or documents are uploaded or stored, ImageOps satisfies strict corporate confidentiality policies.
             </div>
           </div>
           <div class="privacy-item">
             <div class="privacy-icon-box">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
             </div>
             <div>
-              <b>Automated Memory Cleanup</b>
-              Canvas objects, memory buffers, and blob URLs are explicitly garbage collected immediately upon task completion.
+              <b>Instant In-Memory Cleanup</b>
+              Document buffers, canvases, and blob URLs are explicitly garbage-collected immediately upon task completion.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Interactive FAQ Accordion -->
+      <!-- FAQ Accordion -->
       <div class="faq-section">
         <h3 class="section-label">Frequently Asked Questions</h3>
         
         <div class="faq-item">
           <div class="faq-question">
-            <span>Can I process nested folders containing subdirectories?</span>
+            <span>How does in-browser PDF to Word conversion work?</span>
             <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </div>
           <div class="faq-answer">
-            Yes! When you select a folder or drag-and-drop a folder structure, ImageOps preserves every nested directory path in the generated ZIP archive.
+            ImageOps uses Mozilla's PDF.js library to parse text runs, font sizes, line heights, and coordinates. It groups text into logical paragraphs and headings, and compiles a valid OpenXML .docx document using JSZip.
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-question">
-            <span>What happens if my browser doesn't support AVIF encoding?</span>
+            <span>How does in-browser PDF compression reduce file size?</span>
             <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </div>
           <div class="faq-answer">
-            ImageOps detects hardware and browser codec capabilities dynamically. If your browser lacks AVIF encoding support, you can switch seamlessly to WebP with similar high-compression benefits.
+            PDFs are typically large due to high-resolution embedded images. ImageOps renders pages at target screen DPI, compresses image streams at customized JPEG quality levels, and re-assembles the document using pdf-lib.
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-question">
-            <span>Does stripping EXIF metadata affect image visual quality?</span>
+            <span>Can I extract tables from PDFs into Excel?</span>
             <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </div>
           <div class="faq-answer">
-            Not at all. EXIF metadata contains GPS coordinates, camera models, and timestamps. Removing it eliminates privacy liabilities and shaves extra kilobytes off every file with zero visual degradation.
+            Yes! The PDF to Excel tool scans tabular text alignments and converts them into rows and columns, exported into genuine Microsoft Excel (.xlsx) or CSV files via SheetJS.
           </div>
         </div>
 
         <div class="faq-item">
           <div class="faq-question">
-            <span>Is there a file size or batch quantity limit?</span>
+            <span>Are my documents safe when deployed on Vercel?</span>
             <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </div>
           <div class="faq-answer">
-            ImageOps is limited only by your computer's RAM. It processes files in batches of concurrent workers to keep memory overhead lean and steady, easily handling hundreds of images in a single run.
+            100% safe. Vercel acts strictly as a static file host serving the HTML, CSS, and JS files. All document parsing, conversion, and compression occur locally inside your own browser window.
           </div>
         </div>
-      </div>
-
-      <!-- Quick Action: Back to Top / Studio -->
-      <div style="text-align:center; padding:12px 0;">
-        <button class="btn btn-primary btn-lg" id="btnScrollToStudio">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="18 15 12 9 6 15"></polyline>
-          </svg>
-          Back to Converter Studio
-        </button>
       </div>
     </div>
   </section>
 
   <!-- ==========================================================================
-       MODAL: INTERACTIVE VISUAL QUALITY COMPARISON SLIDER
+       MODAL: VISUAL QUALITY COMPARISON
        ========================================================================== -->
   <div id="compareModal" class="modal-overlay hidden">
     <div class="modal-content">
@@ -2979,13 +3153,10 @@ footer {
       </div>
 
       <div class="compare-viewport" id="compareViewport">
-        <!-- Converted image (background) -->
         <img class="compare-img" id="compareAfterImg" alt="Optimized Version">
-        <!-- Original image (clipped on left via clip-path) -->
         <div class="compare-overlay" id="compareOverlay">
           <img id="compareBeforeImg" alt="Original Version">
         </div>
-        <!-- Draggable splitter bar -->
         <div class="compare-handle" id="compareHandle">
           <div class="compare-handle-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -3005,13 +3176,10 @@ footer {
   <!-- Footer -->
   <footer>
     <div class="footer-shield">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-      </svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
       <span>Processed 100% locally in your browser. Zero telemetry. Zero cloud uploads.</span>
     </div>
-    <div>ImageOps &bull; Hardware-accelerated browser graphic pipeline</div>
+    <div>ImageOps &bull; Hardware-accelerated in-browser graphic & document suite</div>
   </footer>
 </div>
 
@@ -3019,7 +3187,11 @@ footer {
      CORE APPLICATION JAVASCRIPT ENGINE
      ========================================================================== -->
 <script>
-// Format constants & MIME mappings
+// Configure PDF.js Worker
+if (window.pdfjsLib) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+
 const SUPPORTED = ['jpg','jpeg','png','webp','gif','bmp','tiff','avif'];
 const MIME = {jpeg:'image/jpeg',png:'image/png',webp:'image/webp',avif:'image/avif'};
 
@@ -3033,7 +3205,7 @@ const PRESETS = {
   custom:null
 };
 
-let manifest = []; // {id, file, relativePath, ext, size, status, error, outputSize, outputBlob, previewUrl, convertedUrl}
+let manifest = [];
 let cancelFlag = false, pauseFlag = false;
 let usedOutputPaths = new Set();
 let zipInstance = null, zipBlob = null;
@@ -3059,7 +3231,7 @@ $('soundToggle').addEventListener('click', () => {
   soundEnabled = !soundEnabled;
   localStorage.setItem('imageops-sound', soundEnabled);
   updateSoundUI();
-  if (soundEnabled) playSynthTone(587.33, 'sine', 0.12, 0.15); // D5
+  if (soundEnabled) playSynthTone(587.33, 'sine', 0.12, 0.15);
 });
 
 function getAudioContext() {
@@ -3093,14 +3265,13 @@ function playSynthTone(freq, type = 'sine', duration = 0.1, gainVal = 0.1) {
 
 function playFanfare() {
   if (!soundEnabled) return;
-  const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+  const notes = [523.25, 659.25, 783.99, 1046.50];
   notes.forEach((freq, idx) => {
     setTimeout(() => {
       playSynthTone(freq, 'triangle', 0.28, 0.18);
     }, idx * 90);
   });
 }
-
 initAudio();
 
 // --- Theme Management ---
@@ -3138,13 +3309,28 @@ $('linkToAbout').addEventListener('click', e => {
   playSynthTone(523.25, 'sine', 0.08, 0.1);
 });
 
-$('btnScrollToStudio').addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  playSynthTone(587.33, 'triangle', 0.1, 0.12);
-});
-
 $('brandHome').addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// --- Tool Workspace Switching ---
+function switchTool(toolKey) {
+  const tools = ['images', 'pdf-word', 'pdf-excel', 'compress-pdf', 'excel-tools', 'images-pdf'];
+  tools.forEach(t => {
+    const ws = $('workspace-' + t);
+    if (ws) ws.classList.toggle('hidden', t !== toolKey);
+  });
+
+  document.querySelectorAll('.tool-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tool === toolKey);
+  });
+
+  playSynthTone(587.33, 'triangle', 0.08, 0.1);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+document.querySelectorAll('.tool-tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTool(btn.dataset.tool));
 });
 
 // --- FAQ Accordion ---
@@ -3156,7 +3342,41 @@ document.querySelectorAll('.faq-question').forEach(q => {
   });
 });
 
-// --- Screen & Step Navigation (Studio Wizard) ---
+function fmtBytes(n) {
+  if (!n || n <= 0) return '0 B';
+  const u = ['B', 'KB', 'MB', 'GB'];
+  let i = 0;
+  while (n >= 1024 && i < u.length - 1) {
+    n /= 1024;
+    i++;
+  }
+  return n.toFixed(i ? 1 : 0) + ' ' + u[i];
+}
+
+async function saveFile(filename, blob) {
+  try {
+    if (window.claude && window.claude.use) {
+      const downloads = await claude.use('downloads');
+      if (downloads) {
+        await downloads.save({ filename, data: blob });
+        return;
+      }
+    }
+  } catch (e) {}
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 6000);
+}
+
+// ==========================================================================
+// MODULE 1: IMAGE STUDIO (BULK CONVERSION & OPTIMIZATION)
+// ==========================================================================
 function show(id) {
   const screens = ['screen-upload', 'screen-ready', 'screen-processing', 'screen-results'];
   screens.forEach(s => $(s).classList.toggle('hidden', s !== id));
@@ -3175,7 +3395,6 @@ function show(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Allow clicking completed past steps to navigate back
 $('stepUpload').addEventListener('click', () => {
   if ($('stepUpload').classList.contains('completed')) {
     clearThumbnails();
@@ -3188,18 +3407,6 @@ $('stepReady').addEventListener('click', () => {
   }
 });
 
-function fmtBytes(n) {
-  if (!n || n <= 0) return '0 B';
-  const u = ['B', 'KB', 'MB', 'GB'];
-  let i = 0;
-  while (n >= 1024 && i < u.length - 1) {
-    n /= 1024;
-    i++;
-  }
-  return n.toFixed(i ? 1 : 0) + ' ' + u[i];
-}
-
-// --- Upload & File Selection Handlers ---
 $('btnSelectFolder').addEventListener('click', () => {
   playSynthTone(493.88, 'sine', 0.08, 0.12);
   $('fileInputFolder').click();
@@ -3229,6 +3436,17 @@ dropZone.addEventListener('drop', async e => {
   e.preventDefault();
   dropZone.classList.remove('dragover');
   const items = e.dataTransfer.items;
+  
+  // Smart redirect: if single PDF is dropped on Image Studio, switch to PDF tool!
+  if (items && items.length === 1 && items[0].kind === 'file') {
+    const f = items[0].getAsFile();
+    if (f && f.name.endsWith('.pdf')) {
+      switchTool('pdf-word');
+      handlePdfWordFile(f);
+      return;
+    }
+  }
+
   if (items && items[0] && items[0].webkitGetAsEntry) {
     const files = [];
     async function walk(entry, path) {
@@ -3263,7 +3481,6 @@ dropZone.addEventListener('drop', async e => {
   }
 });
 
-// Clear object URLs for previews
 function clearThumbnails() {
   thumbnailUrls.forEach(url => URL.revokeObjectURL(url));
   thumbnailUrls = [];
@@ -3321,7 +3538,6 @@ function handleFiles(fileList) {
   $('rSize').textContent = fmtBytes(totalSize);
   $('rUnsupported').textContent = unsupported;
 
-  // Render Format Pills
   const fmtsEl = $('rFmts');
   fmtsEl.innerHTML = '';
   Object.entries(fmtCounts).sort((a,b) => b[1] - a[1]).forEach(([k, v]) => {
@@ -3331,7 +3547,6 @@ function handleFiles(fileList) {
     fmtsEl.appendChild(c);
   });
 
-  // Render Sample Thumbnails (up to 16)
   const sampleItems = validImages.slice(0, 16);
   sampleItems.forEach(item => {
     const card = document.createElement('div');
@@ -3364,9 +3579,8 @@ function handleFiles(fileList) {
   show('screen-ready');
 }
 
-// --- Presets & Settings Logic ---
 function applyPreset(key) {
-  document.querySelectorAll('.preset-card').forEach(c => {
+  document.querySelectorAll('#presetsGrid .preset-card').forEach(c => {
     c.classList.toggle('active', c.dataset.preset === key);
   });
   if (key === 'custom') return;
@@ -3383,10 +3597,8 @@ function applyPreset(key) {
   playSynthTone(523.25, 'sine', 0.06, 0.1);
 }
 
-document.querySelectorAll('.preset-card').forEach(card => {
-  card.addEventListener('click', () => {
-    applyPreset(card.dataset.preset);
-  });
+document.querySelectorAll('#presetsGrid .preset-card').forEach(card => {
+  card.addEventListener('click', () => applyPreset(card.dataset.preset));
 });
 
 $('quality').addEventListener('input', e => {
@@ -3399,7 +3611,6 @@ $('maxW').addEventListener('input', markPresetCustom);
 $('maxH').addEventListener('input', markPresetCustom);
 $('metadata').addEventListener('change', markPresetCustom);
 
-// Quick dimension chips
 document.querySelectorAll('.dim-chip').forEach(chip => {
   chip.addEventListener('click', () => {
     $('resizeOn').checked = true;
@@ -3411,7 +3622,7 @@ document.querySelectorAll('.dim-chip').forEach(chip => {
 });
 
 function markPresetCustom() {
-  document.querySelectorAll('.preset-card').forEach(c => {
+  document.querySelectorAll('#presetsGrid .preset-card').forEach(c => {
     c.classList.toggle('active', c.dataset.preset === 'custom');
   });
 }
@@ -3424,7 +3635,6 @@ $('btnReset').addEventListener('click', () => {
   show('screen-upload');
 });
 
-// Output Path Resolver (Handles collisions)
 function outputPathFor(item, outExt) {
   let base = item.relativePath.replace(/\.[^/.]+$/, '') + '.' + outExt;
   let candidate = base;
@@ -3437,7 +3647,6 @@ function outputPathFor(item, outExt) {
   return candidate;
 }
 
-// --- Image Converter Engine ---
 async function convertImage(item, opts) {
   const bitmap = await createImageBitmap(item.file);
   let w = bitmap.width;
@@ -3473,7 +3682,6 @@ async function convertImage(item, opts) {
   return blob;
 }
 
-// --- Processing Pipeline ---
 let stats = { ok: 0, skip: 0, fail: 0, origBytes: 0, outBytes: 0, total: 0 };
 $('btnStart').addEventListener('click', startProcessing);
 
@@ -3575,7 +3783,6 @@ $('btnCancel').addEventListener('click', () => {
   cancelFlag = true;
 });
 
-// --- Results & Celebration ---
 function finishProcessing() {
   const saved = stats.origBytes - stats.outBytes;
   const reduction = stats.origBytes > 0 ? (saved / stats.origBytes * 100) : 0;
@@ -3604,7 +3811,6 @@ function finishProcessing() {
     playFanfare();
   }
 
-  // Populate Detailed Converted Files Table
   const tableBody = $('resultsTableBody');
   tableBody.innerHTML = '';
   manifest.forEach(item => {
@@ -3646,7 +3852,6 @@ function finishProcessing() {
   show('screen-results');
 }
 
-// Single file direct download helper
 window.downloadSingleFile = function(id) {
   const item = manifest.find(m => m.id === id);
   if (!item || !item.outputBlob) return;
@@ -3655,13 +3860,11 @@ window.downloadSingleFile = function(id) {
   saveFile(filename, item.outputBlob);
 };
 
-// Open comparison modal for a specific file id
 window.openCompareModalById = function(id) {
   const item = manifest.find(m => m.id === id);
   if (item && item.outputBlob) openCompareModal(item);
 };
 
-// --- Interactive Before / After Split-Screen Comparison Modal ---
 $('btnCompareSample').addEventListener('click', () => {
   const completedItem = manifest.find(m => m.status === 'completed' && m.outputBlob);
   if (!completedItem) return;
@@ -3675,7 +3878,6 @@ function openCompareModal(item) {
   $('compareBeforeSize').textContent = fmtBytes(item.size);
   $('compareAfterSize').textContent = fmtBytes(item.outputSize);
   
-  // Reset handle to center (50%)
   setCompareSplit(50);
   $('compareModal').classList.remove('hidden');
   playSynthTone(587.33, 'sine', 0.08, 0.1);
@@ -3685,7 +3887,6 @@ $('btnCloseCompare').addEventListener('click', () => {
   $('compareModal').classList.add('hidden');
 });
 
-// Interactive Splitter Dragging
 const compareViewport = $('compareViewport');
 const compareOverlay = $('compareOverlay');
 const compareHandle = $('compareHandle');
@@ -3703,20 +3904,16 @@ window.addEventListener('mousemove', e => {
   if (!isDraggingCompare) return;
   const rect = compareViewport.getBoundingClientRect();
   const x = e.clientX - rect.left;
-  const pct = (x / rect.width) * 100;
-  setCompareSplit(pct);
+  setCompareSplit((x / rect.width) * 100);
 });
 
-// Touch support for split slider
 compareViewport.addEventListener('touchmove', e => {
   if (!e.touches[0]) return;
   const rect = compareViewport.getBoundingClientRect();
   const x = e.touches[0].clientX - rect.left;
-  const pct = (x / rect.width) * 100;
-  setCompareSplit(pct);
+  setCompareSplit((x / rect.width) * 100);
 });
 
-// --- Enhanced Confetti + Fireworks Particles Animation ---
 function launchConfetti() {
   const canvas = $('confettiCanvas');
   const ctx = canvas.getContext('2d');
@@ -3725,8 +3922,6 @@ function launchConfetti() {
 
   const particles = [];
   const colors = ['#6366f1', '#a855f7', '#ec4899', '#10b981', '#f59e0b', '#06b6d4', '#d946ef'];
-  
-  // Confetti bursts
   for (let i = 0; i < 110; i++) {
     particles.push({
       x: canvas.width / 2 + (Math.random() - 0.5) * 260,
@@ -3749,7 +3944,7 @@ function launchConfetti() {
     particles.forEach(p => {
       p.x += p.vx;
       p.y += p.vy;
-      p.vy += 0.38; // gravity
+      p.vy += 0.38;
       p.vx *= 0.98;
       p.rotation += p.vRot;
       if (frames > 40) p.alpha -= 0.016;
@@ -3772,35 +3967,10 @@ function launchConfetti() {
       }
     });
     frames++;
-    if (active) {
-      requestAnimationFrame(draw);
-    } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    if (active) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
   requestAnimationFrame(draw);
-}
-
-// --- Download Handling ---
-async function saveFile(filename, blob) {
-  try {
-    if (window.claude && window.claude.use) {
-      const downloads = await claude.use('downloads');
-      if (downloads) {
-        await downloads.save({ filename, data: blob });
-        return;
-      }
-    }
-  } catch (e) {}
-
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 6000);
 }
 
 $('btnZip').addEventListener('click', async () => {
@@ -3842,7 +4012,661 @@ $('btnAgain').addEventListener('click', () => {
   show('screen-upload');
 });
 
-// Keyboard Shortcuts (Power User Accessibility)
+
+// ==========================================================================
+// MODULE 2: PDF TO WORD (.docx) CONVERTER ENGINE
+// ==========================================================================
+let currentWordBlob = null;
+let currentWordFilename = "converted-document.docx";
+
+$('btnSelectPdfWord').addEventListener('click', () => $('inputPdfWord').click());
+$('inputPdfWord').addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) handlePdfWordFile(e.target.files[0]);
+});
+
+const dropPdfWord = $('dropPdfWord');
+['dragenter', 'dragover'].forEach(ev => dropPdfWord.addEventListener(ev, e => { e.preventDefault(); dropPdfWord.classList.add('dragover'); }));
+['dragleave', 'drop'].forEach(ev => dropPdfWord.addEventListener(ev, e => { e.preventDefault(); dropPdfWord.classList.remove('dragover'); }));
+dropPdfWord.addEventListener('drop', e => {
+  e.preventDefault();
+  dropPdfWord.classList.remove('dragover');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) handlePdfWordFile(e.dataTransfer.files[0]);
+});
+
+async function handlePdfWordFile(file) {
+  if (!file.name.endsWith('.pdf')) {
+    alert('Please select a valid PDF file.');
+    return;
+  }
+
+  $('dropPdfWord').classList.add('hidden');
+  $('pdfWordProgress').classList.remove('hidden');
+  $('pdfWordResult').classList.add('hidden');
+  playSynthTone(587.33, 'triangle', 0.1, 0.12);
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const numPages = pdf.numPages;
+    const paragraphs = [];
+    let fullTextPreview = "";
+
+    for (let i = 1; i <= numPages; i++) {
+      const pct = Math.round((i / numPages) * 90);
+      $('pdfWordFill').style.width = pct + '%';
+      $('pdfWordPct').textContent = pct + '%';
+      $('pdfWordStatus').textContent = `Extracting page ${i} of ${numPages}…`;
+
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      
+      // Group items by vertical position
+      const lines = new Map();
+      textContent.items.forEach(item => {
+        const y = Math.round(item.transform[5] / 4) * 4;
+        if (!lines.has(y)) lines.set(y, []);
+        lines.get(y).push(item);
+      });
+
+      const sortedY = Array.from(lines.keys()).sort((a, b) => b - a);
+      sortedY.forEach(y => {
+        const items = lines.get(y).sort((a, b) => a.transform[4] - b.transform[4]);
+        const lineText = items.map(it => it.str).join(' ').trim();
+        if (lineText) {
+          const maxFontSize = Math.max(...items.map(it => it.height || 12));
+          const isHeading = maxFontSize >= 16;
+          paragraphs.push({
+            text: lineText,
+            isHeading1: maxFontSize >= 22,
+            isHeading2: isHeading && maxFontSize < 22,
+            isBold: isHeading
+          });
+          fullTextPreview += lineText + "\n";
+        }
+      });
+      // Page break separator in text
+      fullTextPreview += "\n";
+    }
+
+    $('pdfWordStatus').textContent = 'Packaging OpenXML .docx…';
+    currentWordBlob = await generateDocx(paragraphs);
+    currentWordFilename = file.name.replace(/\.[^/.]+$/, '') + '.docx';
+
+    $('pwPages').textContent = numPages;
+    $('pwParagraphs').textContent = paragraphs.length;
+    $('pwSize').textContent = fmtBytes(currentWordBlob.size);
+    $('pwTextPreview').textContent = fullTextPreview.slice(0, 1800) + (fullTextPreview.length > 1800 ? "\n\n… [Remaining content included in Word document]" : "");
+
+    $('pdfWordProgress').classList.add('hidden');
+    $('pdfWordResult').classList.remove('hidden');
+    playFanfare();
+  } catch (err) {
+    alert('Error reading PDF: ' + err.message);
+    $('pdfWordProgress').classList.add('hidden');
+    $('dropPdfWord').classList.remove('hidden');
+  }
+}
+
+$('btnDownloadWord').addEventListener('click', () => {
+  if (currentWordBlob) saveFile(currentWordFilename, currentWordBlob);
+});
+
+$('btnResetPdfWord').addEventListener('click', () => {
+  $('pdfWordResult').classList.add('hidden');
+  $('dropPdfWord').classList.remove('hidden');
+  $('inputPdfWord').value = '';
+});
+
+// Real OpenXML Word .docx compiler using JSZip
+async function generateDocx(paragraphs) {
+  const zip = new JSZip();
+
+  zip.file("[Content_Types].xml", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+  <Default Extension="xml" ContentType="application/xml"/>
+  <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+  <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
+</Types>`);
+
+  zip.file("_rels/.rels", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+</Relationships>`);
+
+  zip.file("word/_rels/document.xml.rels", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+</Relationships>`);
+
+  zip.file("word/styles.xml", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:docDefaults>
+    <w:rPrDefault>
+      <w:rPr>
+        <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+        <w:sz w:val="22"/>
+        <w:szCs w:val="22"/>
+      </w:rPr>
+    </w:rPrDefault>
+  </w:docDefaults>
+  <w:style w:type="paragraph" w:styleId="Heading1">
+    <w:name w:val="heading 1"/>
+    <w:pPr><w:spacing w:before="240" w:after="120"/></w:pPr>
+    <w:rPr><w:b/><w:sz w:val="32"/><w:color w:val="1F497D"/></w:rPr>
+  </w:style>
+  <w:style w:type="paragraph" w:styleId="Heading2">
+    <w:name w:val="heading 2"/>
+    <w:pPr><w:spacing w:before="180" w:after="80"/></w:pPr>
+    <w:rPr><w:b/><w:sz w:val="26"/><w:color w:val="595959"/></w:rPr>
+  </w:style>
+</w:styles>`);
+
+  let pXml = "";
+  for (const p of paragraphs) {
+    const textSafe = (p.text || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    if (!textSafe.trim()) continue;
+
+    let styleTag = "";
+    let rPr = "";
+    if (p.isHeading1) {
+      styleTag = `<w:pStyle w:val="Heading1"/>`;
+      rPr = `<w:rPr><w:b/><w:sz w:val="32"/></w:rPr>`;
+    } else if (p.isHeading2) {
+      styleTag = `<w:pStyle w:val="Heading2"/>`;
+      rPr = `<w:rPr><w:b/><w:sz w:val="26"/></w:rPr>`;
+    } else if (p.isBold) {
+      rPr = `<w:rPr><w:b/></w:rPr>`;
+    }
+
+    pXml += `<w:p><w:pPr>${styleTag}</w:pPr><w:r>${rPr}<w:t xml:space="preserve">${textSafe}</w:t></w:r></w:p>`;
+  }
+
+  zip.file("word/document.xml", `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:body>
+    ${pXml}
+    <w:sectPr>
+      <w:pgSz w:w="12240" w:h="15840"/>
+      <w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/>
+    </w:sectPr>
+  </w:body>
+</w:document>`);
+
+  return await zip.generateAsync({
+    type: "blob",
+    mimeType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  });
+}
+
+
+// ==========================================================================
+// MODULE 3: PDF TO EXCEL (.xlsx / .csv) ENGINE
+// ==========================================================================
+let currentExcelRows = [];
+let currentExcelFilename = "extracted-table.xlsx";
+
+$('btnSelectPdfExcel').addEventListener('click', () => $('inputPdfExcel').click());
+$('inputPdfExcel').addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) handlePdfExcelFile(e.target.files[0]);
+});
+
+const dropPdfExcel = $('dropPdfExcel');
+['dragenter', 'dragover'].forEach(ev => dropPdfExcel.addEventListener(ev, e => { e.preventDefault(); dropPdfExcel.classList.add('dragover'); }));
+['dragleave', 'drop'].forEach(ev => dropPdfExcel.addEventListener(ev, e => { e.preventDefault(); dropPdfExcel.classList.remove('dragover'); }));
+dropPdfExcel.addEventListener('drop', e => {
+  e.preventDefault();
+  dropPdfExcel.classList.remove('dragover');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) handlePdfExcelFile(e.dataTransfer.files[0]);
+});
+
+async function handlePdfExcelFile(file) {
+  if (!file.name.endsWith('.pdf')) {
+    alert('Please select a valid PDF file.');
+    return;
+  }
+
+  $('dropPdfExcel').classList.add('hidden');
+  $('pdfExcelProgress').classList.remove('hidden');
+  $('pdfExcelResult').classList.add('hidden');
+  playSynthTone(587.33, 'triangle', 0.1, 0.12);
+
+  try {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const numPages = pdf.numPages;
+    const allRows = [];
+
+    for (let i = 1; i <= numPages; i++) {
+      const pct = Math.round((i / numPages) * 90);
+      $('pdfExcelFill').style.width = pct + '%';
+      $('pdfExcelPct').textContent = pct + '%';
+      $('pdfExcelStatus').textContent = `Scanning tables on page ${i} of ${numPages}…`;
+
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      
+      const rowMap = new Map();
+      textContent.items.forEach(item => {
+        const y = Math.round(item.transform[5] / 6) * 6;
+        if (!rowMap.has(y)) rowMap.set(y, []);
+        rowMap.get(y).push(item);
+      });
+
+      const sortedY = Array.from(rowMap.keys()).sort((a, b) => b - a);
+      sortedY.forEach(y => {
+        const items = rowMap.get(y).sort((a, b) => a.transform[4] - b.transform[4]);
+        const cells = items.map(it => it.str.trim()).filter(Boolean);
+        if (cells.length > 0) allRows.push(cells);
+      });
+    }
+
+    currentExcelRows = allRows;
+    currentExcelFilename = file.name.replace(/\.[^/.]+$/, '');
+
+    const maxCols = Math.max(...allRows.map(r => r.length), 0);
+    $('peRows').textContent = allRows.length;
+    $('peCols').textContent = maxCols;
+
+    // Render Preview Table
+    const tableEl = $('peTablePreview');
+    tableEl.innerHTML = '';
+    const sampleRows = allRows.slice(0, 15);
+    sampleRows.forEach((row, idx) => {
+      const tr = document.createElement('tr');
+      row.forEach(cell => {
+        const td = document.createElement(idx === 0 ? 'th' : 'td');
+        td.textContent = cell;
+        tr.appendChild(td);
+      });
+      tableEl.appendChild(tr);
+    });
+
+    $('pdfExcelProgress').classList.add('hidden');
+    $('pdfExcelResult').classList.remove('hidden');
+    playFanfare();
+  } catch (err) {
+    alert('Error extracting tables: ' + err.message);
+    $('pdfExcelProgress').classList.add('hidden');
+    $('dropPdfExcel').classList.remove('hidden');
+  }
+}
+
+$('btnDownloadXlsx').addEventListener('click', () => {
+  if (!currentExcelRows.length) return;
+  const ws = XLSX.utils.aoa_to_sheet(currentExcelRows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Extracted");
+  const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  saveFile(`${currentExcelFilename}.xlsx`, new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+});
+
+$('btnDownloadCsv').addEventListener('click', () => {
+  if (!currentExcelRows.length) return;
+  const ws = XLSX.utils.aoa_to_sheet(currentExcelRows);
+  const csv = XLSX.utils.sheet_to_csv(ws);
+  saveFile(`${currentExcelFilename}.csv`, new Blob([csv], { type: 'text/csv' }));
+});
+
+$('btnResetPdfExcel').addEventListener('click', () => {
+  $('pdfExcelResult').classList.add('hidden');
+  $('dropPdfExcel').classList.remove('hidden');
+  $('inputPdfExcel').value = '';
+});
+
+
+// ==========================================================================
+// MODULE 4: PDF COMPRESSOR ENGINE
+// ==========================================================================
+let currentCompressFile = null;
+let compressedPdfBlob = null;
+let selectedCpPreset = 'balanced';
+
+$('btnSelectCompressPdf').addEventListener('click', () => $('inputCompressPdf').click());
+$('inputCompressPdf').addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) prepareCompressPdf(e.target.files[0]);
+});
+
+const dropCompressPdf = $('dropCompressPdf');
+['dragenter', 'dragover'].forEach(ev => dropCompressPdf.addEventListener(ev, e => { e.preventDefault(); dropCompressPdf.classList.add('dragover'); }));
+['dragleave', 'drop'].forEach(ev => dropCompressPdf.addEventListener(ev, e => { e.preventDefault(); dropCompressPdf.classList.remove('dragover'); }));
+dropCompressPdf.addEventListener('drop', e => {
+  e.preventDefault();
+  dropCompressPdf.classList.remove('dragover');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) prepareCompressPdf(e.dataTransfer.files[0]);
+});
+
+document.querySelectorAll('#compressPdfPresets .preset-card').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#compressPdfPresets .preset-card').forEach(p => p.classList.remove('active'));
+    c.classList.add('active');
+    selectedCpPreset = c.dataset.cp;
+    playSynthTone(523.25, 'sine', 0.06, 0.1);
+  });
+});
+
+function prepareCompressPdf(file) {
+  if (!file.name.endsWith('.pdf')) {
+    alert('Please select a valid PDF file.');
+    return;
+  }
+  currentCompressFile = file;
+  $('dropCompressPdf').classList.add('hidden');
+  $('pdfCompressConfig').classList.remove('hidden');
+  $('pdfCompressResult').classList.add('hidden');
+  playSynthTone(587.33, 'triangle', 0.1, 0.12);
+}
+
+$('btnResetCompressPdf').addEventListener('click', () => {
+  $('pdfCompressConfig').classList.add('hidden');
+  $('dropCompressPdf').classList.remove('hidden');
+  $('inputCompressPdf').value = '';
+});
+
+$('btnStartPdfCompress').addEventListener('click', async () => {
+  if (!currentCompressFile) return;
+
+  $('pdfCompressConfig').classList.add('hidden');
+  $('pdfCompressProgress').classList.remove('hidden');
+  playSynthTone(659.25, 'triangle', 0.15, 0.15);
+
+  try {
+    const arrayBuffer = await currentCompressFile.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    const newPdf = await PDFLib.PDFDocument.create();
+    const numPages = pdf.numPages;
+
+    let scale = 1.4;
+    let quality = 0.70;
+    if (selectedCpPreset === 'extreme') {
+      scale = 0.95;
+      quality = 0.50;
+    } else if (selectedCpPreset === 'high') {
+      scale = 1.8;
+      quality = 0.85;
+    }
+
+    for (let i = 1; i <= numPages; i++) {
+      const pct = Math.round((i / numPages) * 100);
+      $('pdfCompressFill').style.width = pct + '%';
+      $('pdfCompressPct').textContent = pct + '%';
+      $('pdfCompressStatus').textContent = `Re-encoding page ${i} of ${numPages}…`;
+
+      const page = await pdf.getPage(i);
+      const viewport = page.getViewport({ scale });
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      const jpgBlob = await new Promise(res => canvas.toBlob(res, 'image/jpeg', quality));
+      const jpgBytes = await jpgBlob.arrayBuffer();
+      const embeddedJpg = await newPdf.embedJpg(jpgBytes);
+
+      const origViewport = page.getViewport({ scale: 1.0 });
+      const newPage = newPdf.addPage([origViewport.width, origViewport.height]);
+      newPage.drawImage(embeddedJpg, {
+        x: 0,
+        y: 0,
+        width: origViewport.width,
+        height: origViewport.height
+      });
+    }
+
+    const compressedBytes = await newPdf.save();
+    compressedPdfBlob = new Blob([compressedBytes], { type: 'application/pdf' });
+
+    const origSize = currentCompressFile.size;
+    const outSize = compressedPdfBlob.size;
+    const saved = origSize - outSize;
+    const reduction = origSize > 0 ? (saved / origSize * 100) : 0;
+
+    $('cpOrig').textContent = fmtBytes(origSize);
+    $('cpOut').textContent = fmtBytes(outSize);
+    $('cpSaved').textContent = fmtBytes(Math.max(saved, 0));
+    $('cpReduction').textContent = (reduction >= 0 ? '−' : '+') + Math.abs(reduction).toFixed(1) + '%';
+    $('cpReduction').style.color = reduction >= 0 ? 'var(--ok)' : 'var(--warning)';
+
+    $('pdfCompressProgress').classList.add('hidden');
+    $('pdfCompressResult').classList.remove('hidden');
+    launchConfetti();
+    playFanfare();
+  } catch (err) {
+    alert('Compression error: ' + err.message);
+    $('pdfCompressProgress').classList.add('hidden');
+    $('pdfCompressConfig').classList.remove('hidden');
+  }
+});
+
+$('btnDownloadCompressedPdf').addEventListener('click', () => {
+  if (compressedPdfBlob) {
+    const filename = currentCompressFile.name.replace(/\.[^/.]+$/, '') + '-compressed.pdf';
+    saveFile(filename, compressedPdfBlob);
+  }
+});
+
+$('btnAgainCompressPdf').addEventListener('click', () => {
+  $('pdfCompressResult').classList.add('hidden');
+  $('dropCompressPdf').classList.remove('hidden');
+  $('inputCompressPdf').value = '';
+});
+
+
+// ==========================================================================
+// MODULE 5: EXCEL, CSV & DATA TOOLS ENGINE
+// ==========================================================================
+let currentLoadedWorkbook = null;
+let currentLoadedDataFile = null;
+
+$('btnSelectExcelTools').addEventListener('click', () => $('inputExcelTools').click());
+$('inputExcelTools').addEventListener('change', e => {
+  if (e.target.files && e.target.files[0]) handleExcelToolsFile(e.target.files[0]);
+});
+
+const dropExcelTools = $('dropExcelTools');
+['dragenter', 'dragover'].forEach(ev => dropExcelTools.addEventListener(ev, e => { e.preventDefault(); dropExcelTools.classList.add('dragover'); }));
+['dragleave', 'drop'].forEach(ev => dropExcelTools.addEventListener(ev, e => { e.preventDefault(); dropExcelTools.classList.remove('dragover'); }));
+dropExcelTools.addEventListener('drop', e => {
+  e.preventDefault();
+  dropExcelTools.classList.remove('dragover');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) handleExcelToolsFile(e.dataTransfer.files[0]);
+});
+
+async function handleExcelToolsFile(file) {
+  try {
+    currentLoadedDataFile = file;
+    const arrayBuffer = await file.arrayBuffer();
+    currentLoadedWorkbook = XLSX.read(arrayBuffer, { type: 'array' });
+    const sheetName = currentLoadedWorkbook.SheetNames[0];
+    const sheet = currentLoadedWorkbook.Sheets[sheetName];
+    const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+    $('excelLoadedName').textContent = `${file.name} (${fmtBytes(file.size)})`;
+
+    // Render Preview
+    const tableEl = $('excelDataPreview');
+    tableEl.innerHTML = '';
+    const sampleRows = rows.slice(0, 15);
+    sampleRows.forEach((row, idx) => {
+      const tr = document.createElement('tr');
+      row.forEach(cell => {
+        const td = document.createElement(idx === 0 ? 'th' : 'td');
+        td.textContent = cell !== undefined ? cell : '';
+        tr.appendChild(td);
+      });
+      tableEl.appendChild(tr);
+    });
+
+    $('dropExcelTools').classList.add('hidden');
+    $('excelToolsConfig').classList.remove('hidden');
+    playSynthTone(587.33, 'triangle', 0.1, 0.12);
+  } catch (err) {
+    alert('Error reading spreadsheet: ' + err.message);
+  }
+}
+
+$('btnConvertExcelData').addEventListener('click', () => {
+  if (!currentLoadedWorkbook) return;
+  const targetFmt = $('excelTargetFmt').value;
+  const baseName = currentLoadedDataFile.name.replace(/\.[^/.]+$/, '');
+  const sheet = currentLoadedWorkbook.Sheets[currentLoadedWorkbook.SheetNames[0]];
+
+  if (targetFmt === 'csv') {
+    const csv = XLSX.utils.sheet_to_csv(sheet);
+    saveFile(`${baseName}.csv`, new Blob([csv], { type: 'text/csv' }));
+  } else if (targetFmt === 'tsv') {
+    const tsv = XLSX.utils.sheet_to_csv(sheet, { FS: "\t" });
+    saveFile(`${baseName}.tsv`, new Blob([tsv], { type: 'text/tab-separated-values' }));
+  } else if (targetFmt === 'json') {
+    const json = XLSX.utils.sheet_to_json(sheet);
+    saveFile(`${baseName}.json`, new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' }));
+  } else if (targetFmt === 'xlsx') {
+    const buf = XLSX.write(currentLoadedWorkbook, { bookType: 'xlsx', type: 'array' });
+    saveFile(`${baseName}.xlsx`, new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+  }
+  playFanfare();
+});
+
+$('btnResetExcelTools').addEventListener('click', () => {
+  $('excelToolsConfig').classList.add('hidden');
+  $('dropExcelTools').classList.remove('hidden');
+  $('inputExcelTools').value = '';
+});
+
+
+// ==========================================================================
+// MODULE 6: IMAGES TO PDF ENGINE
+// ==========================================================================
+let imagesPdfList = [];
+
+$('btnSelectImagesPdf').addEventListener('click', () => $('inputImagesPdf').click());
+$('inputImagesPdf').addEventListener('change', e => {
+  if (e.target.files) handleImagesPdfFiles(e.target.files);
+});
+
+const dropImagesPdf = $('dropImagesPdf');
+['dragenter', 'dragover'].forEach(ev => dropImagesPdf.addEventListener(ev, e => { e.preventDefault(); dropImagesPdf.classList.add('dragover'); }));
+['dragleave', 'drop'].forEach(ev => dropImagesPdf.addEventListener(ev, e => { e.preventDefault(); dropImagesPdf.classList.remove('dragover'); }));
+dropImagesPdf.addEventListener('drop', e => {
+  e.preventDefault();
+  dropImagesPdf.classList.remove('dragover');
+  if (e.dataTransfer.files) handleImagesPdfFiles(e.dataTransfer.files);
+});
+
+function handleImagesPdfFiles(files) {
+  imagesPdfList = Array.from(files).filter(f => f.type.startsWith('image/'));
+  if (!imagesPdfList.length) {
+    alert('Please select valid image files.');
+    return;
+  }
+
+  $('imgPdfCount').textContent = imagesPdfList.length;
+  const reel = $('imgPdfReel');
+  reel.innerHTML = '';
+
+  imagesPdfList.slice(0, 16).forEach(f => {
+    const card = document.createElement('div');
+    card.className = 'thumbnail-card';
+    const box = document.createElement('div');
+    box.className = 'thumbnail-box';
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(f);
+    box.appendChild(img);
+    const span = document.createElement('span');
+    span.className = 'thumbnail-name';
+    span.textContent = f.name;
+    card.appendChild(box);
+    card.appendChild(span);
+    reel.appendChild(card);
+  });
+
+  $('dropImagesPdf').classList.add('hidden');
+  $('imagesPdfConfig').classList.remove('hidden');
+  $('imgPdfStatus').textContent = '';
+  playSynthTone(587.33, 'triangle', 0.1, 0.12);
+}
+
+$('btnResetImagesPdf').addEventListener('click', () => {
+  $('imagesPdfConfig').classList.add('hidden');
+  $('dropImagesPdf').classList.remove('hidden');
+  $('inputImagesPdf').value = '';
+  imagesPdfList = [];
+});
+
+$('btnGenerateImagesPdf').addEventListener('click', async () => {
+  if (!imagesPdfList.length) return;
+  $('btnGenerateImagesPdf').disabled = true;
+  $('imgPdfStatus').textContent = 'Generating PDF pages…';
+  playSynthTone(659.25, 'triangle', 0.12, 0.12);
+
+  try {
+    const pdfDoc = await PDFLib.PDFDocument.create();
+    const pageSizeOpt = $('pdfPageSize').value;
+    const orientationOpt = $('pdfOrientation').value;
+
+    for (let i = 0; i < imagesPdfList.length; i++) {
+      $('imgPdfStatus').textContent = `Embedding image ${i + 1} of ${imagesPdfList.length}…`;
+      const f = imagesPdfList[i];
+      const bytes = await f.arrayBuffer();
+      let img;
+
+      if (f.type === 'image/jpeg' || f.name.match(/\.jpe?g$/i)) {
+        img = await pdfDoc.embedJpg(bytes);
+      } else {
+        const bitmap = await createImageBitmap(f);
+        const canvas = document.createElement('canvas');
+        canvas.width = bitmap.width;
+        canvas.height = bitmap.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(bitmap, 0, 0);
+        const pngBlob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+        const pngBytes = await pngBlob.arrayBuffer();
+        img = await pdfDoc.embedPng(pngBytes);
+      }
+
+      let w = img.width;
+      let h = img.height;
+      let pageW = w, pageH = h;
+
+      if (pageSizeOpt === 'a4') {
+        pageW = 595.28;
+        pageH = 841.89;
+        if (orientationOpt === 'landscape' || (orientationOpt === 'auto' && w > h)) {
+          pageW = 841.89;
+          pageH = 595.28;
+        }
+        const scale = Math.min((pageW - 40) / w, (pageH - 40) / h);
+        w = w * scale;
+        h = h * scale;
+      }
+
+      const page = pdfDoc.addPage([pageW, pageH]);
+      const x = (pageW - w) / 2;
+      const y = (pageH - h) / 2;
+      page.drawImage(img, { x, y, width: w, height: h });
+    }
+
+    $('imgPdfStatus').textContent = 'Finalizing PDF document…';
+    const pdfBytes = await pdfDoc.save();
+    saveFile('merged-images.pdf', new Blob([pdfBytes], { type: 'application/pdf' }));
+    $('imgPdfStatus').innerHTML = '<span style="color:var(--ok); font-weight:700;">PDF generated and downloaded successfully.</span>';
+    launchConfetti();
+    playFanfare();
+  } catch (err) {
+    alert('Error generating PDF: ' + err.message);
+  } finally {
+    $('btnGenerateImagesPdf').disabled = false;
+  }
+});
+
+
+// ==========================================================================
+// GLOBAL SHORTCUTS & 3D TILT
+// ==========================================================================
 window.addEventListener('keydown', e => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
   if (e.key === 't' || e.key === 'T') {
@@ -3856,7 +4680,6 @@ window.addEventListener('keydown', e => {
   }
 });
 
-// 3D Tilt Micro-Interactions
 function init3DTilt() {
   const cards = document.querySelectorAll('.preset-card, .stat-card, .matrix-card, .pipeline-card');
   cards.forEach(card => {
