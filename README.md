@@ -2,9 +2,20 @@
 
 > **Lightning-Fast, 100% Private In-Browser Document, PDF, Spreadsheet & Image Studio**
 
-IMAGEOPS is an edge-native, zero-cloud bulk file conversion, compression, and document processing suite engineered for developers, professionals, accountants, designers, and privacy-conscious teams.
+IMAGEOPS is an edge-native, zero-cloud bulk file conversion, compression, and document processing workstation engineered for developers, professionals, accountants, designers, and privacy-conscious teams.
 
 All processing occurs **100% client-side** in your browser using modern Web APIs (`PDF.js`, `pdf-lib`, `SheetJS`, `JSZip`, `OffscreenCanvas`, and Web Workers). Your documents, spreadsheets, PDFs, and images never touch an external server. Zero uploads. Zero telemetry. Complete data confidentiality.
+
+---
+
+## Executive Design & Interface Architecture
+
+- **Expansive 1540px Pro Workstation**: Optimized for wide modern monitors with multi-column dual-pane workbenches, giving side-by-side access to source file queues, live inspectors, and precision control decks.
+- **Minimalist Executive Aesthetic**: Crafted with quiet discipline—obsidian & titanium monochrome surfaces, hairline 1px borders, subtle glassmorphic blur, and zero garish neon noise.
+- **Hardware & Sandbox Telemetry Ribbon**: Real-time status indicators monitoring logical CPU concurrency, in-memory buffers, 0-byte outbound network isolation, and library pipeline versions.
+- **Interactive Data Grid & Live Filter**: Real-time row filtering and columnar indexing across multi-sheet Excel and CSV datasets.
+- **Zero Emojis**: 100% vector SVG iconography for an authentic, high-end developer and enterprise aesthetic.
+- **Full Mobile Responsiveness**: Seamless adaptive layouts scaling smoothly down to 320px smartphones.
 
 ---
 
@@ -12,7 +23,7 @@ All processing occurs **100% client-side** in your browser using modern Web APIs
 
 ### 1. Bulk Image Studio
 - **Modern Formats**: WebP, AVIF, JPEG, PNG, GIF, BMP, TIFF.
-- **Conversion & Compression**: Custom quality sliders, max width/height resizing, aspect ratio locking, and EXIF/metadata stripping.
+- **Dual-Pane Pro Workbench**: Side-by-side source reel metrics and sticky control deck with target codec selection, quality slider, and max resolution scaling (4K, 2K, 1080p, 1:1).
 - **Visual Quality Inspector**: Interactive before-and-after split-screen comparison slider powered by GPU-accelerated CSS `clip-path`.
 - **Batch Export**: Preserves folder directory structures and packages results into memory-buffered ZIP archives.
 
@@ -26,12 +37,12 @@ All processing occurs **100% client-side** in your browser using modern Web APIs
 
 ### 4. PDF Size Compressor
 - **Client-Side Optimization**: Compresses oversized scanned PDFs, presentations, and documents right in the browser.
-- **Custom Density & Quality Presets**: Select from Web/Email (96 DPI, 50% quality), Balanced (150 DPI, 70% quality), or High-Res Print (200 DPI, 85% quality).
+- **Custom Density & Quality Presets**: Select from Web/Email (72 DPI), Balanced Office (150 DPI), or High-Res Print (200 DPI).
 - **Real-Time Size Audit**: Displays before vs after byte counts and compression reduction percentages.
 
 ### 5. Excel & CSV Data Tools
 - **Bidirectional Format Conversion**: Convert seamlessly between `.xlsx`, `.xls`, `.csv`, `.tsv`, and `.json`.
-- **Live Spreadsheet Inspector**: In-browser paginated table viewer with sheet selection tabs, row counting, and instant format exporting.
+- **Live Spreadsheet Inspector**: In-browser paginated table viewer with real-time row search, row counting, and instant format exporting.
 
 ### 6. Images to PDF Merger
 - **Document Assembly**: Combine collections of JPG, PNG, WebP, and AVIF photos into a single, polished PDF document.

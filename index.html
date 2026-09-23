@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Universal 100% private in-browser image, PDF and document conversion suite. No server uploads.">
-<title>ImageOps — Universal In-Browser Document & Image Studio</title>
+<title>IMAGEOPS — Universal In-Browser Document & Image Studio</title>
 
 <!-- In-Browser Document & Image Processing Engines -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -18,110 +18,98 @@
 
 <style>
 /* ==========================================================================
-   IMAGEOPS UNIVERSAL DESIGN SYSTEM — ANIMATED & COLOURFUL
+   IMAGEOPS PRO DESIGN SYSTEM — 20+ YRS PRINCIPAL ARCHITECT GRADE
+   Minimalist, Expansive (1540px), High-Density Technical Telemetry
    ========================================================================== */
 :root {
   --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', Menlo, Consolas, monospace;
 
-  /* Cosmic Dark Theme (Default) */
-  --bg-app: #08090f;
-  --bg-gradient: radial-gradient(circle at 50% 0%, #17152f 0%, #0d0e17 55%, #06070a 100%);
-  --surface: rgba(18, 20, 32, 0.75);
-  --surface-elevated: rgba(28, 32, 52, 0.85);
-  --surface-hover: rgba(42, 48, 76, 0.7);
-  --surface-card: rgba(255, 255, 255, 0.035);
-  --surface-glass: rgba(255, 255, 255, 0.05);
+  /* Obsidian Executive Dark Theme */
+  --bg-app: #08090d;
+  --bg-gradient: radial-gradient(1200px circle at 50% -120px, rgba(99, 102, 241, 0.08), transparent 70%);
+  --surface: rgba(14, 17, 24, 0.85);
+  --surface-elevated: #151923;
+  --surface-hover: rgba(30, 36, 51, 0.8);
+  --surface-card: rgba(255, 255, 255, 0.02);
+  --surface-glass: rgba(18, 22, 33, 0.7);
   
-  --border: rgba(255, 255, 255, 0.1);
-  --border-light: rgba(255, 255, 255, 0.05);
-  --border-focus: rgba(99, 102, 241, 0.8);
-  --border-rainbow: linear-gradient(135deg, rgba(99,102,241,0.5), rgba(217,70,239,0.5), rgba(6,182,212,0.5));
+  --border: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.04);
+  --border-focus: rgba(99, 102, 241, 0.7);
   
   --text: #f8fafc;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
   
-  /* Vibrant Colour Palette */
+  /* Restrained, Purposeful Accents */
   --accent-primary: #6366f1;
-  --accent-secondary: #a855f7;
-  --accent-fuchsia: #d946ef;
-  --accent-cyan: #06b6d4;
-  --accent-emerald: #10b981;
-  --accent-amber: #f59e0b;
-  --accent-rose: #f43f5e;
-  
-  --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
-  --accent-gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
-  --accent-gradient-emerald: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
-  --accent-gradient-fire: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-  --accent-glow: rgba(99, 102, 241, 0.35);
-  --accent-glow-cyan: rgba(6, 182, 212, 0.35);
-  --accent-glow-fuchsia: rgba(217, 70, 239, 0.35);
+  --accent-secondary: #4f46e5;
+  --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  --accent-glow: rgba(99, 102, 241, 0.22);
   
   --ok: #10b981;
-  --ok-glow: rgba(16, 185, 129, 0.35);
-  --ok-bg: rgba(16, 185, 129, 0.12);
+  --ok-glow: rgba(16, 185, 129, 0.22);
+  --ok-bg: rgba(16, 185, 129, 0.08);
   
   --danger: #f43f5e;
-  --danger-glow: rgba(244, 63, 94, 0.35);
-  --danger-bg: rgba(244, 63, 94, 0.12);
+  --danger-glow: rgba(244, 63, 94, 0.22);
+  --danger-bg: rgba(244, 63, 94, 0.08);
   
   --warning: #f59e0b;
-  --warning-bg: rgba(245, 158, 11, 0.12);
+  --warning-bg: rgba(245, 158, 11, 0.08);
 
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 12px 30px -6px rgba(0, 0, 0, 0.45), 0 8px 16px -6px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 24px 48px -10px rgba(0, 0, 0, 0.6), 0 12px 20px -8px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 30px var(--accent-glow);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 48px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
+  --shadow-glow: 0 0 24px var(--accent-glow);
   
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --radius-xl: 30px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
   --radius-full: 9999px;
-  --transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-spring: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 [data-theme="light"] {
-  --bg-app: #f4f6fc;
-  --bg-gradient: radial-gradient(circle at 50% 0%, #eef2ff 0%, #e2e8f5 65%, #cbd5e8 100%);
-  --surface: rgba(255, 255, 255, 0.85);
+  --bg-app: #f8fafc;
+  --bg-gradient: radial-gradient(1200px circle at 50% -120px, rgba(99, 102, 241, 0.05), transparent 70%);
+  --surface: rgba(255, 255, 255, 0.88);
   --surface-elevated: #ffffff;
   --surface-hover: rgba(241, 245, 253, 0.95);
-  --surface-card: rgba(0, 0, 0, 0.025);
-  --surface-glass: rgba(255, 255, 255, 0.6);
+  --surface-card: rgba(15, 23, 42, 0.02);
+  --surface-glass: rgba(255, 255, 255, 0.7);
   
-  --border: rgba(0, 0, 0, 0.08);
-  --border-light: rgba(0, 0, 0, 0.04);
+  --border: rgba(15, 23, 42, 0.08);
+  --border-light: rgba(15, 23, 42, 0.04);
   --border-focus: rgba(99, 102, 241, 0.8);
-  --border-rainbow: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(217,70,239,0.3), rgba(6,182,212,0.3));
   
   --text: #0f172a;
   --text-muted: #475569;
   --text-dim: #94a3b8;
   
-  --accent-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #db2777 100%);
-  --accent-glow: rgba(79, 70, 229, 0.22);
-  --accent-glow-cyan: rgba(6, 182, 212, 0.22);
-  --accent-glow-fuchsia: rgba(217, 70, 239, 0.22);
+  --accent-primary: #4f46e5;
+  --accent-secondary: #6366f1;
+  --accent-gradient: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+  --accent-glow: rgba(79, 70, 229, 0.16);
   
   --ok: #059669;
-  --ok-glow: rgba(5, 150, 105, 0.25);
-  --ok-bg: rgba(5, 150, 105, 0.1);
+  --ok-glow: rgba(5, 150, 105, 0.18);
+  --ok-bg: rgba(5, 150, 105, 0.08);
   
   --danger: #e11d48;
-  --danger-glow: rgba(225, 29, 72, 0.25);
-  --danger-bg: rgba(225, 29, 72, 0.1);
+  --danger-glow: rgba(225, 29, 72, 0.18);
+  --danger-bg: rgba(225, 29, 72, 0.08);
   
   --warning: #d97706;
-  --warning-bg: rgba(217, 119, 6, 0.1);
+  --warning-bg: rgba(217, 119, 6, 0.08);
 
-  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 12px 30px -6px rgba(0, 0, 0, 0.08), 0 6px 12px -4px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 24px 48px -10px rgba(0, 0, 0, 0.12), 0 10px 18px -6px rgba(0, 0, 0, 0.06);
-  --shadow-glow: 0 0 24px rgba(79, 70, 229, 0.18);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 48px -10px rgba(0, 0, 0, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  --shadow-glow: 0 0 20px rgba(79, 70, 229, 0.14);
 }
 
 * {
@@ -139,71 +127,18 @@ body {
   color: var(--text);
   min-height: 100vh;
   line-height: 1.5;
-  padding: 24px 16px 64px;
+  padding: 24px 32px 80px;
   position: relative;
   overflow-x: hidden;
-  transition: background 0.35s ease, color 0.35s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Background animated aurora orbs */
-.aurora-bg {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.aurora-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.55;
-  animation: floatOrb 22s infinite alternate ease-in-out;
-}
-
-.aurora-orb-1 {
-  width: 600px; height: 500px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(168, 85, 247, 0.1) 70%, transparent 100%);
-  top: -150px; left: 20%;
-  animation-duration: 24s;
-}
-
-.aurora-orb-2 {
-  width: 500px; height: 450px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.28) 0%, rgba(59, 130, 246, 0.1) 70%, transparent 100%);
-  top: 30%; right: -100px;
-  animation-duration: 20s;
-  animation-delay: -5s;
-}
-
-.aurora-orb-3 {
-  width: 550px; height: 450px;
-  background: radial-gradient(circle, rgba(217, 70, 239, 0.25) 0%, rgba(244, 63, 94, 0.1) 70%, transparent 100%);
-  bottom: -100px; left: 5%;
-  animation-duration: 26s;
-  animation-delay: -10s;
-}
-
-.aurora-orb-4 {
-  width: 450px; height: 400px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%);
-  top: 60%; left: 50%;
-  animation-duration: 18s;
-  animation-delay: -3s;
-}
-
-@keyframes floatOrb {
-  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  50% { transform: translate(60px, 40px) scale(1.12) rotate(180deg); }
-  100% { transform: translate(-40px, -50px) scale(0.92) rotate(360deg); }
-}
-
+/* Precision Microscopic Dot Matrix Overlay */
 .grid-overlay {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
   mask-image: radial-gradient(ellipse at 50% 20%, black 40%, transparent 85%);
   -webkit-mask-image: radial-gradient(ellipse at 50% 20%, black 40%, transparent 85%);
   pointer-events: none;
@@ -211,24 +146,25 @@ body {
 }
 
 [data-theme="light"] .grid-overlay {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px);
 }
 
+/* EXPANSIVE WIDESCREEN WORKSTATION CONTAINER */
 .wrap {
-  max-width: 920px;
+  max-width: 1540px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
 /* ==========================================================================
-   HEADER & ACTIONS
+   HEADER & EXECUTIVE ACTIONS
    ========================================================================== */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
   gap: 16px;
 }
@@ -243,44 +179,29 @@ body {
 }
 
 .logo-icon {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-md);
   background: var(--accent-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 20px var(--accent-glow);
+  box-shadow: 0 4px 16px var(--accent-glow);
   color: #ffffff;
   flex-shrink: 0;
   transition: var(--transition-spring);
-  position: relative;
-  overflow: hidden;
-}
-
-.logo-icon::after {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%; width: 200%; height: 200%;
-  background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%);
-  transform: rotate(30deg);
-  animation: logoShine 4s infinite ease-in-out;
-}
-
-@keyframes logoShine {
-  0%, 70% { transform: translateX(-150%) rotate(30deg); }
-  100% { transform: translateX(150%) rotate(30deg); }
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .brand-wrapper:hover .logo-icon {
-  transform: rotate(-8deg) scale(1.08);
-  box-shadow: 0 8px 28px var(--accent-glow);
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 6px 20px var(--accent-glow);
 }
 
 .brand-title {
-  font-size: 28px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   display: flex;
   align-items: center;
   gap: 3px;
@@ -288,35 +209,29 @@ body {
 }
 
 .brand-title .slash {
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 900;
-  animation: pulseHue 8s infinite alternate;
-}
-
-@keyframes pulseHue {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(45deg); }
+  color: var(--accent-primary);
+  font-weight: 800;
 }
 
 .brand-badge {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(99, 102, 241, 0.12);
   color: #818cf8;
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  border: 1px solid rgba(99, 102, 241, 0.25);
   padding: 2px 7px;
   border-radius: var(--radius-full);
-  margin-left: 6px;
+  margin-left: 8px;
   vertical-align: middle;
 }
 
 [data-theme="light"] .brand-badge {
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(99, 102, 241, 0.08);
   color: #4f46e5;
+  border-color: rgba(99, 102, 241, 0.2);
 }
 
 .brand-sub {
@@ -338,15 +253,15 @@ body {
   backdrop-filter: blur(16px);
   color: var(--text-muted);
   font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   padding: 8px 16px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
   gap: 7px;
   text-decoration: none;
-  transition: var(--transition-spring);
+  transition: var(--transition);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
 }
@@ -355,8 +270,7 @@ body {
   background: var(--surface-hover);
   color: var(--text);
   border-color: var(--accent-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px var(--accent-glow);
+  transform: translateY(-1px);
 }
 
 .privacy-badge {
@@ -378,15 +292,14 @@ body {
 .privacy-badge:hover {
   border-color: var(--accent-primary);
   color: var(--text);
-  transform: translateY(-1px);
 }
 
 .radar-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--ok);
-  box-shadow: 0 0 10px var(--ok);
+  box-shadow: 0 0 8px var(--ok);
   position: relative;
 }
 
@@ -417,28 +330,79 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition-spring);
+  transition: var(--transition);
   box-shadow: var(--shadow-sm);
 }
 
 .action-icon-btn:hover {
   background: var(--surface-hover);
-  transform: translateY(-2px) scale(1.05);
+  transform: translateY(-1px);
   border-color: var(--border-focus);
 }
 
-.action-icon-btn:active {
-  transform: scale(0.95);
+/* ==========================================================================
+   SYSTEM TELEMETRY DIAGNOSTICS RIBBON
+   ========================================================================== */
+.telemetry-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 9px 18px;
+  background: var(--surface-glass);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  margin-bottom: 22px;
+  backdrop-filter: blur(16px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.telemetry-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.telemetry-label {
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 10px;
+}
+
+.telemetry-val {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.telemetry-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+  display: inline-block;
+  box-shadow: 0 0 6px var(--ok);
+}
+
+.telemetry-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--border);
+  flex-shrink: 0;
 }
 
 /* ==========================================================================
-   TOOL HUB NAVIGATION BAR (HORIZONTAL SCROLL ON MOBILE)
+   TOOL HUB NAVIGATION BAR (SEGMENTED CONTROL)
    ========================================================================== */
 .tool-nav-bar {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   overflow-x: auto;
-  padding: 6px;
+  padding: 5px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -457,17 +421,17 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 18px;
+  padding: 9px 18px;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   background: transparent;
   color: var(--text-muted);
   font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: var(--transition-spring);
+  transition: var(--transition);
   user-select: none;
 }
 
@@ -483,38 +447,39 @@ body {
 .tool-tab-btn.active {
   background: var(--accent-gradient);
   color: #ffffff;
-  box-shadow: 0 4px 14px var(--accent-glow);
+  box-shadow: 0 2px 10px var(--accent-glow);
+  font-weight: 700;
 }
 
 /* ==========================================================================
-   CARD PANELS & CONTAINERS
+   CARD PANELS & EXPANSIVE PRO-WORKBENCH GRID
    ========================================================================== */
 .card-panel {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  padding: 36px;
+  padding: 32px 36px;
   backdrop-filter: blur(28px) saturate(190%);
   box-shadow: var(--shadow-lg);
   margin-bottom: 28px;
   position: relative;
   overflow: hidden;
-  animation: cardFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardFadeUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes cardFadeUp {
-  from { opacity: 0; transform: translateY(14px) scale(0.99); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .panel-header {
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .panel-title {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   color: var(--text);
   display: flex;
   align-items: center;
@@ -522,20 +487,110 @@ body {
 }
 
 .panel-desc {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
-  margin-top: 5px;
+  margin-top: 4px;
   line-height: 1.5;
 }
 
+/* Pro Dual-Pane Workbench Grid */
+.pro-workbench-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(380px, 450px);
+  gap: 32px;
+  align-items: start;
+}
+
+.pro-source-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pro-control-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
 /* ==========================================================================
-   BUTTONS & BADGES
+   STEPPER PROGRESS BAR
+   ========================================================================== */
+.steps-container {
+  display: flex;
+  gap: 8px;
+  background: var(--surface-card);
+  padding: 6px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  margin-bottom: 24px;
+}
+
+.step-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  background: transparent;
+  transition: var(--transition);
+  cursor: default;
+}
+
+.step-item.active {
+  background: var(--surface-elevated);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  font-weight: 700;
+}
+
+.step-item.completed {
+  color: var(--ok);
+  cursor: pointer;
+}
+
+.step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--border);
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.step-item.active .step-num {
+  background: var(--accent-primary);
+  color: #ffffff;
+}
+
+.step-item.completed .step-num {
+  background: var(--ok);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   BUTTONS & CONTROLS
    ========================================================================== */
 .btn {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  padding: 11px 22px;
+  padding: 10px 20px;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   cursor: pointer;
@@ -543,7 +598,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: var(--transition-spring);
+  transition: var(--transition);
   user-select: none;
   text-decoration: none;
   position: relative;
@@ -551,40 +606,42 @@ body {
 }
 
 .btn:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
 .btn-primary {
   background: var(--accent-gradient);
   color: #ffffff;
-  box-shadow: 0 6px 20px var(--accent-glow);
+  box-shadow: 0 4px 14px var(--accent-glow);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 8px 28px var(--accent-glow);
-  transform: translateY(-2px);
-}
-
-.btn-cyan {
-  background: var(--accent-gradient-cyan);
-  color: #ffffff;
-  box-shadow: 0 6px 20px var(--accent-glow-cyan);
-}
-
-.btn-cyan:hover {
-  box-shadow: 0 8px 28px var(--accent-glow-cyan);
-  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--accent-glow);
+  transform: translateY(-1px);
 }
 
 .btn-emerald {
-  background: var(--accent-gradient-emerald);
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
   color: #ffffff;
-  box-shadow: 0 6px 20px var(--ok-glow);
+  box-shadow: 0 4px 14px var(--ok-glow);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .btn-emerald:hover {
-  box-shadow: 0 8px 28px var(--ok-glow);
-  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--ok-glow);
+  transform: translateY(-1px);
+}
+
+.btn-cyan {
+  background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-cyan:hover {
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
@@ -597,7 +654,7 @@ body {
 .btn-secondary:hover {
   background: var(--surface-hover);
   border-color: var(--text-muted);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .btn-danger {
@@ -609,65 +666,50 @@ body {
 .btn-danger:hover {
   background: var(--danger);
   color: #ffffff;
-  box-shadow: 0 6px 20px var(--danger-glow);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .btn:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
 }
 
 .btn-lg {
-  padding: 15px 32px;
-  font-size: 16px;
-  font-weight: 800;
+  padding: 13px 26px;
+  font-size: 14px;
+  font-weight: 700;
   border-radius: var(--radius-md);
 }
 
 /* ==========================================================================
-   DROPZONES
+   MINIMALIST PRECISION DROPZONES
    ========================================================================== */
 .dropzone {
-  border: 2px dashed var(--border);
+  border: 1.5px dashed var(--border);
   border-radius: var(--radius-lg);
-  padding: 56px 24px;
+  padding: 56px 28px;
   text-align: center;
   background: var(--surface-card);
   cursor: pointer;
-  transition: var(--transition-spring);
+  transition: var(--transition);
   position: relative;
   overflow: hidden;
 }
 
-.dropzone::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 75%);
-  opacity: 0;
-  transition: var(--transition);
-  pointer-events: none;
-}
-
 .dropzone:hover, .dropzone.dragover {
   border-color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.05);
-  transform: translateY(-3px) scale(1.005);
-  box-shadow: 0 16px 36px -8px var(--accent-glow);
-}
-
-.dropzone.dragover::before {
-  opacity: 1;
+  background: rgba(99, 102, 241, 0.03);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -8px var(--accent-glow);
 }
 
 .drop-icon-wrap {
-  width: 74px;
-  height: 74px;
-  margin: 0 auto 18px;
-  border-radius: var(--radius-full);
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: var(--radius-md);
   background: var(--surface-elevated);
   border: 1px solid var(--border);
   display: flex;
@@ -675,225 +717,97 @@ body {
   justify-content: center;
   color: var(--accent-primary);
   box-shadow: var(--shadow-sm);
-  transition: var(--transition-spring);
-  position: relative;
+  transition: var(--transition);
 }
 
 .dropzone:hover .drop-icon-wrap, .dropzone.dragover .drop-icon-wrap {
-  transform: scale(1.15) translateY(-4px);
+  transform: translateY(-2px) scale(1.05);
   border-color: var(--accent-primary);
-  box-shadow: 0 0 28px var(--accent-glow);
   color: #ffffff;
   background: var(--accent-gradient);
 }
 
 .drop-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
+  letter-spacing: -0.02em;
   color: var(--text);
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .drop-subtitle {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 22px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .drop-buttons {
-  display: flex;
+  display: inline-flex;
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 22px;
 }
 
 .formats-row {
   display: flex;
-  gap: 8px;
   justify-content: center;
+  gap: 7px;
+  margin-top: 24px;
   flex-wrap: wrap;
-  align-items: center;
-  margin-top: 16px;
 }
 
 .fmt-chip {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  padding: 5px 11px;
-  border-radius: var(--radius-full);
-  background: var(--surface-card);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-  transition: var(--transition-spring);
-}
-
-.fmt-chip:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.fmt-chip.fmt-webp { border-color: rgba(16,185,129,0.4); color: #10b981; }
-.fmt-chip.fmt-avif { border-color: rgba(217,70,239,0.4); color: #d946ef; }
-.fmt-chip.fmt-png { border-color: rgba(6,182,212,0.4); color: #06b6d4; }
-.fmt-chip.fmt-jpg { border-color: rgba(245,158,11,0.4); color: #f59e0b; }
-.fmt-chip.fmt-gif { border-color: rgba(168,85,247,0.4); color: #a855f7; }
-.fmt-chip.fmt-pdf { border-color: rgba(239,68,68,0.4); color: #ef4444; }
-.fmt-chip.fmt-docx { border-color: rgba(59,130,246,0.4); color: #3b82f6; }
-.fmt-chip.fmt-xlsx { border-color: rgba(16,185,129,0.4); color: #10b981; }
-
-/* ==========================================================================
-   STEPPER PROGRESS BAR (STUDIO)
-   ========================================================================== */
-.steps-container {
-  display: flex;
-  position: relative;
-  margin-bottom: 24px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 8px;
-  backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-md);
-  gap: 6px;
-}
-
-.step-item {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: var(--radius-md);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text-dim);
-  transition: var(--transition);
-  position: relative;
-  text-align: center;
-  user-select: none;
-  cursor: default;
-}
-
-.step-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 800;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  transition: var(--transition-spring);
-}
-
-[data-theme="light"] .step-num {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.step-item.active {
+  padding: 3px 9px;
+  border-radius: var(--radius-sm);
   background: var(--surface-elevated);
-  color: var(--text);
-  box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
-}
-
-.step-item.active .step-num {
-  background: var(--accent-gradient);
-  border-color: transparent;
-  color: #ffffff;
-  box-shadow: 0 0 14px var(--accent-glow);
-  transform: scale(1.1);
-}
-
-.step-item.completed {
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-.step-item.completed:hover {
-  color: var(--text);
-  background: var(--surface-hover);
-}
-
-.step-item.completed .step-num {
-  background: var(--ok);
-  border-color: transparent;
-  color: #ffffff;
-  box-shadow: 0 0 10px var(--ok-glow);
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
 }
 
 /* ==========================================================================
-   STATS CARDS GRID
+   STATS METRICS GRID
    ========================================================================== */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 14px;
-  margin-bottom: 24px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
 .stat-card {
-  background: var(--surface-card);
+  background: var(--surface-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 16px 18px;
-  position: relative;
-  transition: var(--transition-spring);
-  overflow: hidden;
-}
-
-.stat-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 4px; height: 100%;
-  background: var(--accent-gradient);
-  opacity: 0.8;
-}
-
-.stat-card:hover {
-  background: var(--surface-elevated);
-  border-color: var(--border-focus);
-  transform: translateY(-3px);
+  padding: 14px 18px;
   box-shadow: var(--shadow-sm);
 }
 
 .stat-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  margin-bottom: 4px;
 }
 
 .stat-value {
-  font-size: 24px;
-  font-weight: 800;
   font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
   color: var(--text);
   letter-spacing: -0.02em;
 }
 
 /* ==========================================================================
-   PREVIEWS & PRESETS
+   SOURCE REEL & PREVIEW CONTAINER
    ========================================================================== */
 .preview-container {
-  margin-bottom: 24px;
-  background: var(--surface-card);
+  background: var(--surface-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 18px;
@@ -903,299 +817,238 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
+  margin-bottom: 12px;
 }
 
 .preview-reel {
-  display: flex;
-  gap: 14px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scrollbar-width: thin;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  padding: 2px;
 }
 
-.preview-reel::-webkit-scrollbar {
-  height: 6px;
-}
-.preview-reel::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 3px;
-}
-
-.thumbnail-card {
-  width: 96px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-.thumbnail-box {
-  width: 96px;
-  height: 80px;
-  border-radius: var(--radius-sm);
-  background: var(--surface-elevated);
-  border: 1px solid var(--border);
+.reel-item {
+  background: var(--surface-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
-  transition: var(--transition-spring);
+  transition: var(--transition);
 }
 
-.thumbnail-card:hover .thumbnail-box {
-  transform: scale(1.05);
+.reel-item:hover {
   border-color: var(--accent-primary);
-  box-shadow: 0 4px 14px var(--accent-glow);
+  transform: translateY(-2px);
 }
 
-.thumbnail-box img {
+.reel-thumb {
   width: 100%;
-  height: 100%;
+  height: 90px;
   object-fit: cover;
+  display: block;
 }
 
-.thumbnail-name {
-  font-size: 11px;
+.reel-meta {
+  padding: 6px 8px;
   font-family: var(--font-mono);
+  font-size: 10px;
   color: var(--text-muted);
-  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: center;
 }
 
-/* Presets Grid */
-.preset-section {
-  margin-bottom: 24px;
+/* Quality Inspection Teaser Card */
+.inspector-teaser-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.section-label {
+.inspector-teaser-title {
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text);
-  margin-bottom: 12px;
+}
+
+.inspector-teaser-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   OPTIMIZATION PRESETS GRID
+   ========================================================================== */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 10px;
   display: block;
-  letter-spacing: 0.02em;
 }
 
 .presets-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(136px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
 }
 
 .preset-card {
-  background: var(--surface-card);
+  background: var(--surface-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 12px 14px;
   cursor: pointer;
-  transition: var(--transition-spring);
-  text-align: left;
+  transition: var(--transition);
   user-select: none;
-  position: relative;
-  overflow: hidden;
 }
 
 .preset-card:hover {
   border-color: var(--border-focus);
   background: var(--surface-hover);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-sm);
 }
 
 .preset-card.active {
-  background: var(--surface-elevated);
   border-color: var(--accent-primary);
-  box-shadow: 0 0 18px var(--accent-glow);
-}
-
-.preset-card.active::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: var(--accent-gradient);
+  background: rgba(99, 102, 241, 0.08);
+  box-shadow: 0 0 0 1px var(--accent-primary);
 }
 
 .preset-name {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--text);
-  margin-bottom: 4px;
   display: flex;
   align-items: center;
   gap: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
 }
 
 .preset-icon {
   color: var(--accent-primary);
   flex-shrink: 0;
-  transition: transform 0.2s ease;
 }
 
-.preset-card:hover .preset-icon {
-  transform: scale(1.15);
-}
-
-.preset-card.active .preset-icon {
-  color: #ffffff;
+.preset-card.active .preset-name {
+  color: var(--accent-primary);
 }
 
 .preset-desc {
   font-size: 11px;
-  color: var(--text-muted);
-  line-height: 1.35;
+  color: var(--text-dim);
+  line-height: 1.3;
 }
 
-/* Settings Grid */
+/* ==========================================================================
+   SETTINGS GRID & FORMS
+   ========================================================================== */
 .settings-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  background: var(--surface-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  gap: 6px;
 }
 
 .form-label {
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 600;
   color: var(--text-muted);
-  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 .badge-val {
   font-family: var(--font-mono);
-  background: var(--accent-gradient);
-  color: #ffffff;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
   font-size: 11px;
   font-weight: 700;
-  box-shadow: 0 2px 8px var(--accent-glow);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  color: var(--accent-primary);
 }
 
 select, input[type="number"], input[type="text"] {
-  width: 100%;
-  padding: 11px 14px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
   background: var(--surface-elevated);
+  border: 1px solid var(--border);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 13px;
+  padding: 9px 12px;
+  border-radius: var(--radius-md);
   outline: none;
   transition: var(--transition);
+  width: 100%;
 }
 
 select:focus, input[type="number"]:focus, input[type="text"]:focus {
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px var(--accent-glow);
+  box-shadow: 0 0 0 1px var(--accent-primary);
 }
 
-/* Slider */
 .slider-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  padding: 4px 0;
 }
 
 input[type="range"] {
   -webkit-appearance: none;
-  appearance: none;
   width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.12);
+  height: 6px;
   border-radius: var(--radius-full);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
   outline: none;
-  accent-color: var(--accent-primary);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-[data-theme="light"] input[type="range"] {
-  background: rgba(0, 0, 0, 0.1);
 }
 
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: var(--accent-gradient);
+  background: var(--accent-primary);
   cursor: pointer;
-  box-shadow: 0 0 12px var(--accent-glow);
-  transition: transform 0.15s ease;
+  box-shadow: 0 0 8px var(--accent-glow);
+  transition: var(--transition);
   border: 2px solid #ffffff;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.25);
-}
-
-.dim-chips {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.dim-chip {
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  background: var(--surface-elevated);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.dim-chip:hover {
-  border-color: var(--accent-primary);
-  color: var(--text);
-  background: var(--surface-hover);
+  transform: scale(1.15);
 }
 
 .switch-label {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   cursor: pointer;
-  user-select: none;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 42px;
-  height: 24px;
-  flex-shrink: 0;
+  width: 36px;
+  height: 20px;
 }
 
 .switch input {
@@ -1208,38 +1061,68 @@ input[type="range"]::-webkit-slider-thumb:hover {
   position: absolute;
   cursor: pointer;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-color: var(--border);
-  transition: var(--transition);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border);
+  transition: .24s;
   border-radius: 34px;
 }
 
 .slider-toggle:before {
   position: absolute;
   content: "";
-  height: 18px;
-  width: 18px;
+  height: 12px;
+  width: 12px;
   left: 3px;
   bottom: 3px;
-  background-color: white;
-  transition: var(--transition);
+  background-color: var(--text-dim);
+  transition: .24s;
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 input:checked + .slider-toggle {
-  background: var(--accent-gradient);
-  box-shadow: 0 0 12px var(--accent-glow);
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
 }
 
 input:checked + .slider-toggle:before {
-  transform: translateX(18px);
+  transform: translateX(16px);
+  background-color: #ffffff;
+}
+
+.dim-chips {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.dim-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.dim-chip:hover {
+  border-color: var(--accent-primary);
+  color: var(--text);
 }
 
 /* ==========================================================================
-   PROGRESS GAUGES & TICKERS
+   PROGRESS CONTAINERS
    ========================================================================== */
 .progress-container {
-  margin: 24px 0 32px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 20px;
 }
 
 .progress-header {
@@ -1250,30 +1133,25 @@ input:checked + .slider-toggle:before {
 }
 
 .progress-pct {
-  font-size: 40px;
-  font-weight: 900;
   font-family: var(--font-mono);
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  line-height: 1;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
 }
 
 .progress-counts {
   font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 12px;
+  color: var(--text-dim);
 }
 
 .progress-bar {
-  height: 14px;
-  background: var(--surface-card);
-  border: 1px solid var(--border);
+  height: 8px;
   border-radius: var(--radius-full);
+  background: var(--surface-card);
   overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid var(--border-light);
 }
 
 .progress-fill {
@@ -1281,143 +1159,122 @@ input:checked + .slider-toggle:before {
   width: 0%;
   background: var(--accent-gradient);
   border-radius: var(--radius-full);
-  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  box-shadow: 0 0 18px var(--accent-glow);
-}
-
-.progress-fill::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.4) 50%, transparent 100%);
-  animation: shimmer 1.5s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  transition: width 0.2s linear;
 }
 
 .current-file-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   background: var(--surface-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 14px 18px;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
 }
 
 .spinner-pulse {
   width: 14px;
   height: 14px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent-primary);
   border-radius: 50%;
-  background: var(--accent-primary);
-  box-shadow: 0 0 10px var(--accent-primary);
-  animation: pulse-ring 1.4s infinite;
+  animation: spin 0.8s linear infinite;
   flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .current-file-text {
   font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text);
-  word-break: break-all;
+  font-size: 12px;
+  color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 /* ==========================================================================
-   RESULTS HERO & TABLES
+   RESULTS HERO & DATA TABLES
    ========================================================================== */
 .results-hero {
   text-align: center;
-  padding: 32px 20px 36px;
-  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.14) 0%, transparent 75%);
-  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 24px 20px;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   margin-bottom: 24px;
-  position: relative;
 }
 
 .hero-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 18px;
-  background: var(--ok-bg);
-  border: 1px solid var(--ok);
-  border-radius: var(--radius-full);
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
   color: var(--ok);
-  font-weight: 800;
-  font-size: 13px;
-  margin-bottom: 14px;
-  box-shadow: 0 0 16px var(--ok-glow);
+  background: var(--ok-bg);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 10px;
 }
 
 .hero-saving-number {
-  font-size: 56px;
-  font-weight: 900;
   font-family: var(--font-mono);
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--ok);
   letter-spacing: -0.04em;
-  color: var(--text);
   line-height: 1.1;
-  margin-bottom: 6px;
 }
 
 .hero-saving-subtitle {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 13px;
   color: var(--text-muted);
+  margin-top: 4px;
 }
 
 .savings-bar-container {
-  margin: 26px auto 0;
-  max-width: 480px;
+  max-width: 440px;
+  margin: 18px auto 0;
 }
 
 .savings-bar-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
   font-family: var(--font-mono);
-  font-weight: 600;
-  color: var(--text-muted);
-  margin-bottom: 8px;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 6px;
 }
 
 .savings-bar-track {
-  height: 12px;
-  background: rgba(255, 255, 255, 0.12);
+  height: 6px;
   border-radius: var(--radius-full);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
   overflow: hidden;
-  display: flex;
-}
-
-[data-theme="light"] .savings-bar-track {
-  background: rgba(0, 0, 0, 0.08);
 }
 
 .savings-bar-after {
   height: 100%;
   background: var(--ok);
-  box-shadow: 0 0 12px var(--ok-glow);
-  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px var(--ok-glow);
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Tables & Drawers */
+/* EXPANSIVE INTERACTIVE RESULTS & SPREADSHEET TABLE */
 .results-table-wrap {
-  margin-top: 24px;
+  margin-top: 20px;
   background: var(--surface-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 16px;
-  max-height: 340px;
-  overflow-y: auto;
-  overflow-x: auto;
+  max-height: 380px;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -1425,22 +1282,29 @@ input:checked + .slider-toggle:before {
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
-  min-width: 520px;
+  min-width: 600px;
+}
+
+.results-table thead {
+  position: sticky;
+  top: 0;
+  background: var(--surface-elevated);
+  z-index: 2;
 }
 
 .results-table th {
   text-align: left;
-  padding: 10px 12px;
+  padding: 10px 14px;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
   border-bottom: 1px solid var(--border);
 }
 
 .results-table td {
-  padding: 10px 12px;
+  padding: 9px 14px;
   border-bottom: 1px solid var(--border-light);
   font-family: var(--font-mono);
   font-size: 12px;
@@ -1454,7 +1318,7 @@ input:checked + .slider-toggle:before {
   background: var(--surface-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 18px;
   font-family: var(--font-mono);
   font-size: 12px;
   line-height: 1.6;
@@ -1470,381 +1334,60 @@ input:checked + .slider-toggle:before {
   background: var(--danger-bg);
   border: 1px solid var(--danger);
   border-radius: var(--radius-md);
-  padding: 18px;
+  padding: 16px;
   margin-top: 20px;
 }
 
 .error-list {
-  max-height: 160px;
+  max-height: 140px;
   overflow-y: auto;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11px;
   margin-top: 10px;
-}
-
-.error-list div {
-  padding: 4px 0;
-  border-bottom: 1px solid rgba(244, 63, 94, 0.2);
+  color: var(--text-muted);
 }
 
 /* ==========================================================================
-   ABOUT & ARCHITECTURE SECTION
+   QUALITY COMPARISON MODAL
    ========================================================================== */
-.about-section-wrap {
-  margin-top: 40px;
-}
-
-.about-hero {
-  text-align: center;
-  padding: 36px 20px 40px;
-  position: relative;
-  margin-bottom: 28px;
-}
-
-.about-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  border-radius: var(--radius-full);
-  color: #818cf8;
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-
-[data-theme="light"] .about-pill {
-  color: #4f46e5;
-}
-
-.about-title {
-  font-size: 36px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.about-title-grad {
-  background: var(--accent-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.about-subtitle {
-  font-size: 16px;
-  color: var(--text-muted);
-  max-width: 650px;
-  margin: 0 auto 26px;
-  line-height: 1.6;
-}
-
-.about-feature-badges {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.feature-badge-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--text);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-spring);
-}
-
-.feature-badge-item svg {
-  color: var(--accent-primary);
-}
-
-.feature-badge-item:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-primary);
-  box-shadow: 0 4px 14px var(--accent-glow);
-}
-
-.pipeline-section {
-  margin-bottom: 40px;
-}
-
-.pipeline-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-  margin-top: 18px;
-}
-
-.pipeline-card {
-  background: var(--surface-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 22px;
-  position: relative;
-  transition: var(--transition-spring);
-}
-
-.pipeline-card:hover {
-  background: var(--surface-elevated);
-  border-color: var(--accent-primary);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-.pipeline-step-badge {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--accent-primary);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  display: inline-block;
-}
-
-.pipeline-card h3 {
-  font-size: 16px;
-  font-weight: 800;
-  margin-bottom: 8px;
-  color: var(--text);
-}
-
-.pipeline-card p {
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
-/* Format Matrix */
-.matrix-section {
-  margin-bottom: 40px;
-}
-
-.matrix-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-top: 18px;
-}
-
-.matrix-card {
-  background: var(--surface-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  position: relative;
-  transition: var(--transition-spring);
-}
-
-.matrix-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-sm);
-}
-
-.matrix-card.m-webp { border-top: 3px solid #10b981; }
-.matrix-card.m-avif { border-top: 3px solid #d946ef; }
-.matrix-card.m-pdf  { border-top: 3px solid #ef4444; }
-.matrix-card.m-doc  { border-top: 3px solid #3b82f6; }
-
-.matrix-fmt-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.matrix-fmt-title {
-  font-size: 18px;
-  font-weight: 800;
-  font-family: var(--font-mono);
-}
-
-.matrix-ratio {
-  font-size: 12px;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  background: rgba(255,255,255,0.06);
-}
-
-.matrix-list {
-  list-style: none;
-  font-size: 12px;
-  color: var(--text-muted);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.matrix-list li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.list-svg { flex-shrink: 0; }
-.ok-svg { color: var(--ok); }
-.fail-svg { color: var(--danger); }
-.star-svg { color: var(--accent-amber); }
-
-/* Privacy manifesto */
-.privacy-manifesto {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  margin-bottom: 40px;
-}
-
-.privacy-manifesto-title {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--ok);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.privacy-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
-}
-
-.privacy-item {
-  display: flex;
-  gap: 12px;
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.45;
-}
-
-.privacy-icon-box {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--ok-bg);
-  border: 1px solid var(--ok);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: var(--ok);
-  margin-top: 2px;
-}
-
-.privacy-item b {
-  color: var(--text);
-  display: block;
-}
-
-/* FAQ Accordion */
-.faq-section {
-  margin-bottom: 40px;
-}
-
-.faq-item {
-  background: var(--surface-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  margin-bottom: 10px;
-  overflow: hidden;
-  transition: var(--transition);
-}
-
-.faq-item:hover {
-  border-color: var(--border-focus);
-}
-
-.faq-question {
-  padding: 16px 20px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--text);
-  user-select: none;
-}
-
-.faq-answer {
-  padding: 0 20px 16px;
-  font-size: 14px;
-  color: var(--text-muted);
-  line-height: 1.55;
-  display: none;
-}
-
-.faq-item.open .faq-answer { display: block; }
-.faq-item.open .faq-icon { transform: rotate(180deg); }
-.faq-icon { transition: var(--transition); }
-
-/* Modal */
-.modal-overlay {
+.compare-modal {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
-  z-index: 1000;
+  z-index: 100;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  animation: fadeIn 0.25s ease-out;
+  padding: 24px;
 }
 
-.modal-content {
-  background: var(--surface-elevated);
+.compare-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+}
+
+.compare-card {
+  position: relative;
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  max-width: 800px;
+  padding: 28px;
+  max-width: 820px;
   width: 100%;
-  padding: 24px;
   box-shadow: var(--shadow-lg);
-  position: relative;
+  z-index: 101;
 }
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-}
-
-.modal-title { font-size: 18px; font-weight: 800; }
-.modal-close-btn {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 4px;
-  border-radius: var(--radius-sm);
-  display: flex;
-}
-.modal-close-btn:hover { color: var(--text); }
 
 .compare-viewport {
   position: relative;
   width: 100%;
-  height: 440px;
-  overflow: hidden;
+  height: 380px;
+  background: #000000;
   border-radius: var(--radius-md);
-  user-select: none;
-  background: #050508;
-  --split: 50%;
+  overflow: hidden;
+  margin: 18px 0;
+  cursor: ew-resize;
 }
 
 .compare-img {
@@ -1852,189 +1395,294 @@ input:checked + .slider-toggle:before {
   top: 0; left: 0;
   width: 100%; height: 100%;
   object-fit: contain;
+  user-select: none;
   pointer-events: none;
 }
 
-.compare-overlay {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  width: 100%; height: 100%;
-  clip-path: inset(0 calc(100% - var(--split, 50%)) 0 0);
-  pointer-events: none;
-}
-
-.compare-overlay img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  pointer-events: none;
+.compare-img-after {
+  clip-path: inset(0 0 0 50%);
 }
 
 .compare-handle {
   position: absolute;
   top: 0; bottom: 0;
   left: 50%;
-  width: 3px;
+  width: 2px;
   background: #ffffff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  cursor: ew-resize;
-  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+  pointer-events: none;
 }
 
-.compare-handle-btn {
+.compare-handle:after {
+  content: '';
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 34px; height: 34px;
+  width: 28px; height: 28px;
   border-radius: 50%;
   background: #ffffff;
-  color: #000000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
 /* ==========================================================================
-   MOBILE RESPONSIVENESS
+   ABOUT & ARCHITECTURE SECTION
    ========================================================================== */
-@media (max-width: 768px) {
-  body { padding: 14px 12px 48px; }
-  .wrap { max-width: 100%; }
+.about-section-wrap {
+  margin-top: 48px;
+}
 
-  .header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-    margin-bottom: 18px;
-  }
+.about-hero {
+  text-align: center;
+  max-width: 840px;
+  margin: 0 auto 36px;
+}
 
-  .brand-wrapper { justify-content: flex-start; }
-  .brand-title { font-size: 24px; }
+.about-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent-primary);
+  background: rgba(99, 102, 241, 0.1);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 12px;
+}
 
-  .header-actions {
-    justify-content: space-between;
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+.about-title {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
 
-  .nav-anchor-btn { padding: 6px 12px; font-size: 12px; }
-  .privacy-badge { padding: 6px 10px; font-size: 11px; }
+.about-title-grad {
+  color: var(--accent-primary);
+}
 
-  .tool-nav-bar {
-    gap: 6px;
-    padding: 4px;
-    margin-bottom: 18px;
-  }
+.about-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 10px;
+  line-height: 1.6;
+}
 
-  .tool-tab-btn {
-    padding: 8px 14px;
-    font-size: 12px;
-  }
+.about-feature-badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
 
-  .card-panel {
-    padding: 22px 14px;
-    border-radius: var(--radius-lg);
-    margin-bottom: 20px;
-  }
+.feature-badge-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+}
 
-  .panel-title {
-    font-size: 18px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
 
-  .steps-container {
-    padding: 6px;
-    gap: 4px;
-    margin-bottom: 20px;
-  }
+.pipeline-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: var(--transition);
+}
 
-  .step-item {
-    padding: 8px 6px;
-    font-size: 11px;
-    gap: 4px;
-  }
+.pipeline-card:hover {
+  border-color: var(--border-focus);
+  transform: translateY(-2px);
+}
 
-  .step-item span:not(.step-num) { display: none; }
-  .step-item.active span:not(.step-num) { display: inline-block; }
-  .step-num { width: 22px; height: 22px; font-size: 10px; }
+.pipeline-step-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  display: block;
+}
 
-  .dropzone { padding: 36px 14px; }
-  .drop-icon-wrap { width: 60px; height: 60px; margin-bottom: 14px; }
-  .drop-icon-wrap svg { width: 28px; height: 28px; }
-  .drop-title { font-size: 17px; }
-  .drop-subtitle { font-size: 13px; margin-bottom: 20px; }
+.pipeline-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
 
-  .drop-buttons {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-  }
+.pipeline-card p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
 
-  .drop-buttons .btn {
-    width: 100%;
-    padding: 13px 18px;
-    font-size: 14px;
-  }
+.pipeline-card code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--surface-card);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: var(--text);
+}
 
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
 
-  .presets-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
+.matrix-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px;
+}
 
-  .settings-grid {
-    grid-template-columns: 1fr;
-    padding: 16px 14px;
-    gap: 16px;
-  }
+.matrix-card h4 {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
 
-  select, input[type="number"], input[type="text"] {
-    font-size: 16px;
-    padding: 10px 12px;
-  }
+.matrix-card p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
 
-  .flex-row input[type="number"] { width: 100%; }
-  .progress-pct { font-size: 32px; }
-  .hero-saving-number { font-size: 42px; }
+.privacy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
 
-  .compare-viewport { height: 260px; }
-  .about-title { font-size: 26px; }
-  .pipeline-grid, .matrix-grid, .privacy-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
+.privacy-card {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.privacy-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.privacy-card p {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.faq-item {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.faq-question {
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.faq-answer {
+  padding: 0 18px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  display: none;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+.faq-arrow {
+  transition: transform 0.2s ease;
+}
+
+.faq-item.open .faq-arrow {
+  transform: rotate(180deg);
+}
+
+.shortcuts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 14px;
+}
+
+.shortcuts-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.kbd-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+  display: inline-block;
 }
 
 footer {
   text-align: center;
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-dim);
-  margin-top: 40px;
+  margin-top: 48px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: center;
 }
 
-.footer-shield {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 600;
-  color: var(--text-muted);
-}
-
 .hidden { display: none !important; }
 .flex-row {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
   align-items: center;
 }
@@ -2046,46 +1694,101 @@ footer {
   pointer-events: none;
   z-index: 999;
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .pro-workbench-grid {
+    grid-template-columns: 1fr;
+  }
+  .pipeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .matrix-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .privacy-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  body { padding: 14px 14px 48px; }
+  .wrap { max-width: 100%; }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .header-actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .telemetry-ribbon {
+    font-size: 10px;
+    padding: 8px 12px;
+    gap: 12px;
+  }
+
+  .card-panel {
+    padding: 22px 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .presets-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pipeline-grid, .matrix-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dropzone { padding: 36px 16px; }
+  .drop-buttons { width: 100%; }
+  .drop-buttons .btn { width: 100%; }
+  .hero-saving-number { font-size: 36px; }
+}
 </style>
 </head>
 <body>
 <canvas id="confettiCanvas"></canvas>
-
-<!-- Animated Aurora Mesh Orbs -->
-<div class="aurora-bg">
-  <div class="aurora-orb aurora-orb-1"></div>
-  <div class="aurora-orb aurora-orb-2"></div>
-  <div class="aurora-orb aurora-orb-3"></div>
-  <div class="aurora-orb aurora-orb-4"></div>
-</div>
 <div class="grid-overlay"></div>
 
 <div class="wrap">
   <!-- Header with Brand & Actions -->
   <header class="header">
-    <div class="brand-wrapper" id="brandHome" title="ImageOps Studio">
+    <div class="brand-wrapper" id="brandHome" title="IMAGEOPS Executive Studio">
       <div class="logo-icon">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
           <path d="m8 17 4-4 4 4"></path>
           <path d="M12 13v9"></path>
         </svg>
       </div>
       <div>
-        <h1 class="brand-title">Image<span class="slash">/</span>Ops <span class="brand-badge">PRO</span></h1>
-        <p class="brand-sub">Universal in-browser image, PDF & document studio</p>
+        <h1 class="brand-title">IMAGE<span class="slash">/</span>OPS <span class="brand-badge">v2.4 PRO</span></h1>
+        <p class="brand-sub">Universal in-browser document, PDF, spreadsheet & image workstation</p>
       </div>
     </div>
     
     <div class="header-actions">
       <!-- Quick Anchor Jump to About Section -->
-      <a href="#section-about" class="nav-anchor-btn" id="linkToAbout" title="Learn About ImageOps">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <a href="#section-about" class="nav-anchor-btn" id="linkToAbout" title="System Architecture & Privacy Verification">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"></circle>
           <line x1="12" y1="16" x2="12" y2="12"></line>
           <line x1="12" y1="8" x2="12.01" y2="8"></line>
         </svg>
-        About & Architecture
+        Architecture & Specs
       </a>
 
       <div class="privacy-badge">
@@ -2094,13 +1797,13 @@ footer {
       </div>
 
       <!-- Synthesized Audio Feedback Toggle -->
-      <button class="action-icon-btn" id="soundToggle" title="Toggle Synthesized Audio FX" aria-label="Toggle Sound">
-        <svg id="soundIconOn" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button class="action-icon-btn" id="soundToggle" title="Toggle Synthesized Audio FX (Press M)" aria-label="Toggle Sound">
+        <svg id="soundIconOn" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
           <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
           <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
         </svg>
-        <svg id="soundIconOff" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+        <svg id="soundIconOff" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
           <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
           <line x1="23" y1="9" x2="17" y2="15"></line>
           <line x1="17" y1="9" x2="23" y2="15"></line>
@@ -2108,8 +1811,8 @@ footer {
       </button>
 
       <!-- Theme Switcher -->
-      <button class="action-icon-btn" id="themeToggle" title="Toggle Theme" aria-label="Toggle Theme">
-        <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
+      <button class="action-icon-btn" id="themeToggle" title="Toggle Dark/Light Theme (Press T)" aria-label="Toggle Theme">
+        <svg id="themeIconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v2"></path>
           <path d="M12 20v2"></path>
@@ -2120,27 +1823,51 @@ footer {
           <path d="m6.34 17.66-1.41 1.41"></path>
           <path d="m19.07 4.93-1.41 1.41"></path>
         </svg>
-        <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg id="themeIconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
       </button>
     </div>
   </header>
 
-  <!-- ==========================================================================
-       TOOL HUB NAVIGATION BAR
-       ========================================================================== -->
+  <!-- High-Density System Telemetry Ribbon -->
+  <div class="telemetry-ribbon">
+    <div class="telemetry-item">
+      <span class="telemetry-dot"></span>
+      <span class="telemetry-label">Sandbox Security:</span>
+      <span class="telemetry-val">100% In-Memory / Air-Gapped</span>
+    </div>
+    <div class="telemetry-divider"></div>
+    <div class="telemetry-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/></svg>
+      <span class="telemetry-label">Compute Concurrency:</span>
+      <span class="telemetry-val" id="coreCountVal">Hardware Accelerated</span>
+    </div>
+    <div class="telemetry-divider"></div>
+    <div class="telemetry-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span class="telemetry-label">Network I/O:</span>
+      <span class="telemetry-val">0 KB Outbound / Zero-Cloud</span>
+    </div>
+    <div class="telemetry-divider"></div>
+    <div class="telemetry-item">
+      <span class="telemetry-label">Engine Stack:</span>
+      <span class="telemetry-val">PDF.js 3.11 · PDF-Lib 1.17 · SheetJS 0.18 · JSZip 3.10</span>
+    </div>
+  </div>
+
+  <!-- TOOL HUB NAVIGATION BAR -->
   <nav class="tool-nav-bar" id="toolNav">
     <button class="tool-tab-btn active" data-tool="images">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
         <circle cx="9" cy="9" r="2"></circle>
         <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
       </svg>
-      <span>Images</span>
+      <span>Bulk Image Studio</span>
     </button>
     <button class="tool-tab-btn" data-tool="pdf-word">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
         <polyline points="14 2 14 8 20 8"></polyline>
         <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -2149,7 +1876,7 @@ footer {
       <span>PDF to Word</span>
     </button>
     <button class="tool-tab-btn" data-tool="pdf-excel">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
         <polyline points="14 2 14 8 20 8"></polyline>
         <path d="M8 13h8"></path>
@@ -2159,7 +1886,7 @@ footer {
       <span>PDF to Excel</span>
     </button>
     <button class="tool-tab-btn" data-tool="compress-pdf">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="4 14 10 14 10 20"></polyline>
         <polyline points="20 10 14 10 14 4"></polyline>
         <line x1="14" y1="10" x2="21" y2="3"></line>
@@ -2168,7 +1895,7 @@ footer {
       <span>Compress PDF</span>
     </button>
     <button class="tool-tab-btn" data-tool="excel-tools">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
         <line x1="3" y1="9" x2="21" y2="9"></line>
         <line x1="3" y1="15" x2="21" y2="15"></line>
@@ -2178,7 +1905,7 @@ footer {
       <span>Excel & CSV</span>
     </button>
     <button class="tool-tab-btn" data-tool="images-pdf">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
         <path d="M6 6h10"></path>
         <path d="M6 10h10"></path>
@@ -2215,24 +1942,24 @@ footer {
     <main id="screen-upload" class="card-panel">
       <div class="dropzone" id="drop">
         <div class="drop-icon-wrap">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
             <circle cx="9" cy="9" r="2"></circle>
             <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
           </svg>
         </div>
-        <h2 class="drop-title">Drop your folder or image files here</h2>
-        <p class="drop-subtitle">High-speed batch processing directly in your GPU & CPU memory. Zero network uploads.</p>
+        <h2 class="drop-title">Drop your image folders or individual files</h2>
+        <p class="drop-subtitle">High-throughput batch conversion executed 100% in-browser via WebAssembly & OffscreenCanvas.</p>
 
         <div class="drop-buttons">
           <button class="btn btn-primary btn-lg" id="btnSelectFolder" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path>
             </svg>
             Select Folder
           </button>
           <button class="btn btn-secondary btn-lg" id="btnSelectFiles" type="button">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
             </svg>
@@ -2244,11 +1971,11 @@ footer {
         <input type="file" id="fileInputFiles" multiple accept="image/*,.jpg,.jpeg,.png,.webp,.gif,.bmp,.tiff,.avif" class="hidden">
 
         <div class="formats-row">
-          <span class="fmt-chip fmt-webp">WEBP</span>
-          <span class="fmt-chip fmt-avif">AVIF</span>
-          <span class="fmt-chip fmt-jpg">JPG</span>
-          <span class="fmt-chip fmt-png">PNG</span>
-          <span class="fmt-chip fmt-gif">GIF</span>
+          <span class="fmt-chip">WEBP</span>
+          <span class="fmt-chip">AVIF</span>
+          <span class="fmt-chip">JPEG</span>
+          <span class="fmt-chip">PNG</span>
+          <span class="fmt-chip">GIF</span>
           <span class="fmt-chip">BMP</span>
           <span class="fmt-chip">TIFF</span>
         </div>
@@ -2256,196 +1983,198 @@ footer {
       <div id="unsupportedMsg" class="panel-desc hidden" style="color:var(--danger); text-align:center; margin-top:14px; font-weight:700;"></div>
     </main>
 
-    <!-- SCREEN 2: READY & CONFIGURE -->
+    <!-- SCREEN 2: READY & CONFIGURE (EXPANSIVE 2-COLUMN PRO-WORKBENCH) -->
     <section id="screen-ready" class="card-panel hidden">
       <div class="panel-header">
         <h2 class="panel-title">
-          <span>Batch Configuration</span>
+          <span>Batch Configuration & Tuning</span>
           <button class="btn btn-secondary" id="btnReset" style="font-size:12px; padding:6px 14px;">Change Source</button>
         </h2>
-        <p class="panel-desc">Review your images and choose your optimization preset or fine-tune codecs</p>
+        <p class="panel-desc">Configure target format, compression ratios, and dimension scaling</p>
       </div>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Images Found</div>
-          <div class="stat-value" id="rFiles">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Folders</div>
-          <div class="stat-value" id="rFolders">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Total Size</div>
-          <div class="stat-value" id="rSize">0 MB</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Skipped</div>
-          <div class="stat-value" id="rUnsupported">0</div>
-        </div>
-      </div>
-
-      <div class="preview-container" id="previewContainer">
-        <div class="preview-header">
-          <span>Source Reel (Sample Preview)</span>
-          <div id="rFmts" class="flex-row"></div>
-        </div>
-        <div class="preview-reel" id="previewReel"></div>
-      </div>
-
-      <!-- Presets -->
-      <div class="preset-section">
-        <label class="section-label">Optimization Presets</label>
-        <div class="presets-grid" id="presetsGrid">
-          <div class="preset-card active" data-preset="web">
-            <div class="preset-name">
-              <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" y1="12" x2="22" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-              </svg>
-              <span>Web Optimized</span>
+      <div class="pro-workbench-grid">
+        <!-- LEFT COLUMN: Source Metrics, Breakdown & Reel -->
+        <div class="pro-source-col">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Source Images</div>
+              <div class="stat-value" id="rFiles">0</div>
             </div>
-            <div class="preset-desc">WebP 80% • Max 1920px (Best for websites)</div>
-          </div>
-
-          <div class="preset-card" data-preset="avif">
-            <div class="preset-name">
-              <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-              </svg>
-              <span>Next-Gen AVIF</span>
+            <div class="stat-card">
+              <div class="stat-label">Directories</div>
+              <div class="stat-value" id="rFolders">0</div>
             </div>
-            <div class="preset-desc">AVIF 65% • Max 1920px (Maximum savings)</div>
-          </div>
-
-          <div class="preset-card" data-preset="email">
-            <div class="preset-name">
-              <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </svg>
-              <span>Email Friendly</span>
+            <div class="stat-card">
+              <div class="stat-label">Total Payload</div>
+              <div class="stat-value" id="rSize">0 MB</div>
             </div>
-            <div class="preset-desc">JPG 60% • Max 1280px (Universal compatibility)</div>
-          </div>
-
-          <div class="preset-card" data-preset="mobile">
-            <div class="preset-name">
-              <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
-                <path d="M12 18h.01"></path>
-              </svg>
-              <span>Mobile Apps</span>
+            <div class="stat-card">
+              <div class="stat-label">Skipped Items</div>
+              <div class="stat-value" id="rUnsupported">0</div>
             </div>
-            <div class="preset-desc">WebP 70% • Max 1080px (Sharp & lightweight)</div>
           </div>
 
-          <div class="preset-card" data-preset="storage">
-            <div class="preset-name">
-              <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                <polyline points="7 3 7 8 15 8"></polyline>
-              </svg>
-              <span>Extreme Saver</span>
+          <div class="preview-container" id="previewContainer">
+            <div class="preview-header">
+              <span>Source Reel & Format Distribution</span>
+              <div id="rFmts" class="flex-row"></div>
             </div>
-            <div class="preset-desc">WebP 45% • Max 1600px (Disk archiver)</div>
+            <div class="preview-reel" id="previewReel"></div>
           </div>
 
-          <div class="preset-card" data-preset="quality">
-            <div class="preset-name">
-              <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 3h12l4 6-10 13L2 9Z"></path>
-                <path d="M11 3 8 9l4 13 4-13-3-6"></path>
-                <path d="M2 9h20"></path>
-              </svg>
-              <span>Ultra Quality</span>
+          <!-- Quality Inspector Teaser -->
+          <div class="inspector-teaser-card">
+            <div>
+              <div class="inspector-teaser-title">Split-Screen Quality Inspector</div>
+              <div class="inspector-teaser-desc">Real-time side-by-side visual comparison with CSS clip-path</div>
             </div>
-            <div class="preset-desc">PNG 100% • Original dimensions</div>
-          </div>
-
-          <div class="preset-card" data-preset="custom">
-            <div class="preset-name">
-              <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-              </svg>
-              <span>Custom</span>
-            </div>
-            <div class="preset-desc">Manual configuration</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="settings-grid">
-        <div class="form-group">
-          <label class="form-label" for="outFormat">Target Format</label>
-          <select id="outFormat">
-            <option value="webp" selected>WebP (Modern, high compression, 97%+ browser support)</option>
-            <option value="jpeg">JPG / JPEG (Universal legacy compatibility)</option>
-            <option value="png">PNG (Lossless, perfect crispness & alpha channel)</option>
-            <option value="avif">AVIF (Next-gen extreme efficiency)</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label" for="quality">
-            <span>Encoding Quality</span>
-            <span class="badge-val" id="qVal">80%</span>
-          </label>
-          <div class="slider-wrap">
-            <input type="range" id="quality" min="1" max="100" value="80">
+            <button class="btn btn-secondary" type="button" onclick="if(manifest.length) openCompareModal(0);">Inspect Source</button>
           </div>
         </div>
 
-        <div class="form-group">
-          <div class="form-label">
-            <label class="switch-label">
-              <span class="switch">
-                <input type="checkbox" id="resizeOn">
-                <span class="slider-toggle"></span>
-              </span>
-              <span>Resize Max Dimensions</span>
-            </label>
+        <!-- RIGHT COLUMN: Control Deck & Tuning -->
+        <div class="pro-control-col">
+          <div class="preset-section">
+            <label class="section-label">Optimization Presets</label>
+            <div class="presets-grid" id="presetsGrid">
+              <div class="preset-card active" data-preset="web">
+                <div class="preset-name">
+                  <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  <span>Web Optimized</span>
+                </div>
+                <div class="preset-desc">WebP 80% • Max 1920px (Standard)</div>
+              </div>
+
+              <div class="preset-card" data-preset="avif">
+                <div class="preset-name">
+                  <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                  <span>Next-Gen AVIF</span>
+                </div>
+                <div class="preset-desc">AVIF 65% • Extreme Savings</div>
+              </div>
+
+              <div class="preset-card" data-preset="email">
+                <div class="preset-name">
+                  <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </svg>
+                  <span>Email Friendly</span>
+                </div>
+                <div class="preset-desc">JPG 60% • Max 1280px</div>
+              </div>
+
+              <div class="preset-card" data-preset="mobile">
+                <div class="preset-name">
+                  <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
+                    <path d="M12 18h.01"></path>
+                  </svg>
+                  <span>Mobile Apps</span>
+                </div>
+                <div class="preset-desc">WebP 70% • Max 1080px</div>
+              </div>
+
+              <div class="preset-card" data-preset="storage">
+                <div class="preset-name">
+                  <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                  </svg>
+                  <span>Extreme Saver</span>
+                </div>
+                <div class="preset-desc">WebP 45% • Max 1600px</div>
+              </div>
+
+              <div class="preset-card" data-preset="quality">
+                <div class="preset-name">
+                  <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 3h12l4 6-10 13L2 9Z"></path>
+                    <path d="M11 3 8 9l4 13 4-13-3-6"></path>
+                  </svg>
+                  <span>Ultra Quality</span>
+                </div>
+                <div class="preset-desc">PNG 100% • Pixel Perfect</div>
+              </div>
+            </div>
           </div>
-          <div class="flex-row" style="margin-top:6px;">
-            <input type="number" id="maxW" value="1920" placeholder="Max Width" title="Max Width (px)">
-            <input type="number" id="maxH" value="1920" placeholder="Max Height" title="Max Height (px)">
+
+          <div class="settings-grid">
+            <div class="form-group">
+              <label class="form-label" for="outFormat">Target Codec</label>
+              <select id="outFormat">
+                <option value="webp" selected>WebP (Modern, high compression, 98% browser support)</option>
+                <option value="jpeg">JPG / JPEG (Universal legacy compatibility)</option>
+                <option value="png">PNG (Lossless, perfect alpha channel)</option>
+                <option value="avif">AVIF (Next-gen extreme efficiency)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="quality">
+                <span>Encoding Quality</span>
+                <span class="badge-val" id="qVal">80%</span>
+              </label>
+              <div class="slider-wrap">
+                <input type="range" id="quality" min="1" max="100" value="80">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-label">
+                <label class="switch-label">
+                  <span class="switch">
+                    <input type="checkbox" id="resizeOn">
+                    <span class="slider-toggle"></span>
+                  </span>
+                  <span>Constrain Max Resolution</span>
+                </label>
+              </div>
+              <div class="flex-row" style="margin-top:6px;">
+                <input type="number" id="maxW" value="1920" placeholder="Width (px)" title="Max Width">
+                <input type="number" id="maxH" value="1920" placeholder="Height (px)" title="Max Height">
+              </div>
+              <div class="dim-chips">
+                <span class="dim-chip" data-w="1920" data-h="1080">1080p FHD</span>
+                <span class="dim-chip" data-w="2560" data-h="1440">1440p 2K</span>
+                <span class="dim-chip" data-w="3840" data-h="2160">2160p 4K</span>
+                <span class="dim-chip" data-w="1080" data-h="1080">Square 1:1</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="metadata">Metadata Handling</label>
+              <select id="metadata">
+                <option value="remove" selected>Strip EXIF & Location (Privacy + Savings)</option>
+                <option value="preserve">Preserve metadata where possible</option>
+              </select>
+            </div>
           </div>
-          <div class="dim-chips">
-            <span class="dim-chip" data-w="1920" data-h="1080">1080p FHD</span>
-            <span class="dim-chip" data-w="2560" data-h="1440">1440p 2K</span>
-            <span class="dim-chip" data-w="3840" data-h="2160">2160p 4K</span>
-            <span class="dim-chip" data-w="1080" data-h="1080">Square 1:1</span>
-          </div>
+
+          <div class="panel-desc" id="sizeWarn" style="color:var(--warning); font-weight:600;"></div>
+
+          <button class="btn btn-primary btn-lg" id="btnStart" style="width:100%;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Execute Batch Processing
+          </button>
         </div>
-
-        <div class="form-group">
-          <label class="form-label" for="metadata">Metadata (EXIF)</label>
-          <select id="metadata">
-            <option value="remove" selected>Strip metadata (Smaller file size & enhanced privacy)</option>
-            <option value="preserve">Preserve where possible</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="panel-desc" id="sizeWarn" style="color:var(--warning); margin-bottom:18px; font-weight:700;"></div>
-
-      <div class="flex-row">
-        <button class="btn btn-primary btn-lg" id="btnStart">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-          </svg>
-          Start Batch Processing
-        </button>
       </div>
     </section>
 
     <!-- SCREEN 3: PROCESSING -->
     <section id="screen-processing" class="card-panel hidden">
       <div class="panel-header">
-        <h2 class="panel-title">Processing in Progress</h2>
-        <p class="panel-desc">All tasks are processed asynchronously via multithreaded browser workers</p>
+        <h2 class="panel-title">Batch Processing Active</h2>
+        <p class="panel-desc">Multithreaded in-memory decoding and encoding running asynchronously</p>
       </div>
 
       <div class="progress-container">
@@ -2480,14 +2209,14 @@ footer {
 
       <div class="flex-row" style="margin-top:20px;">
         <button class="btn btn-secondary" id="btnPause">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
             <rect x="6" y="4" width="4" height="16"></rect>
             <rect x="14" y="4" width="4" height="16"></rect>
           </svg>
           Pause
         </button>
         <button class="btn btn-danger" id="btnCancel">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
@@ -2496,17 +2225,17 @@ footer {
       </div>
     </section>
 
-    <!-- SCREEN 4: RESULTS -->
+    <!-- SCREEN 4: RESULTS (EXPANSIVE DASHBOARD) -->
     <section id="screen-results" class="card-panel hidden">
       <div class="results-hero">
         <div class="hero-pill">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
           <span id="resultBadge">Processing Complete</span>
         </div>
         <div class="hero-saving-number" id="fReduction">-0.0%</div>
-        <div class="hero-saving-subtitle" id="resultSubtitle">Overall disk size reduction achieved</div>
+        <div class="hero-saving-subtitle" id="resultSubtitle">Overall disk footprint reduction achieved</div>
 
         <div class="savings-bar-container">
           <div class="savings-bar-labels">
@@ -2521,7 +2250,7 @@ footer {
 
       <div class="stats-grid">
         <div class="stat-card">
-          <div class="stat-label">Total Files</div>
+          <div class="stat-label">Total Items</div>
           <div class="stat-value" id="fTotal">0</div>
         </div>
         <div class="stat-card">
@@ -2529,26 +2258,26 @@ footer {
           <div class="stat-value" id="fOk" style="color:var(--ok);">0</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Original Size</div>
+          <div class="stat-label">Original Payload</div>
           <div class="stat-value" id="fOrig">0 MB</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">Space Saved</div>
+          <div class="stat-label">Storage Saved</div>
           <div class="stat-value" id="fSaved" style="color:var(--ok);">0 MB</div>
         </div>
       </div>
 
-      <div class="flex-row" style="margin-top:24px;">
+      <div class="flex-row" style="margin-top:20px;">
         <button class="btn btn-primary btn-lg" id="btnZip">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="7 10 12 15 17 10"></polyline>
             <line x1="12" y1="15" x2="12" y2="3"></line>
           </svg>
-          Download All (ZIP)
+          Download All (ZIP Archive)
         </button>
         <button class="btn btn-cyan btn-lg" id="btnCompareSample">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="2" x2="12" y2="22"></line>
           </svg>
@@ -2557,16 +2286,16 @@ footer {
         <button class="btn btn-secondary btn-lg" id="btnErr">Export Error Report</button>
         <button class="btn btn-secondary btn-lg" id="btnAgain">Process Another Batch</button>
       </div>
-      <p class="panel-desc" id="zipStatus" style="margin-top:12px; font-family:var(--font-mono); font-size:13px;"></p>
+      <p class="panel-desc" id="zipStatus" style="margin-top:12px; font-family:var(--font-mono); font-size:12px;"></p>
 
       <div class="results-table-wrap">
         <table class="results-table">
           <thead>
             <tr>
-              <th>File Name</th>
+              <th>File Name & Path</th>
               <th>Original</th>
-              <th>Converted</th>
-              <th>Savings</th>
+              <th>Optimized</th>
+              <th>Delta %</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -2576,13 +2305,13 @@ footer {
       </div>
 
       <div id="errBox" class="error-box hidden">
-        <div style="font-weight:800; font-size:13px; color:var(--danger); display:flex; align-items:center; gap:6px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div style="font-weight:700; font-size:13px; color:var(--danger); display:flex; align-items:center; gap:6px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="8" x2="12" y2="12"></line>
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
-          Notice: Some files were skipped or encountered errors
+          Notice: Certain items were skipped or encountered errors
         </div>
         <div class="error-list" id="errList"></div>
       </div>
@@ -2596,20 +2325,20 @@ footer {
     <section class="card-panel">
       <div class="panel-header">
         <h2 class="panel-title">PDF to Word (.docx) Converter</h2>
-        <p class="panel-desc">Convert PDF documents into genuine, editable Microsoft Word (.docx) files directly in your browser.</p>
+        <p class="panel-desc">Extracts layout, headings, and paragraphs to generate valid ECMA-376 OpenXML Word documents 100% in-browser.</p>
       </div>
 
       <div class="dropzone" id="dropPdfWord">
         <div class="drop-icon-wrap">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
             <polyline points="14 2 14 8 20 8"></polyline>
             <line x1="16" y1="13" x2="8" y2="13"></line>
             <line x1="16" y1="17" x2="8" y2="17"></line>
           </svg>
         </div>
-        <h3 class="drop-title">Drop your PDF file here</h3>
-        <p class="drop-subtitle">Extracts paragraphs, headings, and structure into genuine OpenXML .docx format.</p>
+        <h3 class="drop-title">Drop your PDF document here</h3>
+        <p class="drop-subtitle">Zero cloud uploads. Generates genuine Microsoft Word (.docx) documents compatible with Word, Pages, and Google Docs.</p>
         <button class="btn btn-primary btn-lg" id="btnSelectPdfWord" type="button">Select PDF Document</button>
         <input type="file" id="inputPdfWord" accept=".pdf,application/pdf" class="hidden">
       </div>
@@ -2625,17 +2354,18 @@ footer {
       <div id="pdfWordResult" class="hidden" style="margin-top:24px;">
         <div class="stats-grid">
           <div class="stat-card"><div class="stat-label">Pages Processed</div><div class="stat-value" id="pwPages">0</div></div>
-          <div class="stat-card"><div class="stat-label">Paragraphs</div><div class="stat-value" id="pwParagraphs">0</div></div>
-          <div class="stat-card"><div class="stat-label">Word File Size</div><div class="stat-value" id="pwSize" style="color:var(--ok);">0 KB</div></div>
+          <div class="stat-card"><div class="stat-label">Paragraphs Extracted</div><div class="stat-value" id="pwParagraphs">0</div></div>
+          <div class="stat-card"><div class="stat-label">Generated Word Size</div><div class="stat-value" id="pwSize" style="color:var(--ok);">0 KB</div></div>
+          <div class="stat-card"><div class="stat-label">Standard</div><div class="stat-value" style="font-size:16px;">ECMA-376</div></div>
         </div>
         <div class="flex-row" style="margin-top:18px;">
           <button class="btn btn-primary btn-lg" id="btnDownloadWord">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             Download Word Document (.docx)
           </button>
           <button class="btn btn-secondary btn-lg" id="btnResetPdfWord">Convert Another PDF</button>
         </div>
-        <div class="section-label" style="margin-top:24px;">Extracted Text Sample</div>
+        <div class="section-label" style="margin-top:24px;">Extracted Document Stream Preview</div>
         <div class="preview-box-text" id="pwTextPreview"></div>
       </div>
     </section>
@@ -2647,20 +2377,20 @@ footer {
   <div id="workspace-pdf-excel" class="workspace-panel hidden">
     <section class="card-panel">
       <div class="panel-header">
-        <h2 class="panel-title">PDF to Excel & Spreadsheet Converter</h2>
-        <p class="panel-desc">Detect and extract tabular grids, columns, and data points from PDF files into Excel workbooks.</p>
+        <h2 class="panel-title">PDF to Excel & Spreadsheet Extractor</h2>
+        <p class="panel-desc">Heuristically scans text coordinates and tabular column layouts to construct structured spreadsheets.</p>
       </div>
 
       <div class="dropzone" id="dropPdfExcel">
         <div class="drop-icon-wrap">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
             <polyline points="14 2 14 8 20 8"></polyline>
             <path d="M8 13h8"></path><path d="M8 17h8"></path><path d="M12 9v12"></path>
           </svg>
         </div>
-        <h3 class="drop-title">Drop your PDF file here</h3>
-        <p class="drop-subtitle">Scans table rows, aligned numbers, and labels into structured spreadsheet grids.</p>
+        <h3 class="drop-title">Drop tabular PDF file here</h3>
+        <p class="drop-subtitle">Extracts financial tables, invoices, statements, and matrices directly into Excel workbooks.</p>
         <button class="btn btn-emerald btn-lg" id="btnSelectPdfExcel" type="button">Select PDF Document</button>
         <input type="file" id="inputPdfExcel" accept=".pdf,application/pdf" class="hidden">
       </div>
@@ -2675,19 +2405,20 @@ footer {
 
       <div id="pdfExcelResult" class="hidden" style="margin-top:24px;">
         <div class="stats-grid">
-          <div class="stat-card"><div class="stat-label">Rows Found</div><div class="stat-value" id="peRows">0</div></div>
+          <div class="stat-card"><div class="stat-label">Rows Identified</div><div class="stat-value" id="peRows">0</div></div>
           <div class="stat-card"><div class="stat-label">Columns</div><div class="stat-value" id="peCols">0</div></div>
-          <div class="stat-card"><div class="stat-label">Status</div><div class="stat-value" style="color:var(--ok);">Ready</div></div>
+          <div class="stat-card"><div class="stat-label">Output Engine</div><div class="stat-value" style="font-size:16px;">SheetJS 0.18</div></div>
+          <div class="stat-card"><div class="stat-label">Status</div><div class="stat-value" style="color:var(--ok);">Verified</div></div>
         </div>
         <div class="flex-row" style="margin-top:18px;">
           <button class="btn btn-emerald btn-lg" id="btnDownloadXlsx">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            Download Excel (.xlsx)
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download Excel Workbook (.xlsx)
           </button>
           <button class="btn btn-secondary btn-lg" id="btnDownloadCsv">Download CSV</button>
           <button class="btn btn-secondary btn-lg" id="btnResetPdfExcel">Convert Another</button>
         </div>
-        <div class="section-label" style="margin-top:24px;">Table Grid Preview</div>
+        <div class="section-label" style="margin-top:24px;">Extracted Spreadsheet Grid Preview</div>
         <div class="results-table-wrap">
           <table class="results-table" id="peTablePreview"></table>
         </div>
@@ -2701,13 +2432,13 @@ footer {
   <div id="workspace-compress-pdf" class="workspace-panel hidden">
     <section class="card-panel">
       <div class="panel-header">
-        <h2 class="panel-title">PDF Size Compressor</h2>
-        <p class="panel-desc">Downscale bloated embedded scans, photos, and stream objects to achieve massive PDF size reduction.</p>
+        <h2 class="panel-title">PDF Size Compressor & Stream Optimizer</h2>
+        <p class="panel-desc">Re-rasterizes bloated embedded scans, photos, and stream objects to achieve massive PDF size reduction.</p>
       </div>
 
       <div class="dropzone" id="dropCompressPdf">
         <div class="drop-icon-wrap">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="4 14 10 14 10 20"></polyline>
             <polyline points="20 10 14 10 14 4"></polyline>
             <line x1="14" y1="10" x2="21" y2="3"></line>
@@ -2715,35 +2446,35 @@ footer {
           </svg>
         </div>
         <h3 class="drop-title">Drop your PDF file here</h3>
-        <p class="drop-subtitle">High-ratio compression ideal for email size limits, uploads, and fast web reading.</p>
+        <p class="drop-subtitle">High-ratio compression ideal for email limits, government portals, and web publishing.</p>
         <button class="btn btn-primary btn-lg" id="btnSelectCompressPdf" type="button">Select PDF to Compress</button>
         <input type="file" id="inputCompressPdf" accept=".pdf,application/pdf" class="hidden">
       </div>
 
       <div id="pdfCompressConfig" class="hidden" style="margin-top:24px;">
         <div class="preset-section">
-          <label class="section-label">Compression Level</label>
+          <label class="section-label">Select Compression Density</label>
           <div class="presets-grid" id="compressPdfPresets">
             <div class="preset-card" data-cp="extreme">
               <div class="preset-name">
-                <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path></svg>
-                <span>Extreme Saver</span>
+                <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path></svg>
+                <span>Email & Web (72 DPI)</span>
               </div>
-              <div class="preset-desc">72 DPI • Max compression for email</div>
+              <div class="preset-desc">Max compression (~75% reduction)</div>
             </div>
             <div class="preset-card active" data-cp="balanced">
               <div class="preset-name">
-                <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-                <span>Recommended</span>
+                <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                <span>Balanced Office (150 DPI)</span>
               </div>
-              <div class="preset-desc">150 DPI • Balanced screen reading</div>
+              <div class="preset-desc">Sharp text with ~50% reduction</div>
             </div>
             <div class="preset-card" data-cp="high">
               <div class="preset-name">
-                <svg class="preset-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 3h12l4 6-10 13L2 9Z"></path></svg>
-                <span>High Quality</span>
+                <svg class="preset-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 3h12l4 6-10 13L2 9Z"></path></svg>
+                <span>High-Res Print (200 DPI)</span>
               </div>
-              <div class="preset-desc">200 DPI • Sharp for print and reports</div>
+              <div class="preset-desc">Crisp presentation clarity</div>
             </div>
           </div>
         </div>
@@ -2764,7 +2495,7 @@ footer {
       <div id="pdfCompressResult" class="hidden" style="margin-top:24px;">
         <div class="results-hero">
           <div class="hero-pill">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
             <span>Compression Finished</span>
           </div>
           <div class="hero-saving-number" id="cpReduction">-0.0%</div>
@@ -2774,12 +2505,13 @@ footer {
         <div class="stats-grid">
           <div class="stat-card"><div class="stat-label">Original Size</div><div class="stat-value" id="cpOrig">0 MB</div></div>
           <div class="stat-card"><div class="stat-label">Compressed Size</div><div class="stat-value" id="cpOut" style="color:var(--ok);">0 MB</div></div>
-          <div class="stat-card"><div class="stat-label">Saved Space</div><div class="stat-value" id="cpSaved" style="color:var(--ok);">0 MB</div></div>
+          <div class="stat-card"><div class="stat-label">Storage Saved</div><div class="stat-value" id="cpSaved" style="color:var(--ok);">0 MB</div></div>
+          <div class="stat-card"><div class="stat-label">Engine</div><div class="stat-value" style="font-size:16px;">PDF-Lib 1.17</div></div>
         </div>
 
         <div class="flex-row" style="margin-top:20px;">
           <button class="btn btn-primary btn-lg" id="btnDownloadCompressedPdf">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             Download Compressed PDF
           </button>
           <button class="btn btn-secondary btn-lg" id="btnAgainCompressPdf">Compress Another</button>
@@ -2794,13 +2526,13 @@ footer {
   <div id="workspace-excel-tools" class="workspace-panel hidden">
     <section class="card-panel">
       <div class="panel-header">
-        <h2 class="panel-title">Excel, CSV & Data Tools</h2>
-        <p class="panel-desc">Convert and transform files between Excel (.xlsx, .xls), CSV, TSV, and JSON formats.</p>
+        <h2 class="panel-title">Excel, CSV & Data Tools Workstation</h2>
+        <p class="panel-desc">Bi-directional format conversions between Excel (.xlsx, .xls), CSV, TSV, and JSON with real-time row filtering.</p>
       </div>
 
       <div class="dropzone" id="dropExcelTools">
         <div class="drop-icon-wrap">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
             <line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line>
             <line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line>
@@ -2831,13 +2563,21 @@ footer {
 
         <div class="flex-row" style="margin-bottom:20px;">
           <button class="btn btn-emerald btn-lg" id="btnConvertExcelData">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             Convert & Download
           </button>
           <button class="btn btn-secondary btn-lg" id="btnResetExcelTools">Load Another File</button>
         </div>
 
-        <div class="section-label">Data Grid Preview (Sample Rows)</div>
+        <!-- Real-Time Search & Data Filter -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; gap:12px; flex-wrap:wrap;">
+          <div class="section-label" style="margin:0;">Data Grid Preview (Live View)</div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <input type="text" id="excelSearchInput" placeholder="Filter rows..." style="max-width:260px; font-size:12px; padding:6px 12px;">
+            <span class="badge-val" id="excelRowCountBadge">0 rows</span>
+          </div>
+        </div>
+
         <div class="results-table-wrap">
           <table class="results-table" id="excelDataPreview"></table>
         </div>
@@ -2851,13 +2591,13 @@ footer {
   <div id="workspace-images-pdf" class="workspace-panel hidden">
     <section class="card-panel">
       <div class="panel-header">
-        <h2 class="panel-title">Images to PDF Creator</h2>
-        <p class="panel-desc">Combine multiple photos, graphics, or scans into a single multi-page PDF document.</p>
+        <h2 class="panel-title">Images to PDF Document Merger</h2>
+        <p class="panel-desc">Combine multiple photos, graphics, or document scans into a single multi-page PDF document.</p>
       </div>
 
       <div class="dropzone" id="dropImagesPdf">
         <div class="drop-icon-wrap">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
             <path d="M6 6h10"></path><path d="M6 10h10"></path>
           </svg>
@@ -2876,12 +2616,12 @@ footer {
           <div class="preview-reel" id="imgPdfReel"></div>
         </div>
 
-        <div class="settings-grid">
+        <div class="settings-grid" style="margin-top:16px;">
           <div class="form-group">
-            <label class="form-label" for="pdfPageSize">Page Sizing</label>
+            <label class="form-label" for="pdfPageSize">Page Dimension</label>
             <select id="pdfPageSize">
               <option value="fit" selected>Fit to Image (Preserve original dimensions)</option>
-              <option value="a4">Standard A4 Document</option>
+              <option value="a4">Standard A4 Document (210 × 297 mm)</option>
             </select>
           </div>
           <div class="form-group">
@@ -2894,14 +2634,14 @@ footer {
           </div>
         </div>
 
-        <div class="flex-row">
+        <div class="flex-row" style="margin-top:16px;">
           <button class="btn btn-primary btn-lg" id="btnGenerateImagesPdf">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             Generate & Download PDF
           </button>
           <button class="btn btn-secondary btn-lg" id="btnResetImagesPdf">Clear Selection</button>
         </div>
-        <p class="panel-desc" id="imgPdfStatus" style="margin-top:12px; font-family:var(--font-mono); font-size:13px;"></p>
+        <p class="panel-desc" id="imgPdfStatus" style="margin-top:12px; font-family:var(--font-mono); font-size:12px;"></p>
       </div>
     </section>
   </div>
@@ -2913,45 +2653,33 @@ footer {
     <div class="card-panel">
       <div class="about-hero">
         <div class="about-pill">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
           </svg>
-          <span>Next-Generation In-Browser Pipeline</span>
+          <span>System Architecture & Specifications</span>
         </div>
         <h2 class="about-title">
-          Fast, Private & <span class="about-title-grad">Serverless</span> Document Optimization
+          100% Client-Side Private <span class="about-title-grad">Serverless</span> Processing
         </h2>
         <p class="about-subtitle">
-          ImageOps is an edge-native, zero-cloud bulk image, PDF, and document conversion suite engineered for developers, analysts, photographers, and privacy-conscious teams.
+          IMAGEOPS is an edge-native, zero-cloud bulk file conversion, compression, and document processing suite engineered for developers, accountants, designers, and privacy-conscious organizations.
         </p>
 
         <div class="about-feature-badges">
           <div class="feature-badge-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </svg>
-            <span>100% Client-Side Privacy</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            <span>Air-Gapped Confidentiality</span>
           </div>
           <div class="feature-badge-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="4" width="16" height="16" rx="2"></rect>
-              <rect x="9" y="9" width="6" height="6"></rect>
-              <line x1="9" y1="1" x2="9" y2="4"></line>
-              <line x1="15" y1="1" x2="15" y2="4"></line>
-            </svg>
-            <span>Hardware Accelerated</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect></svg>
+            <span>Multi-Core Acceleration</span>
           </div>
           <div class="feature-badge-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-            </svg>
-            <span>PDF, Word & Excel Engines</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path></svg>
+            <span>OpenXML & SheetJS Native</span>
           </div>
           <div class="feature-badge-item">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-            </svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             <span>Zero Network Latency</span>
           </div>
         </div>
@@ -2997,196 +2725,153 @@ footer {
       </div>
 
       <!-- Format Comparison Matrix -->
-      <div class="matrix-section">
-        <h3 class="section-label">Supported Document & Image Formats</h3>
-        <p class="panel-desc">Fast client-side conversion between modern web, print, and office formats.</p>
-
+      <div class="matrix-section" style="margin-top:36px;">
+        <h3 class="section-label">Codec & Compression Profile Matrix</h3>
         <div class="matrix-grid">
-          <div class="matrix-card m-webp">
-            <div class="matrix-fmt-header">
-              <span class="matrix-fmt-title" style="color:#10b981;">WEBP & AVIF</span>
-              <span class="matrix-ratio" style="color:#10b981;">−50% to −90%</span>
-            </div>
-            <ul class="matrix-list">
-              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Next-gen image compression</li>
-              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Full alpha transparency</li>
-              <li><svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <b>Best for:</b> Websites & apps</li>
-            </ul>
+          <div class="matrix-card">
+            <h4>WebP</h4>
+            <p>30% to 80% smaller than JPEG with full alpha transparency and 98%+ global browser support.</p>
           </div>
-
-          <div class="matrix-card m-pdf">
-            <div class="matrix-fmt-header">
-              <span class="matrix-fmt-title" style="color:#ef4444;">PDF</span>
-              <span class="matrix-ratio" style="color:#ef4444;">Portable</span>
-            </div>
-            <ul class="matrix-list">
-              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Convert to Word & Excel</li>
-              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Re-encode & compress</li>
-              <li><svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <b>Best for:</b> Contracts & reports</li>
-            </ul>
+          <div class="matrix-card">
+            <h4>AVIF</h4>
+            <p>Next-gen AV1 intra-frame compression delivering maximum savings on photographic content.</p>
           </div>
-
-          <div class="matrix-card m-doc">
-            <div class="matrix-fmt-header">
-              <span class="matrix-fmt-title" style="color:#3b82f6;">DOCX</span>
-              <span class="matrix-ratio" style="color:#3b82f6;">Editable</span>
-            </div>
-            <ul class="matrix-list">
-              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Genuine Microsoft Word format</li>
-              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Opens in Word, Google Docs</li>
-              <li><svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <b>Best for:</b> Document editing</li>
-            </ul>
+          <div class="matrix-card">
+            <h4>PNG</h4>
+            <p>RFC 2083 Deflate lossless format providing byte-for-byte fidelity and crisp sharp text rendering.</p>
           </div>
-
-          <div class="matrix-card m-webp">
-            <div class="matrix-fmt-header">
-              <span class="matrix-fmt-title" style="color:#10b981;">XLSX & CSV</span>
-              <span class="matrix-ratio" style="color:#10b981;">Tabular</span>
-            </div>
-            <ul class="matrix-list">
-              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Excel & CSV grid generation</li>
-              <li><svg class="list-svg ok-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Convert CSV, TSV, JSON</li>
-              <li><svg class="list-svg star-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> <b>Best for:</b> Data & analytics</li>
-            </ul>
+          <div class="matrix-card">
+            <h4>JPEG</h4>
+            <p>Universal compatibility format with configurable discrete cosine transform (DCT) quantization.</p>
           </div>
         </div>
       </div>
 
-      <!-- Privacy Manifesto -->
-      <div class="privacy-manifesto">
-        <h3 class="privacy-manifesto-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          The ImageOps Zero-Cloud Guarantee
-        </h3>
-        <p class="panel-desc" style="color:var(--text);">
-          Unlike conventional online PDF and file converters that upload your sensitive documents to remote cloud servers, ImageOps runs <b>exclusively within your local web browser session</b>.
-        </p>
-
+      <!-- Zero-Cloud Privacy Guarantee -->
+      <div class="privacy-section" style="margin-top:36px;">
+        <h3 class="section-label">Privacy & Security Guarantees</h3>
         <div class="privacy-grid">
-          <div class="privacy-item">
-            <div class="privacy-icon-box">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <div>
-              <b>Zero Network Uplink</b>
-              Your files never traverse any network API or remote endpoint. Test by disconnecting your internet connection!
-            </div>
+          <div class="privacy-card">
+            <h4>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              True Zero-Cloud Architecture
+            </h4>
+            <p>No backend exists. Your confidential financial spreadsheets, legal contracts, and personal photos never leave your device.</p>
           </div>
-          <div class="privacy-item">
-            <div class="privacy-icon-box">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <div>
-              <b>GDPR & HIPAA Compliant</b>
-              Because no personal data or documents are uploaded or stored, ImageOps satisfies strict corporate confidentiality policies.
-            </div>
+          <div class="privacy-card">
+            <h4>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              GDPR & HIPAA Compliant by Design
+            </h4>
+            <p>Because data transmission never occurs, strict regulatory compliance requirements are met automatically.</p>
           </div>
-          <div class="privacy-item">
-            <div class="privacy-icon-box">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </div>
-            <div>
-              <b>Instant In-Memory Cleanup</b>
-              Document buffers, canvases, and blob URLs are explicitly garbage-collected immediately upon task completion.
-            </div>
+          <div class="privacy-card">
+            <h4>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              Air-Gapped Operation
+            </h4>
+            <p>Load IMAGEOPS once, disconnect from the internet, and continue batch converting unlimited files indefinitely.</p>
           </div>
         </div>
       </div>
 
       <!-- FAQ Accordion -->
-      <div class="faq-section">
-        <h3 class="section-label">Frequently Asked Questions</h3>
-        
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>How does in-browser PDF to Word conversion work?</span>
-            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      <div class="faq-section" style="margin-top:36px;">
+        <h3 class="section-label">Technical Frequently Asked Questions</h3>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Are files really processed without server uploads?</span>
+              <svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Yes, 100%. Open your browser's Developer Tools (F12) Network Tab while converting any file: zero bytes of file payload are uploaded. All decoding, extraction, and compilation happen inside local WebAssembly and JavaScript heaps.
+            </div>
           </div>
-          <div class="faq-answer">
-            ImageOps uses Mozilla's PDF.js library to parse text runs, font sizes, line heights, and coordinates. It groups text into logical paragraphs and headings, and compiles a valid OpenXML .docx document using JSZip.
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>How does in-browser PDF to Word conversion work?</span>
+              <svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              The engine utilizes <code>PDF.js</code> to extract text fragments and bounding coordinates from each page. It reconstructs paragraphs and headings, and formats them into ECMA-376 OpenXML standard XML structures, which are zipped into a genuine <code>.docx</code> archive via <code>JSZip</code>.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              <span>Can I convert confidential financial spreadsheets safely?</span>
+              <svg class="faq-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+            <div class="faq-answer">
+              Absolutely. In fact, IMAGEOPS is significantly more secure than conventional cloud converters because your private numbers, salary tables, and accounting records never touch a third-party server.
+            </div>
           </div>
         </div>
+      </div>
 
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>How does in-browser PDF compression reduce file size?</span>
-            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </div>
-          <div class="faq-answer">
-            PDFs are typically large due to high-resolution embedded images. ImageOps renders pages at target screen DPI, compresses image streams at customized JPEG quality levels, and re-assembles the document using pdf-lib.
-          </div>
-        </div>
+      <!-- Keyboard Shortcuts Matrix -->
+      <div class="shortcuts-section" style="margin-top:36px;">
+        <h3 class="section-label">Keyboard Shortcuts</h3>
+        <table class="shortcuts-table">
+          <tbody>
+            <tr>
+              <td><span class="kbd-badge">T</span></td>
+              <td>Toggle Dark / Light Theme</td>
+            </tr>
+            <tr>
+              <td><span class="kbd-badge">M</span></td>
+              <td>Toggle Synthesized Audio Feedback</td>
+            </tr>
+            <tr>
+              <td><span class="kbd-badge">Esc</span></td>
+              <td>Close Quality Inspector Modal / Reset Views</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>Can I extract tables from PDFs into Excel?</span>
-            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </div>
-          <div class="faq-answer">
-            Yes! The PDF to Excel tool scans tabular text alignments and converts them into rows and columns, exported into genuine Microsoft Excel (.xlsx) or CSV files via SheetJS.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">
-            <span>Are my documents safe when deployed on Vercel?</span>
-            <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </div>
-          <div class="faq-answer">
-            100% safe. Vercel acts strictly as a static file host serving the HTML, CSS, and JS files. All document parsing, conversion, and compression occur locally inside your own browser window.
-          </div>
-        </div>
+      <div style="text-align:center; margin-top:36px;">
+        <button class="btn btn-secondary" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          Back to Top of Studio
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- ==========================================================================
-       MODAL: VISUAL QUALITY COMPARISON
-       ========================================================================== -->
-  <div id="compareModal" class="modal-overlay hidden">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="compareTitle">Visual Quality Comparison (Before vs After)</h3>
-        <button class="modal-close-btn" id="btnCloseCompare" title="Close Modal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
+  <!-- QUALITY INSPECTOR MODAL -->
+  <div id="compareModal" class="compare-modal hidden">
+    <div class="compare-overlay" id="compareOverlay"></div>
+    <div class="compare-card">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h3 id="compareTitle" style="font-size:16px; font-weight:700;">Quality Comparison</h3>
+        <button class="btn btn-secondary" id="btnCloseCompare" style="padding:6px 12px; font-size:12px;">Close</button>
       </div>
 
       <div class="compare-viewport" id="compareViewport">
-        <img class="compare-img" id="compareAfterImg" alt="Optimized Version">
-        <div class="compare-overlay" id="compareOverlay">
-          <img id="compareBeforeImg" alt="Original Version">
-        </div>
-        <div class="compare-handle" id="compareHandle">
-          <div class="compare-handle-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-        </div>
+        <img id="compareBeforeImg" class="compare-img" alt="Original">
+        <img id="compareAfterImg" class="compare-img compare-img-after" alt="Optimized">
+        <div class="compare-handle" id="compareHandle"></div>
       </div>
 
-      <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:12px; font-family:var(--font-mono); color:var(--text-muted);">
-        <span>← Original (<span id="compareBeforeSize">0 KB</span>)</span>
-        <span>Drag center divider to compare</span>
-        <span>Optimized (<span id="compareAfterSize">0 KB</span>) →</span>
+      <div style="display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:12px; color:var(--text-muted);">
+        <span>Original: <b id="compareBeforeSize">0 KB</b></span>
+        <span>Optimized: <b id="compareAfterSize" style="color:var(--ok);">0 KB</b></span>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
-    <div class="footer-shield">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-      <span>Processed 100% locally in your browser. Zero telemetry. Zero cloud uploads.</span>
+    <div style="display:flex; align-items:center; gap:6px; font-weight:600; color:var(--text-muted);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      IMAGEOPS Enterprise Studio • Zero-Cloud Edge Pipeline
     </div>
-    <div>ImageOps &bull; Hardware-accelerated in-browser graphic & document suite</div>
+    <div>MIT License • Free for Personal & Commercial Use</div>
   </footer>
 </div>
 
-<!-- ==========================================================================
-     CORE APPLICATION JAVASCRIPT ENGINE
-     ========================================================================== -->
 <script>
+
 // Configure PDF.js Worker
 if (window.pdfjsLib) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -3273,6 +2958,11 @@ function playFanfare() {
   });
 }
 initAudio();
+// Initialize Hardware & Environment Telemetry
+const hardwareCores = navigator.hardwareConcurrency || 4;
+if ($('coreCountVal')) {
+  $('coreCountVal').textContent = `${hardwareCores} Logical Threads Active`;
+}
 
 // --- Theme Management ---
 function initTheme() {
@@ -4486,20 +4176,8 @@ async function handleExcelToolsFile(file) {
     const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
     $('excelLoadedName').textContent = `${file.name} (${fmtBytes(file.size)})`;
-
-    // Render Preview
-    const tableEl = $('excelDataPreview');
-    tableEl.innerHTML = '';
-    const sampleRows = rows.slice(0, 15);
-    sampleRows.forEach((row, idx) => {
-      const tr = document.createElement('tr');
-      row.forEach(cell => {
-        const td = document.createElement(idx === 0 ? 'th' : 'td');
-        td.textContent = cell !== undefined ? cell : '';
-        tr.appendChild(td);
-      });
-      tableEl.appendChild(tr);
-    });
+    currentLoadedRows = rows;
+    renderExcelDataPreview();
 
     $('dropExcelTools').classList.add('hidden');
     $('excelToolsConfig').classList.remove('hidden');
@@ -4697,6 +4375,67 @@ function init3DTilt() {
   });
 }
 init3DTilt();
+
+let currentLoadedRows = [];
+function renderExcelDataPreview(query = '') {
+  const tableEl = $('excelDataPreview');
+  if (!tableEl || !currentLoadedRows || !currentLoadedRows.length) return;
+  tableEl.innerHTML = '';
+  
+  const q = (query || '').toLowerCase().trim();
+  const headerRow = currentLoadedRows[0] || [];
+  const dataRows = currentLoadedRows.slice(1);
+  
+  const thead = document.createElement('thead');
+  const htr = document.createElement('tr');
+  const thIdx = document.createElement('th');
+  thIdx.textContent = '#';
+  thIdx.style.width = '48px';
+  htr.appendChild(thIdx);
+  
+  headerRow.forEach((col, idx) => {
+    const th = document.createElement('th');
+    th.textContent = col !== undefined && col !== '' ? col : `Col ${idx + 1}`;
+    htr.appendChild(th);
+  });
+  thead.appendChild(htr);
+  tableEl.appendChild(thead);
+  
+  const filtered = q
+    ? dataRows.filter(r => r.some(cell => String(cell || '').toLowerCase().includes(q)))
+    : dataRows;
+    
+  if ($('excelRowCountBadge')) {
+    $('excelRowCountBadge').textContent = `${filtered.length} rows (${dataRows.length} total)`;
+  }
+  
+  const tbody = document.createElement('tbody');
+  const slice = filtered.slice(0, 30);
+  slice.forEach((row, rIdx) => {
+    const tr = document.createElement('tr');
+    const tdIdx = document.createElement('td');
+    tdIdx.textContent = rIdx + 1;
+    tdIdx.style.color = 'var(--text-dim)';
+    tdIdx.style.fontWeight = '600';
+    tr.appendChild(tdIdx);
+    
+    headerRow.forEach((_, cIdx) => {
+      const td = document.createElement('td');
+      const val = row[cIdx];
+      td.textContent = val !== undefined ? val : '';
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  tableEl.appendChild(tbody);
+}
+
+if ($('excelSearchInput')) {
+  $('excelSearchInput').addEventListener('input', e => {
+    renderExcelDataPreview(e.target.value);
+  });
+}
+
 </script>
 </body>
 </html>
